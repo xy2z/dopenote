@@ -1,0 +1,16 @@
+#note {
+	width: 100%;
+	padding: 30px;
+}
+
+#note .note-title {
+	border-bottom: 1px solid #eee;
+	font-size: 1.6em;
+	font-weight: bold;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+}
+
+#note .note-content {
+	line-height: 1.4em;
+}

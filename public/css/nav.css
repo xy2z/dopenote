@@ -1,0 +1,39 @@
+nav {
+	flex-shrink: 0;
+	position: sticky;
+	width: 210px;
+	background: #444;
+	padding-top: 30px;
+	color: #eee;
+	height: 100%;
+}
+
+nav .logo {
+	display: inline-block;
+	color: #f90;
+	/*font-weight: bold;*/
+	font-weight: normal;
+	font-size: 1.4em;
+	text-decoration: none;
+	margin-bottom: 1em;
+}
+
+nav .logo,
+nav .nav-notes a {
+	padding: 0.5em 30px;
+}
+
+nav .nav-notes a {
+	color: #eee;
+	display: block;
+	text-decoration: none;
+}
+
+nav .nav-notes a:hover {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+nav .nav-notes a.active {
+	background: rgba(0, 0, 0, 0.5);
+	color: #ffe;
+}
