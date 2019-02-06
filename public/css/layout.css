@@ -15,98 +15,19 @@ body {
 
 #app {
 	display: flex;
-	height: 100%;
+	min-height: 100%;
 }
 
-
-
-
-
+hr {
+	height: 1px;
+	border: 0;
+	background: rgba(255, 255, 255, 0.2);
+}
 
 #status {
 	position: fixed;
 	top: 30px;
 	right: 40px;
-
-	/*padding: 0 40px 14px;*/
-	color: #bbb;
-	font-size: 13px;
-	font-weight: bold;
-}
-
-#sidebar a {
-	font-size: 14px;
-	display: block;
-	color: #555;
-	padding: 10px 40px;
-	text-decoration: none;
-}
-
-#sidebar .sidebar_padding {
-	padding: 0 30px 1em;
-}
-
-#sidebar button {
-	background: #79b;
-	color: #fff;
-	border: 0;
-	width: 100%;
-	padding: 10px;
-	border-radius: 2px;
-	cursor: pointer;
-}
-
-#sidebar button:hover {
-	background: #68a;
-}
-
-#sidebar a.active,
-#sidebar a.active:hover {
-	/*background: #fffff2;*/
-	/*background: rgba(255, 255, 255, 0.8);*/
-	background: rgba(0, 0, 0, 0.3);
-	color: #fff;
-	/*text-decoration: underline;*/
-}
-
-#sidebar a:hover {
-	/*background: #ddd;*/
-	background: rgba(0, 0, 0, 0.05);
-}
-
-
-/* Tabs */
-/*#sidebar_tabs {
-	display: flex;
-	justify-content: all;
-	background: rgba(0, 30, 60, 0.1);
-}
-
-#sidebar_tabs a {
-	width: 50%;
-	text-align: center;
-	color: rgba(0, 0, 0, 0.4);
-}
-
-#sidebar_tabs a.active_tab {
-	background: rgba(0, 0, 0, 0.5);
-	color: #fff;
-}*/
-
-
-#sidebar_select {
-	width: 100%;
-	padding: 8px 12px;
-	background: rgba(255, 255, 255, 1);
-	/*background: rgba(255, 235, 215, 0.7);*/
-	border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-
-
-
-
-#note {
-	width: 100%;
-	padding: 20px 80px;
+	color: #aaa;
+	font-size: 0.9em;
 }

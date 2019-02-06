@@ -1,32 +1,51 @@
 nav {
-	flex-shrink: 0;
 	position: sticky;
+	top: 0;
+	flex-shrink: 0;
 	width: 210px;
 	background: #444;
 	padding-top: 30px;
 	color: #eee;
-	height: 100%;
 }
 
 nav .logo {
-	display: inline-block;
+	display: block;
 	color: #f90;
-	/*font-weight: bold;*/
 	font-weight: normal;
 	font-size: 1.4em;
 	text-decoration: none;
 	margin-bottom: 1em;
+	text-align: center;
 }
 
-nav .logo,
-nav .nav-notes a {
-	padding: 0.5em 30px;
+nav button {
+	background: #86bb21;
+	color: #000;
+	border: 0;
+	border-bottom: 3px solid #75a023;
+	border-radius: 2px;
+	font-weight: bold;
+	padding: 8px 20px;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+nav button:hover {
+	background: #aada50;
+}
+
+nav p {
+	padding-left: 30px;
+	color: #999;
 }
 
 nav .nav-notes a {
 	color: #eee;
 	display: block;
 	text-decoration: none;
+	padding: 0.5em 30px;
 }
 
 nav .nav-notes a:hover {

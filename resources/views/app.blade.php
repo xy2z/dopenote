@@ -1,117 +1,35 @@
 @extends('assets.layout')
 
+@section('title', $note->title)
+
 @section('content')
 	<div id="app">
+
+		<div id="status">
+			Status here.
+		</div>
+
 		<nav>
 			<a class="logo" href="/">dopenote</a>
 
+			<form method="post" action="/note/create">
+				@csrf
+				<button type="submit">New Note</button>
+			</form>
+
 			<div class="nav-notes">
-				<a href="#">note 1</a>
-				<a href="#">note 2</a>
-				<a href="#" class="active">note 3</a>
-				<a href="#">note 4</a>
-				<a href="#">note 5</a>
-				<a href="#">note 6</a>
-				<a href="#">note 7</a>
-				<a href="#">note 8</a>
+				@foreach ($notes as $row)
+					<a href="/note/{{ $row->id }}">{{ $row->title }}</a>
+				@endforeach
 			</div>
 		</nav>
 
 		<div id="note">
 			<div class="note-title">
-				note 3
+				{{ $note->title }}
 			</div>
 			<div class="note-content">
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
-				Content goes here.<br />
+				{!! $note->content !!}
 			</div>
 		</div>
 

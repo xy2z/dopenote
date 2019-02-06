@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="/css/nav.css" />
         <link rel="stylesheet" href="/css/editor.css" />
 
-        <title>{{ Config::get('app.name') }}</title>
+        <title>@yield('title', 'Home') | {{ Config::get('app.name') }}</title>
     </head>
     <body>
         @yield('content')
