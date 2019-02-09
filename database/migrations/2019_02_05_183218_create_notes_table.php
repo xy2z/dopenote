@@ -18,6 +18,7 @@ class CreateNotesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('title');
             $table->string('content');
+            $table->boolean('starred')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

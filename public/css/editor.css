@@ -3,14 +3,48 @@
 	padding: 30px;
 }
 
-#note .note-title {
-	border-bottom: 1px solid #eee;
-	font-size: 1.6em;
+#note .note-title input {
+	width: 90%;
+	outline: none;
+	border: 0;
+	font-size: 2em;
 	font-weight: bold;
-	padding-bottom: 1em;
 	margin-bottom: 1em;
+	/*border-bottom: 1px solid #eee;*/
+	/*margin-bottom: 1em;*/
+}
+
+#note .note-title input:focus {
+	outline: none;
 }
 
 #note .note-content {
 	line-height: 1.4em;
+}
+
+#note #editor {
+	display: none;
+}
+
+#note .tox-tinymce {
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+
+
+#note .star {
+	background: none;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	font-size: 1.2em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#note .star.starred {
+	background: #fff2cc;
+}
+
+#note .star:focus {
+	outline: none;
 }

@@ -46,13 +46,17 @@ nav .nav-notes a {
 	display: block;
 	text-decoration: none;
 	padding: 0.5em 30px;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 nav .nav-notes a:hover {
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.15);
 }
 
 nav .nav-notes a.active {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.3);
 	color: #ffe;
 }
