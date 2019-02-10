@@ -90,7 +90,7 @@ var vueApp = new Vue({
 		 */
 		view_note: function(note) {
 			this.active_note_id = note.id
-			document.title = note.title + ' | dopenote'
+			document.title = this.get_title(note) + ' | Dopenote'
 
 			if (typeof tinymce !== 'undefined') {
 				// "tinymce" variable is unset first time page loads.
