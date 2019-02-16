@@ -4,20 +4,10 @@ var vueApp = new Vue({
 
 	mounted: function() {
 		this.sort_notes()
+		this.load_note_from_hash();
 
-		// Get note ID from URL hash, eg. '#/note/123'
-		let hash = window.location.hash
-		let split = hash.split('/')
-		if (split[1] == 'note') {
-			// Render note.
-			let note_id = parseInt(split[2])
-			if (note = this.getNoteByID(note_id)) {
-				// this.active_note_id = note_id
-				this.view_note(note)
-			} else {
-				alert('Note not found.')
-			}
-		}
+		// On hash change
+		window.onhashchange = this.onhashchange
 
 	},
 	methods: {
@@ -73,13 +63,20 @@ var vueApp = new Vue({
 		},
 
 		/**
-		 * Get <nav> link classes
+		 * Get note link classes
 		 *
 		 */
-		navGetClass: function(note) {
+		get_note_class: function(note) {
 			return {
-				'active': note.id == this.active_note_id,
+				'active': note.id === this.active_note_id,
 				'starred': note.starred
+			}
+		},
+
+		get_notebook_class: function(notebook) {
+			return {
+				'active': notebook.id === this.active_notebook_id,
+				'no_selection': true,
 			}
 		},
 
@@ -90,7 +87,9 @@ var vueApp = new Vue({
 		 */
 		view_note: function(note) {
 			this.active_note_id = note.id
+			this.active_notebook_id = note.notebook_id
 			document.title = this.get_title(note) + ' | Dopenote'
+			window.location.hash = '#/note/' + note.id
 
 			if (typeof tinymce !== 'undefined') {
 				// "tinymce" variable is unset first time page loads.
@@ -144,8 +143,11 @@ var vueApp = new Vue({
 		 */
 		create_note: function() {
 			this.waiting_for_ajax = true
+
 			axios
-			.post('/note/create')
+			.post('/note/create', {
+				notebook_id: this.active_notebook_id
+			})
 			.then(response => {
 				this.waiting_for_ajax = false
 
@@ -157,6 +159,33 @@ var vueApp = new Vue({
 
 				this.$refs.note_title.focus()
 			})
+		},
+
+		/**
+		 * Create a new notebook.
+		 *
+		 */
+		create_notebook: function() {
+			this.waiting_for_ajax = true
+
+			axios
+			.post('/notebook/create',)
+			.then(response => {
+				this.waiting_for_ajax = false
+
+				let notebook = response.data.notebook
+
+				this.notebooks.push(notebook)
+				// this.sort_notes()
+				// this.view_note(note)
+
+				// this.$refs.note_title.focus()
+			})
+		},
+
+		view_notebook: function(notebook) {
+			this.active_notebook_id = notebook.id
+
 		},
 
 		/**
@@ -236,6 +265,30 @@ var vueApp = new Vue({
 				'star': true,
 				'starred': note.starred
 			}
-		}
+		},
+
+		edit_notebook: function(notebook) {
+			console.log('Todo: edit notebook: ' + notebook.id)
+		},
+
+		load_note_from_hash: function() {
+			// Get note ID from URL hash, eg. '#/note/123'
+			let hash = window.location.hash
+			let split = hash.split('/')
+			if (split[1] == 'note') {
+				// Render note.
+				let note_id = parseInt(split[2])
+				if (note = this.getNoteByID(note_id)) {
+					// this.active_note_id = note_id
+					this.view_note(note)
+				} else {
+					alert('Note not found.')
+				}
+			}
+		},
+
+		onhashchange: function() {
+			this.load_note_from_hash();
+		},
 	}
 })

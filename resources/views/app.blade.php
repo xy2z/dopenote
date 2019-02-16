@@ -6,25 +6,58 @@
 			@{{ get_status() }}
 		</div>
 
+		{{-- Notebooks Sidebar --}}
 		<nav>
 			<a class="logo" href="/">dopenote</a>
 
-			<button v-on:click="create_note()" :disabled="waiting_for_ajax">Create note</button>
+			<button class="action" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
-			<div class="nav-notes">
+			<div class="nav-notebooks-header">Notebooks</div>
+			<div class="nav-notebooks">
 				<a
-					:href="'#/note/' + note.id"
-					v-on:click="view_note(note)"
-					v-for="note in notes"
-					v-bind:class="navGetClass(note)"
+					v-for="notebook in notebooks"
+					v-on:click="view_notebook(notebook)"
+					v-on:dblclick="edit_notebook(notebook)"
+					v-on:right="edit_notebook(notebook)"
+					v-bind:class="get_notebook_class(notebook)"
 					>
-					@{{ get_title(note) }}
+					@{{ notebook.title }}
 				</a>
+			</div>
+
+			<br />
+			<br />
+			<hr />
+			<br />
+			<br />
+
+			<div class="nav-bottom-links">
+				{{-- <a href="{{ Config::get('app.github_url') }}">Dopenote v{{ Config::get('app.version') }}</a> --}}
+				<a href="{{ route('user_settings') }}">User Settings</a>
+				<a href="{{ route('user_logout') }}">Log Out</a>
 			</div>
 
 		</nav>
 
 
+		{{-- List Notes --}}
+		<div class="notes-list">
+			<button class="action" v-on:click="create_note()" :disabled="waiting_for_ajax">New Note</button>
+
+			<a
+				v-for="note in notes"
+				v-if="note.notebook_id === active_notebook_id"
+				:href="'#/note/' + note.id"
+				v-on:click="view_note(note)"
+				v-bind:class="get_note_class(note)"
+				>
+				@{{ get_title(note) }}
+			</a>
+
+		</div>
+
+
+		{{-- Note Content Editor --}}
 		<div id="note" v-if="notes.length">
 			<div id="actions" v-if="notes.length">
 				<button v-on:click="toggle_star(getActiveNote())" :disabled="waiting_for_ajax" v-bind:class="getStarClass(getActiveNote())">&star;</button>

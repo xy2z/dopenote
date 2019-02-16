@@ -18,45 +18,101 @@ nav .logo {
 	text-align: center;
 }
 
-nav button {
-	background: #86bb21;
-	color: #000;
-	border: 0;
-	border-bottom: 3px solid #75a023;
-	border-radius: 2px;
-	font-weight: bold;
-	padding: 8px 20px;
-	display: block;
-	margin: 0 auto;
-	cursor: pointer;
-	margin-bottom: 20px;
-}
-
-nav button:hover {
-	background: #aada50;
-}
-
 nav p {
 	padding-left: 30px;
 	color: #999;
 }
 
-nav .nav-notes a {
+
+/* Notebooks */
+nav .nav-notebooks-header {
+	color: #bbb;
+	letter-spacing: 0.1em;
+	cursor: default;
+	display: block;
+	text-decoration: none;
+	padding: 0.5em 30px;
+	background: rgba(0, 0, 0, 0.1);
+	font-weight: bold;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 1);
+}
+
+nav .nav-notebooks a {
 	color: #eee;
 	display: block;
 	text-decoration: none;
 	padding: 0.5em 30px;
-
+	cursor: pointer;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-nav .nav-notes a:hover {
+nav .nav-notebooks a:hover {
 	background: rgba(0, 0, 0, 0.15);
 }
 
-nav .nav-notes a.active {
+nav .nav-notebooks a.active {
 	background: rgba(0, 0, 0, 0.3);
 	color: #ffe;
+}
+
+
+/* Notes */
+.notes-list {
+	position: sticky;
+	top: 0;
+	flex-shrink: 0;
+	width: 300px;
+	background: #f5f5f5;
+	padding-top: 50px;
+}
+
+.notes-list a:first-child {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.notes-list a {
+	display: block;
+	color: #444;
+	font-size: 0.9em;
+	letter-spacing: 0.1em;
+	padding: 1.2em 20px;
+	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.notes-list a:hover {
+	background: rgba(0, 0, 0, 0.05);
+}
+
+.notes-list a.active {
+	background: #fff;
+	color: #f90;
+}
+
+.notes-list a.starred {
+	border-left: 4px solid #f93;
+}
+
+
+/* nav bottom links */
+.nav-bottom-links {
+	padding-left: 30px;
+}
+
+.nav-bottom-links a {
+	display: block;
+	padding: 0.4em 0;
+	color: #999;
+	font-size: 0.85em;
+	text-decoration: none;
+}
+
+.nav-bottom-links a:hover {
+	color: #eee;
 }

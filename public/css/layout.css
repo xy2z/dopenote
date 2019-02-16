@@ -22,6 +22,7 @@ hr {
 	height: 1px;
 	border: 0;
 	background: rgba(255, 255, 255, 0.2);
+	width: 80%;
 }
 
 #status {
@@ -30,4 +31,12 @@ hr {
 	right: 40px;
 	color: #aaa;
 	font-size: 0.9em;
+}
+
+/* Disable selection when doubleclicking */
+.no_selection {
+	-webkit-user-select: none; /* webkit (safari, chrome) browsers */
+	-moz-user-select: none; /* mozilla browsers */
+	-khtml-user-select: none; /* webkit (konqueror) browsers */
+	-ms-user-select: none; /* IE10+ */
 }

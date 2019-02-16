@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Note;
+use App\Notebook;
 
-class NoteController extends Controller
-{
-	public function app(Note $note)
-	{
+class NoteController extends Controller {
+
+	public function app(Note $note) {
+		$notebooks = Notebook::orderBy('sort_order')->get();
 		$notes = Note::orderByDesc('id')->get();
 
 		$app_data = [
+			'active_notebook_id' => null,
 			'active_note_id' => $note->id ?? $notes->first()['id'],
 			'waiting_for_ajax' => false,
-			'notes' => $notes
+			'notes' => $notes,
+			'notebooks' => $notebooks,
 		];
 
 		return view('app', [
@@ -22,12 +25,21 @@ class NoteController extends Controller
 		]);
 	}
 
-	public function create()
-	{
+	/**
+	 * Create a new note.
+	 *
+	 * @param Request $request
+	 *
+	 * @return array
+	 */
+	public function create(Request $request) {
+		// Todo: Validate $request->notebook_id is mine.
+
 		$note = new Note;
 		$note->title = '';
 		$note->content = '';
 		$note->user_id = 0;
+		$note->notebook_id = $request->notebook_id;
 		$note->save();
 
 		return [
@@ -75,8 +87,7 @@ class NoteController extends Controller
 		];
 	}
 
-	public function update(Note $note, Request $request)
-	{
+	public function update(Note $note, Request $request) {
 		// TODO: Validate access.
 
 		// Save

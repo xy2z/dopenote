@@ -1,0 +1,17 @@
+button.action {
+	background: #86bb21;
+	color: #000;
+	border: 0;
+	border-bottom: 3px solid #75a023;
+	border-radius: 2px;
+	font-weight: bold;
+	padding: 8px 20px;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+button.action:hover {
+	background: #aada50;
+}
