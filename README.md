@@ -4,6 +4,10 @@
 
 Dopenote is a self-hosted note webapp. The first releases will be very basic, and improve over time.
 
+## Progress
+
+See the [Milestones](https://github.com/xy2z/dopenote/milestones)
+
 
 ## Contributing
 
