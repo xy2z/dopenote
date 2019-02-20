@@ -1,3 +1,20 @@
+// Views (starred, trash)
+app_data.active_view_label = null;
+app_data.views = [
+	// Starred
+	{
+		title: 'Starred',
+		label: 'starred',
+	},
+
+	// Trash (todo)
+	{
+		title: 'Trash (todo)',
+		label: 'trash',
+	},
+]
+
+
 var vueApp = new Vue({
 	el: "#app",
 	data: app_data,
@@ -59,7 +76,40 @@ var vueApp = new Vue({
 			})
 
 			return find_note
+		},
 
+		/**
+		 * Get notebook by ID
+		 *
+		 */
+		getNotebookByID: function(notebook_id) {
+			let find_notebook
+
+			this.notebooks.some(notebook => {
+				if (notebook && notebook.id === notebook_id) {
+					find_notebook = notebook
+					return true
+				}
+			})
+
+			return find_notebook
+		},
+
+		/**
+		 * Get view by label
+		 *
+		 */
+		getViewByLabel: function(label) {
+			let result
+
+			this.views.some(view => {
+				if (view && view.label === label) {
+					result = view
+					return true
+				}
+			})
+
+			return result
 		},
 
 		/**
@@ -73,9 +123,24 @@ var vueApp = new Vue({
 			}
 		},
 
+		/**
+		 * Get class for notebook list element
+		 *
+		 */
 		get_notebook_class: function(notebook) {
 			return {
 				'active': notebook.id === this.active_notebook_id,
+				'no_selection': true,
+			}
+		},
+
+		/**
+		 * Get class for view (starred, trash)
+		 *
+		 */
+		get_view_class: function(view) {
+			return {
+				'active': !this.active_notebook_id && view.label === this.active_view_label,
 				'no_selection': true,
 			}
 		},
@@ -87,8 +152,12 @@ var vueApp = new Vue({
 		 */
 		view_note: function(note) {
 			this.active_note_id = note.id
-			this.active_notebook_id = note.notebook_id
-			document.title = this.get_title(note) + ' | Dopenote'
+
+			if (!this.active_view_label) {
+				this.active_notebook_id = note.notebook_id
+			}
+
+			document.title = this.get_note_title(note) + ' | Dopenote'
 			window.location.hash = '#/note/' + note.id
 
 			if (typeof tinymce !== 'undefined') {
@@ -183,7 +252,12 @@ var vueApp = new Vue({
 			})
 		},
 
+		/**
+		 * View notebook - show notes for the active notebook.
+		 *
+		 */
 		view_notebook: function(notebook) {
+			this.active_view_label = null
 			this.active_notebook_id = notebook.id
 
 		},
@@ -231,7 +305,7 @@ var vueApp = new Vue({
 		 */
 		set_title: function(note) {
 			// Update <title>
-			document.title = this.get_title(note) + ' | Dopenote'
+			document.title = this.get_note_title(note) + ' | Dopenote'
 
 			// Update Backend
 			this.waiting_for_ajax = true
@@ -252,12 +326,21 @@ var vueApp = new Vue({
 		 * Made into a made in case it's empty (when it's new)
 		 *
 		 */
-		get_title: function(note) {
-			if (note.title.length) {
-				return note.title
+		get_note_title: function(note) {
+			let prepend = '';
+
+			if (this.active_view_label) {
+				// View: Starred / trash.
+				// Prepend the notebook title.
+				let notebook = this.getNotebookByID(note.notebook_id)
+				prepend = notebook.title + ': '
 			}
 
-			return '(untitled)'
+			if (note.title.length) {
+				return prepend + note.title
+			}
+
+			return prepend + '(untitled)'
 		},
 
 		/**
@@ -271,14 +354,20 @@ var vueApp = new Vue({
 			}
 		},
 
+		// TODO
 		edit_notebook: function(notebook) {
 			console.log('Todo: edit notebook: ' + notebook.id)
 		},
 
+		/**
+		 * Load a note from the URL hash note-ID, eg. '#/note/123'
+		 *
+		 */
 		load_note_from_hash: function() {
-			// Get note ID from URL hash, eg. '#/note/123'
+			// Get note ID from URL hash
 			let hash = window.location.hash
 			let split = hash.split('/')
+
 			if (split[1] == 'note') {
 				// Render note.
 				let note_id = parseInt(split[2])
@@ -288,11 +377,53 @@ var vueApp = new Vue({
 				} else {
 					alert('Note not found.')
 				}
+			} else if (view = this.getViewByLabel(split[1])) {
+				// It's a view (starred, trash)
+				this.set_view(view)
 			}
 		},
 
+		/**
+		 * Triggered when hash changes.
+		 * Used for when going back/forward in the browser.
+		 *
+		 */
 		onhashchange: function() {
 			this.load_note_from_hash();
 		},
+
+		/**
+		 * When click a view (starred, trash)
+		 *
+		 */
+		set_view: function(view) {
+			this.active_notebook_id = null
+			this.active_view_label = view.label
+			window.location.hash = '#/' + view.label
+		},
+
+		/**
+		 * Filter function
+		 * Whether to show the note in the sidebar or note
+		 * Depending on which view/notebook is active.
+		 *
+		 */
+		render_note_in_list: function(note) {
+			if (this.active_view_label) {
+				// View
+				if (this.active_view_label == 'starred') {
+					// Starred
+					return note.starred
+				}
+				if (this.active_view_label == 'trash') {
+					// Trash (todo)
+					return note.deleted_at
+				}
+			}
+
+			// Notebook
+			return note.notebook_id === this.active_notebook_id
+		},
+
 	}
 })

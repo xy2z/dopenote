@@ -68,7 +68,7 @@ class NoteController extends Controller {
 	}
 
 	public function set_title(Note $note, Request $request) {
-		$note->title = $request->title;
+		$note->title = $request->title ?? '';
 		$note->save();
 
 		return [

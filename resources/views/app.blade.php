@@ -2,15 +2,29 @@
 
 @section('content')
 	<div id="app">
+
+		{{-- Status (for saving changes) --}}
 		<div id="status">
 			@{{ get_status() }}
 		</div>
+
 
 		{{-- Notebooks Sidebar --}}
 		<nav>
 			<a class="logo" href="/">dopenote</a>
 
 			<button class="action" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
+
+			<div class="nav-notebooks">
+				<a
+					v-for="view in views"
+					v-on:click="set_view(view)"
+					v-bind:class="get_view_class(view)"
+					>@{{ view.title }}
+				</a>
+			</div>
+
+			<br />
 
 			<div class="nav-notebooks-header">Notebooks</div>
 			<div class="nav-notebooks">
@@ -42,16 +56,21 @@
 
 		{{-- List Notes --}}
 		<div class="notes-list">
-			<button class="action" v-on:click="create_note()" :disabled="waiting_for_ajax">New Note</button>
+			<button
+				class="action"
+				v-on:click="create_note()"
+				v-if="active_notebook_id"
+				:disabled="waiting_for_ajax">New Note</button>
 
 			<a
 				v-for="note in notes"
-				v-if="note.notebook_id === active_notebook_id"
+				{{-- v-if="note.notebook_id === active_notebook_id" --}}
+				v-if="render_note_in_list(note)"
 				:href="'#/note/' + note.id"
 				v-on:click="view_note(note)"
 				v-bind:class="get_note_class(note)"
 				>
-				@{{ get_title(note) }}
+				@{{ get_note_title(note) }}
 			</a>
 
 		</div>

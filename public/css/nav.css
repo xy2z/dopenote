@@ -3,7 +3,7 @@ nav {
 	top: 0;
 	flex-shrink: 0;
 	width: 210px;
-	background: #444;
+	background: #333;
 	padding-top: 30px;
 	color: #eee;
 }
@@ -54,7 +54,7 @@ nav .nav-notebooks a:hover {
 }
 
 nav .nav-notebooks a.active {
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.6);
 	color: #ffe;
 }
 
