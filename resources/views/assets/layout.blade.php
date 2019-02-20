@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/css/nav.css" />
         <link rel="stylesheet" href="/css/editor.css" />
         <link rel="stylesheet" href="/css/buttons.css" />
+        <link rel="shortcut icon" href="/icons/favicon.ico">
 
         <title>@yield('title', 'Home') | {{ Config::get('app.name') }}</title>
 
