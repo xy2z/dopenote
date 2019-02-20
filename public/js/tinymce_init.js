@@ -10,8 +10,8 @@ tinymce.init({
     plugins: [
       'advlist autolink lists link image charmap preview hr anchor pagebreak',
       'searchreplace wordcount visualblocks visualchars code fullscreen',
-      'insertdatetime media nonbreaking save table contextmenu directionality',
-      'emoticons paste textcolor colorpicker textpattern imagetools codesample toc',
+      'insertdatetime media nonbreaking save table directionality',
+      'emoticons paste textpattern imagetools codesample toc',
       'textpattern autoresize'
     ],
     toolbar1: 'undo redo | bold italic underline strikethrough | bullist numlist | link image | print media | forecolor backcolor | codesample',
