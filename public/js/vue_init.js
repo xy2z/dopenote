@@ -230,6 +230,10 @@ var vueApp = new Vue({
 		 *
 		 */
 		set_title: function(note) {
+			// Update <title>
+			document.title = this.get_title(note) + ' | Dopenote'
+
+			// Update Backend
 			this.waiting_for_ajax = true
 
 			axios.post('/note/' + note.id + '/set_title', {
