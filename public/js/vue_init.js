@@ -176,20 +176,33 @@ var vueApp = new Vue({
 				return
 			}
 
+			let found = false
 			this.waiting_for_ajax = true
+
 			axios
 			.post('/note/' + delete_note.id + '/delete')
 			.then(response => {
 				this.waiting_for_ajax = false
 
-				// Set active note id for first note not deleted.
+				// Set the active note to the first note in current notebook.
 				for (var note_id in this.notes) {
 					let note = this.notes[note_id]
-					if (note.id !== delete_note.id) {
-						// this.active_note_id = note.id
+
+					if (note.id === delete_note.id) {
+						continue
+					}
+
+					if (note.notebook_id === delete_note.notebook_id) {
+						found = true
 						this.view_note(note)
 						break
 					}
+				}
+
+				if (!found) {
+					// No more notes in this notebook.
+					this.active_note_id = null
+					window.location.hash = '#'
 				}
 
 				// Find the note index to delete.
@@ -350,7 +363,7 @@ var vueApp = new Vue({
 		getStarClass: function(note) {
 			return {
 				'star': true,
-				'starred': note.starred
+				'starred': note && note.starred
 			}
 		},
 

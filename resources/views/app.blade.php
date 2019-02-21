@@ -85,10 +85,10 @@
 			<br />
 
 			<div class="note-title">
-				<input type="text" ref="note_title" v-model="getActiveNote().title" @change="set_title(getActiveNote())" placeholder="New note" />
+				<input type="text" ref="note_title" v-if="getActiveNote()" v-model="getActiveNote().title" @change="set_title(getActiveNote())" placeholder="New note" />
 			</div>
 
-			<div class="note-content">
+			<div class="note-content" v-if="getActiveNote()">
 				<textarea id="editor">@{{ getActiveNote().content }}</textarea>
 			</div>
 		</div>
