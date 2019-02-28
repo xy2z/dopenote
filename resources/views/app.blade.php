@@ -1,6 +1,11 @@
 @extends('assets.layout')
 
 @section('content')
+	<div class="browser_not_supported" style="display: none;">
+		This browser is not supported. Please use a modern browser.
+	</div>
+
+
 	<div id="app">
 
 		{{-- Status (for saving changes) --}}

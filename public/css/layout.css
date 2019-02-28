@@ -40,3 +40,19 @@ hr {
 	-khtml-user-select: none; /* webkit (konqueror) browsers */
 	-ms-user-select: none; /* IE10+ */
 }
+
+/* Browser support */
+/* IE 10 and above */
+_:-ms-lang(x),
+.browser_not_supported {
+	display: block !important;
+	font-size: 2em;
+}
+
+/* IE 8, 9, 10 */
+@media screen\0 {
+	.browser_not_support {
+		display: block !important;
+		font-size: 2em;
+	}
+}
