@@ -15,6 +15,19 @@ app_data.views = [
 ]
 
 
+// Notebook context menu array
+app_data.notebook_context_menu = [
+    {
+        name: "Rename Notebook",
+        method: "render_rename_notebook",
+    },
+    {
+        name: "Delete Notebook",
+        method: "confirm_delete_notebook",
+    },
+]
+
+
 var vueApp = new Vue({
     el: "#app",
     data: app_data,
@@ -134,8 +147,10 @@ var vueApp = new Vue({
             window.location.hash = '#/note/' + note.id
 
             if (typeof tinymce !== 'undefined') {
-                // "tinymce" variable is unset first time page loads.
-                tinymce.get('editor').setContent(note.content)
+                if (tinymce.get('editor') !== null) {
+                    // "tinymce" variable is unset first time page loads.
+                    tinymce.get('editor').setContent(note.content)
+                }
             }
         },
 
@@ -401,6 +416,49 @@ var vueApp = new Vue({
 
             // Notebook
             return note.notebook_id === this.active_notebook_id
+        },
+
+        /**
+         * Triggered when right clicking a notebook in the sidebar.
+         *
+         */
+        notebook_context_menu_show: function(event, item) {
+            this.$refs.vueSimpleContextMenu1.showMenu(event, item)
+
+        },
+
+        /**
+         * Method is triggered when a context menu item is clicked.
+         *
+         */
+        notebook_context_menu_action: function(event) {
+            console.log(event.option.method + ' : ' + event.item.title)
+
+            // Call this option's 'method' with the notebook. (event.item = notebook object)
+            // See the 'notebook_context_menu' array.
+            this[event.option.method](event.item)
+        },
+
+        /**
+         * View for renaming a notebook.title
+         *
+         */
+        render_rename_notebook: function(notebook) {
+            //  Todo.
+            console.log('render rename notebook (todo).')
+        },
+
+        /**
+         * Confirm and delete notebook
+         *
+         */
+        confirm_delete_notebook: function(notebook) {
+            if (!confirm('Are you sure want to delete this notebook (' + notebook.title + ')?')) {
+                return
+            }
+
+            // Todo.
+            alert('Deleted (not really. Todo)')
         },
 
     }

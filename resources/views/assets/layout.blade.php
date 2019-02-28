@@ -18,11 +18,19 @@
 
         {{-- Scripts --}}
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.3/vue.min.js"></script>
-        <script src="/js/vue_init.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js"></script>
 
+        {{-- Vue context menu --}}
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-simple-context-menu/dist/vue-simple-context-menu.css">
+        <script src="https://unpkg.com/vue-simple-context-menu@3.1.3/dist/vue-simple-context-menu.min.js"></script>
+
+        {{-- Rich-text editor --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>
+
+        {{-- Custom scripts --}}
+        <script src="/js/vue_init.js"></script>
         <script src="/js/tinymce_init.js"></script>
+
     </body>
 </html>

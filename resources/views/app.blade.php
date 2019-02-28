@@ -37,8 +37,8 @@
 					v-for="notebook in notebooks"
 					v-on:click="view_notebook(notebook)"
 					v-on:dblclick="edit_notebook(notebook)"
-					v-on:right="edit_notebook(notebook)"
 					v-bind:class="get_notebook_class(notebook)"
+					@contextmenu.prevent.stop="notebook_context_menu_show($event, notebook)"
 					>
 					@{{ notebook.title }}
 				</a>
@@ -97,6 +97,15 @@
 				<textarea id="editor">@{{ getActiveNote().content }}</textarea>
 			</div>
 		</div>
+
+
+		{{-- Component: Notebook context menu --}}
+		<vue-simple-context-menu
+			:element-id="'myFirstMenu'"
+			:options="notebook_context_menu"
+			:ref="'vueSimpleContextMenu1'"
+			@option-clicked="notebook_context_menu_action">
+		</vue-simple-context-menu>
 
 	</div>
 
