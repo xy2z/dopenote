@@ -9,11 +9,13 @@ use App\Notebook;
 class NotebookController extends Controller {
 
     public function create() {
+    	$user_id = 0; // Todo when auth is done.
 
+    	// Save
 		$notebook = new Notebook;
 		$notebook->title = 'Notebook';
-		$notebook->user_id = 0;
-		$notebook->sort_order = 1; // Todo: Set notebook to latest 'sort_order' of this user.
+		$notebook->user_id = $user_id;
+		$notebook->sort_order = Notebook::get_last_sort_order($user_id) + 1;
 		$notebook->save();
 
 		return [
@@ -21,4 +23,5 @@ class NotebookController extends Controller {
 			'notebook' => $notebook,
 		];
     }
+
 }
