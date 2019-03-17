@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Note extends Model
 {
 	use SoftDeletes;
+
+	public function notebook() {
+		return $this->belongsTo(Notebook::class);
+	}
 }

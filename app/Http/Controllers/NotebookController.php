@@ -54,4 +54,12 @@ class NotebookController extends Controller {
 		}
 	}
 
+	public function delete(Notebook $notebook, request $request) {
+		// Soft-delete all notes in this notebook.
+		Note::whereIn('id', $notebook->notes->pluck('id'))->delete();
+
+		// Delete this notebook.
+		$notebook->delete();
+	}
+
 }

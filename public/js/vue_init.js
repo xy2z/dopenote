@@ -471,7 +471,15 @@ var vueApp = new Vue({
             }
 
             // Todo.
-            alert('Deleted (not really. Todo)')
+            this.waiting_for_ajax = true
+
+            axios.post('/notebook/' + notebook.id + '/delete')
+            .then(response => {
+                // Delete notebook from notebooks array
+                let index = this.notebooks.findIndex(nb => nb.id === notebook.id)
+                console.log('index:', index)
+                this.notebooks.splice(index, 1)
+            })
         },
 
         /**
@@ -487,7 +495,6 @@ var vueApp = new Vue({
                 new_index: event.newIndex,
             })
             .then(response => {
-                console.log('ajax done')
                 this.waiting_for_ajax = false
             })
         },
