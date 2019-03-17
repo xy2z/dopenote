@@ -20,6 +20,9 @@
 
 			<button class="action" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
+			<hr />
+
+			{{-- Views: Starred, trash --}}
 			<div class="nav-notebooks">
 				<a
 					v-for="view in views"
@@ -31,18 +34,22 @@
 
 			<br />
 
+			{{-- List Notebooks --}}
 			<div class="nav-notebooks-header">Notebooks</div>
-			<div class="nav-notebooks">
+			<draggable class="nav-notebooks" draggable=".notebook_link" @end="notebooks_draggable_change" ref="notebooks">
 				<a
+					class="notebook_link"
 					v-for="notebook in notebooks"
 					v-on:click="view_notebook(notebook)"
-					v-on:dblclick="edit_notebook(notebook)"
 					v-bind:class="get_notebook_class(notebook)"
 					@contextmenu.prevent.stop="notebook_context_menu_show($event, notebook)"
+					:data-notebookid="notebook.id" {{-- Used by Draggable --}}
+					:key="notebook.id"
+					ref="notebook_item"
 					>
 					@{{ notebook.title }}
 				</a>
-			</div>
+			</draggable>
 
 			<br />
 			<br />

@@ -24,6 +24,13 @@
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-simple-context-menu/dist/vue-simple-context-menu.css">
         <script src="https://unpkg.com/vue-simple-context-menu@3.1.3/dist/vue-simple-context-menu.min.js"></script>
 
+        {{-- Sortable - Required by 'Vue.Draggable' --}}
+        <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.3/Sortable.min.js"></script>
+
+        {{-- Vue.Draggable --}}
+        {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.19.1/vuedraggable.umd.min.js"></script> --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/15.0.0/vuedraggable.min.js"></script>
+
         {{-- Rich-text editor --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>

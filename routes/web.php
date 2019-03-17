@@ -13,9 +13,9 @@ Route::post('/note/{note}/set_content', 'NoteController@set_content');
 
 // Notebook actions
 Route::post('/notebook/create', 'NotebookController@create');
+Route::post('/notebook/update_sort_order', 'NotebookController@update_sort_order');
 // - rename
 // - delete
-// - sort_order
 
 // User (todo)
 Route::get('/user/settings')->name('user_settings');

@@ -34,12 +34,13 @@ var vueApp = new Vue({
 
     mounted: function() {
         this.sort_notes()
+        this.sort_notebooks()
         this.load_note_from_hash();
 
         // On hash change
         window.onhashchange = this.onhashchange
-
     },
+
     methods: {
         /**
          * Get current status
@@ -63,6 +64,17 @@ var vueApp = new Vue({
             // Sort by starred first.
             this.notes.sort(function(a,b) {
                 return a.starred ? -1 : 1
+            })
+        },
+
+        /**
+         * Sort notebooks
+         *
+         */
+        sort_notebooks: function() {
+            // Sort by 'sort_order'
+            this.notebooks.sort(function(a,b) {
+                return a.sort_order > b.sort_order ? 1 : -1
             })
         },
 
@@ -115,6 +127,7 @@ var vueApp = new Vue({
          */
         get_notebook_class: function(notebook) {
             return {
+                'notebook_link': true,
                 'active': notebook.id === this.active_notebook_id,
                 'no_selection': true,
             }
@@ -459,6 +472,24 @@ var vueApp = new Vue({
 
             // Todo.
             alert('Deleted (not really. Todo)')
+        },
+
+        /**
+         * Event triggered when Notebook sort_order has changed.
+         *
+         */
+        notebooks_draggable_change: function(event) {
+            this.waiting_for_ajax = true
+
+            axios
+            .post('/notebook/update_sort_order', {
+                old_index: event.oldIndex,
+                new_index: event.newIndex,
+            })
+            .then(response => {
+                console.log('ajax done')
+                this.waiting_for_ajax = false
+            })
         },
 
     }

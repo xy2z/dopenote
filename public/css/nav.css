@@ -53,7 +53,8 @@ nav .nav-notebooks a:hover {
 	background: rgba(0, 0, 0, 0.15);
 }
 
-nav .nav-notebooks a.active {
+nav .nav-notebooks a.active,
+nav .nav-notebooks a.sortable-ghost {
 	background: rgba(0, 0, 0, 0.6);
 	color: #ffe;
 }
