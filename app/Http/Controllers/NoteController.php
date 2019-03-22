@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Note;
 use App\Notebook;
 
@@ -13,8 +14,8 @@ class NoteController extends Controller {
 	}
 
 	public function app(Note $note) {
-		$notebooks = Notebook::orderBy('sort_order')->get();
-		$notes = Note::orderByDesc('id')->get();
+		$notebooks = Notebook::where('user_id', Auth::id())->orderBy('sort_order')->get();
+		$notes = Note::where('user_id', Auth::id())->orderByDesc('id')->get();
 
 		$app_data = [
 			'active_notebook_id' => null,
@@ -42,7 +43,7 @@ class NoteController extends Controller {
 		$note = new Note;
 		$note->title = '';
 		$note->content = '';
-		$note->user_id = 0;
+		$note->user_id = Auth::id();
 		$note->notebook_id = $request->notebook_id;
 		$note->save();
 

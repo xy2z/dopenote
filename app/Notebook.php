@@ -10,7 +10,7 @@ class Notebook extends Model
 		return $this->hasMany(Note::class);
 	}
 
-	public static function get_last_sort_order($user_id) {
+	public static function get_last_sort_order(int $user_id) {
 		return static::where('user_id', $user_id)->max('sort_order');
 	}
 }

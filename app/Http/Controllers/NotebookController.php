@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Note;
 use App\Notebook;
 
@@ -13,13 +14,11 @@ class NotebookController extends Controller {
 	}
 
 	public function create() {
-		$user_id = 0; // Todo when auth is done.
-
 		// Save
 		$notebook = new Notebook;
 		$notebook->title = 'Notebook';
-		$notebook->user_id = $user_id;
-		$notebook->sort_order = Notebook::get_last_sort_order($user_id) + 1;
+		$notebook->user_id = Auth::id();
+		$notebook->sort_order = Notebook::get_last_sort_order(Auth::id()) + 1;
 		$notebook->save();
 
 		return [
@@ -33,8 +32,7 @@ class NotebookController extends Controller {
 		$new_index = (int) $request->new_index;
 
 		// Get all notebooks sorted by index
-		$user_id = 0; // todo.
-		$notebooks = Notebook::where('user_id', $user_id)->orderBy('sort_order')->get();
+		$notebooks = Notebook::where('user_id', Auth::id())->orderBy('sort_order')->get();
 
 		// Sort all notebooks
 		// Array: $sort_order => $notebook_id
