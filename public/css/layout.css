@@ -33,7 +33,20 @@ hr {
 	font-size: 0.9em;
 }
 
-/* Disable selection when doubleclicking */
+.logo {
+	font-family: 'Carter One';
+	font-size: 3.5em;
+	font-weight: normal;
+	letter-spacing: -0.09em;
+	color: #555;
+	text-decoration: none;
+}
+
+.logo.ondark {
+	color: #f90;
+}
+
+/* Disable text selection */
 .no_selection {
 	-webkit-user-select: none; /* webkit (safari, chrome) browsers */
 	-moz-user-select: none; /* mozilla browsers */

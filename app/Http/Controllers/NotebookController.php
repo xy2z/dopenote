@@ -8,6 +8,10 @@ use App\Notebook;
 
 class NotebookController extends Controller {
 
+	public function __construct() {
+		$this->middleware('auth');
+	}
+
 	public function create() {
 		$user_id = 0; // Todo when auth is done.
 

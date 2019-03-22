@@ -8,14 +8,14 @@ nav {
 	color: #eee;
 }
 
-nav .logo {
+nav .logo-wrapper {
 	display: block;
-	color: #f90;
-	font-weight: normal;
-	font-size: 1.4em;
-	text-decoration: none;
 	margin-bottom: 1em;
 	text-align: center;
+}
+
+nav .logo-wrapper .logo {
+	font-size: 2em;
 }
 
 nav p {
@@ -106,14 +106,23 @@ nav .nav-notebooks a.sortable-ghost {
 	padding-left: 30px;
 }
 
-.nav-bottom-links a {
+.nav-bottom-links a,
+.nav-bottom-links span {
 	display: block;
 	padding: 0.4em 0;
-	color: #999;
+	color: #777;
 	font-size: 0.85em;
 	text-decoration: none;
 }
 
+.nav-bottom-links span {
+	color: #aaa;
+}
+
+.nav-bottom-links span strong {
+	color: #bbb;
+}
+
 .nav-bottom-links a:hover {
-	color: #eee;
+	color: #999;
 }

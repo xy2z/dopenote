@@ -7,9 +7,13 @@ button.action {
 	font-weight: bold;
 	padding: 8px 20px;
 	display: block;
-	margin: 0 auto;
 	cursor: pointer;
 	margin-bottom: 20px;
+}
+
+button.center {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 button.action:hover {

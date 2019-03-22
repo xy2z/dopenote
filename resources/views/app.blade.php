@@ -1,5 +1,35 @@
 @extends('assets.layout')
 
+@section('styles')
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/editor.css" />
+    <link rel="stylesheet" href="/css/buttons.css" />
+@endsection
+
+@section('scripts')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js"></script>
+
+    {{-- Vue context menu --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-simple-context-menu/dist/vue-simple-context-menu.css">
+    <script src="https://unpkg.com/vue-simple-context-menu@3.1.3/dist/vue-simple-context-menu.min.js"></script>
+
+    {{-- Sortable - Required by 'Vue.Draggable' --}}
+    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.3/Sortable.min.js"></script>
+
+    {{-- Vue.Draggable --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/15.0.0/vuedraggable.min.js"></script>
+
+    {{-- Rich-text editor --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>
+
+    {{-- Custom scripts --}}
+    <script src="/js/vue_init.js"></script>
+    <script src="/js/tinymce_init.js"></script>
+@endsection
+
 @section('content')
 	<div class="browser_not_supported" style="display: none;">
 		This browser is not supported. Please use a modern browser.
@@ -16,9 +46,11 @@
 
 		{{-- Notebooks Sidebar --}}
 		<nav>
-			<a class="logo" href="/">dopenote</a>
+			<div class="logo-wrapper">
+				<a class="logo ondark is-small" href="/">Dopenote</a>
+			</div>
 
-			<button class="action" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
+			<button class="action center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
 			<hr />
 
@@ -58,6 +90,7 @@
 			<br />
 
 			<div class="nav-bottom-links">
+				<span>Signed in as <strong>{{ Auth::user()->name }}</strong></span>
 				{{-- <a href="{{ Config::get('app.github_url') }}">Dopenote v{{ Config::get('app.version') }}</a> --}}
 				<a href="{{ route('user_settings') }}">User Settings</a>
 				<a href="{{ route('user_logout') }}">Log Out</a>
@@ -69,7 +102,7 @@
 		{{-- List Notes --}}
 		<div class="notes-list">
 			<button
-				class="action"
+				class="action center"
 				v-on:click="create_note()"
 				v-if="active_notebook_id"
 				:disabled="waiting_for_ajax">New Note</button>

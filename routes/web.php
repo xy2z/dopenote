@@ -19,4 +19,9 @@ Route::post('/notebook/{notebook}/delete', 'NotebookController@delete');
 
 // User (todo)
 Route::get('/user/settings')->name('user_settings');
-Route::get('/user/logout')->name('user_logout');
+Route::get('/user/logout', function() {
+	Auth::logout();
+	return redirect()->route('home');
+})->name('user_logout');
+
+Auth::routes();

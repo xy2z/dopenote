@@ -8,6 +8,10 @@ use App\Notebook;
 
 class NoteController extends Controller {
 
+	public function __construct() {
+		$this->middleware('auth');
+	}
+
 	public function app(Note $note) {
 		$notebooks = Notebook::orderBy('sort_order')->get();
 		$notes = Note::orderByDesc('id')->get();
