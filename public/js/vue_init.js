@@ -470,7 +470,6 @@ var vueApp = new Vue({
                 return
             }
 
-            // Todo.
             this.waiting_for_ajax = true
 
             axios.post('/notebook/' + notebook.id + '/delete')
