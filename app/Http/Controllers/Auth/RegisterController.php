@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Notebook;
+use App\Note;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,10 +65,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if (!$user) {
+            return false;
+        }
+
+        // Create a default notebook
+        $notebook = Notebook::create([
+            'title' => 'My Notebook',
+            'user_id' => $user->id,
+            'sort_order' => 0
+        ]);
+
+        // Create a welcome note
+        $note = Note::create([
+            'user_id' => $user->id,
+            'notebook_id' => $notebook->id,
+            'title' => 'Welcome to Dopenote',
+            'content' => 'Thanks for trying out <strong>Dopenote</strong>!',
+            'starred' => true
+        ]);
+
+        return $user;
     }
 }
