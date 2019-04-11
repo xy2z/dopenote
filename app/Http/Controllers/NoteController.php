@@ -7,26 +7,36 @@ use Auth;
 use App\Note;
 use App\Notebook;
 
+/**
+ * Note controller
+ *
+ */
 class NoteController extends Controller {
 
+	/**
+	 * Constructor
+	 *
+	 */
 	public function __construct() {
 		$this->middleware('auth');
 	}
 
+	/**
+	 * Get data for frontend (vue)
+	 *
+	 */
 	public function app(Note $note) {
 		$notebooks = Notebook::where('user_id', Auth::id())->orderBy('sort_order')->get();
 		$notes = Note::where('user_id', Auth::id())->orderByDesc('id')->get();
 
-		$app_data = [
-			'active_notebook_id' => null,
-			'active_note_id' => $note->id ?? $notes->first()['id'],
-			'waiting_for_ajax' => false,
-			'notes' => $notes,
-			'notebooks' => $notebooks,
-		];
-
 		return view('app', [
-			'app_data' => $app_data,
+			'app_data' => [
+				'active_notebook_id' => null,
+				'active_note_id' => $note->id ?? $notes->first()['id'],
+				'waiting_for_ajax' => false,
+				'notes' => $notes,
+				'notebooks' => $notebooks,
+			]
 		]);
 	}
 
@@ -53,8 +63,11 @@ class NoteController extends Controller {
 		];
 	}
 
+	/**
+	 * Delete note
+	 *
+	 */
 	public function delete(Note $note) {
-		// TODO: Validate permission.
 		$note->delete();
 
 		return [
@@ -62,6 +75,10 @@ class NoteController extends Controller {
 		];
 	}
 
+	/**
+	 * Toggle star (favorite) on a note
+	 *
+	 */
 	public function toggle_star(Note $note) {
 		$note->starred = !$note->starred;
 		$note->save();
@@ -72,6 +89,10 @@ class NoteController extends Controller {
 		];
 	}
 
+	/**
+	 * Change title on a note
+	 *
+	 */
 	public function set_title(Note $note, Request $request) {
 		$note->title = $request->title ?? '';
 		$note->save();
@@ -82,6 +103,10 @@ class NoteController extends Controller {
 		];
 	}
 
+	/**
+	 * Update content for a note
+	 *
+	 */
 	public function set_content(Note $note, Request $request) {
 		$note->content = $request->content;
 		$note->save();
@@ -92,10 +117,11 @@ class NoteController extends Controller {
 		];
 	}
 
+	/**
+	 * Update note
+	 *
+	 */
 	public function update(Note $note, Request $request) {
-		// TODO: Validate access.
-
-		// Save
 		$note->title = $request->title;
 		$note->content = $request->content;
 		$note->save();

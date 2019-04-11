@@ -7,14 +7,23 @@ use Auth;
 use App\Note;
 use App\Notebook;
 
+/**
+ * Notebook controller
+ */
 class NotebookController extends Controller {
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		$this->middleware('auth');
 	}
 
+	/**
+	 * Create new notebook
+	 *
+	 */
 	public function create() {
-		// Save
 		$notebook = new Notebook;
 		$notebook->title = 'Notebook';
 		$notebook->user_id = Auth::id();
@@ -27,6 +36,10 @@ class NotebookController extends Controller {
 		];
 	}
 
+	/**
+	 * Change notebooks sort order
+	 *
+	 */
 	public function update_sort_order(request $request) {
 		$old_index = (int) $request->old_index;
 		$new_index = (int) $request->new_index;
@@ -56,6 +69,10 @@ class NotebookController extends Controller {
 		}
 	}
 
+	/**
+	 * Perm. delete notebook
+	 *
+	 */
 	public function delete(Notebook $notebook, request $request) {
 		// Soft-delete all notes in this notebook.
 		Note::whereIn('id', $notebook->notes->pluck('id'))->delete();

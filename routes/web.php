@@ -7,7 +7,6 @@ Route::get('/', 'NoteController@app')->name('home');
 Route::post('/note/create', 'NoteController@create');
 // Validate user has access to change note.
 Route::middleware(['can:update,note'])->group(function () {
-	Route::post('/note/{note}/update', 'NoteController@update');
 	Route::post('/note/{note}/delete', 'NoteController@delete');
 	Route::post('/note/{note}/toggle_star', 'NoteController@toggle_star');
 	Route::post('/note/{note}/set_title', 'NoteController@set_title');
