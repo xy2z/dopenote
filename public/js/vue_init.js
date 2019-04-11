@@ -360,11 +360,6 @@ var vueApp = new Vue({
             }
         },
 
-        // TODO
-        edit_notebook: function(notebook) {
-            console.log('Todo: edit notebook: ' + notebook.id)
-        },
-
         /**
          * Load a note from the URL hash note-ID, eg. '#/note/123'
          *
@@ -453,12 +448,21 @@ var vueApp = new Vue({
         },
 
         /**
-         * View for renaming a notebook.title
+         * Prompt for renaming a notebook.title
          *
          */
         render_rename_notebook: function(notebook) {
-            //  Todo.
-            console.log('render rename notebook (todo).')
+            let new_title = prompt("Rename notebook", notebook.title)
+            notebook.title = new_title
+
+            // Update backend
+            this.waiting_for_ajax = true
+            axios.post('/notebook/' + notebook.id + '/rename', {
+                title: new_title
+            })
+            .then(response => {
+                this.waiting_for_ajax = false
+            })
         },
 
         /**
@@ -474,6 +478,7 @@ var vueApp = new Vue({
 
             axios.post('/notebook/' + notebook.id + '/delete')
             .then(response => {
+                this.waiting_for_ajax = false
                 // Delete notebook from notebooks array
                 let index = this.notebooks.findIndex(nb => nb.id === notebook.id)
                 console.log('index:', index)

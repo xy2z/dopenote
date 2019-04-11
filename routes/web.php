@@ -20,7 +20,7 @@ Route::post('/notebook/create', 'NotebookController@create');
 // Validate user has access to change notebook.
 Route::middleware(['can:update,notebook'])->group(function () {
 	Route::post('/notebook/update_sort_order', 'NotebookController@update_sort_order');
-	// Route::post('/notebook/{notebook}/rename', 'NotebookController@rename'); // Todo.
+	Route::post('/notebook/{notebook}/rename', 'NotebookController@rename');
 	Route::post('/notebook/{notebook}/delete', 'NotebookController@delete');
 });
 

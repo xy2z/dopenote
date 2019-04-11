@@ -64,4 +64,13 @@ class NotebookController extends Controller {
 		$notebook->delete();
 	}
 
+	/**
+	 * Rename notebook title
+	 *
+	 */
+	public function rename(Notebook $notebook, request $request) {
+		$notebook->title = $request->title;
+		$notebook->save();
+	}
+
 }
