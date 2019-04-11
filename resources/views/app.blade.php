@@ -28,6 +28,7 @@
     {{-- Custom scripts --}}
     <script src="/js/vue_init.js"></script>
     <script src="/js/tinymce_init.js"></script>
+    <script src="/js/editor.js"></script>
 @endsection
 
 @section('content')
