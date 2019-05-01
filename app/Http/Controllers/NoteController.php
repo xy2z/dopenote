@@ -27,7 +27,7 @@ class NoteController extends Controller {
 	 */
 	public function app(Note $note) {
 		$notebooks = Notebook::where('user_id', Auth::id())->orderBy('sort_order')->get();
-		$notes = Note::where('user_id', Auth::id())->orderByDesc('id')->get();
+		$notes = Note::where('user_id', Auth::id())->withTrashed()->orderByDesc('id')->get();
 
 		return view('app', [
 			'app_data' => [
@@ -64,11 +64,36 @@ class NoteController extends Controller {
 	}
 
 	/**
-	 * Delete note
+	 * Delete note (soft delete)
 	 *
 	 */
 	public function delete(Note $note) {
 		$note->delete();
+
+		return [
+			'result' => true,
+			'deleted_at' => date('Y-m-d H:i:s'),
+		];
+	}
+
+	/**
+	 * Permanently delete note (hard delete)
+	 *
+	 */
+	public function perm_delete(Note $note) {
+		$note->forceDelete();
+
+		return [
+			'result' => true,
+		];
+	}
+
+	/**
+	 * Restore note
+	 *
+	 */
+	public function restore(Note $note) {
+		$note->restore();
 
 		return [
 			'result' => true,
@@ -114,6 +139,19 @@ class NoteController extends Controller {
 		return [
 			'result' => true,
 			'note' => $note,
+		];
+	}
+
+	/**
+	 * Update notebook for a note
+	 *
+	 */
+	public function set_notebook(Note $note, Request $request) {
+		$note->notebook_id = $request->notebook_id;
+		$note->save();
+
+		return [
+			'result' => true,
 		];
 	}
 

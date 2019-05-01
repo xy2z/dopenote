@@ -7,9 +7,9 @@ app_data.views = [
         label: 'starred',
     },
 
-    // Trash (todo)
+    // Trash
     {
-        title: 'Trash (todo)',
+        title: 'Trash',
         label: 'trash',
     },
 ]
@@ -42,6 +42,26 @@ var vueApp = new Vue({
     },
 
     methods: {
+        /**
+         * Called when the editor is loaded and ready
+         *
+         */
+        editor_init: function() {
+            let editor = tinymce.get('editor')
+
+            // Set editor to disabled if note is deleted.
+            this.toggle_editor_disabled(this.getActiveNote())
+
+            // Update content backend on change.
+            var self = this
+            editor.on('keyup change redo undo', function(e) {
+                if (self.getActiveNote().deleted_at === null) {
+                    // Only allow update content if note is not deleted.
+                    vueApp.set_content(vueApp.getActiveNote(), editor.getContent())
+                }
+            });
+        },
+
         /**
          * Get current status
          *
@@ -152,7 +172,11 @@ var vueApp = new Vue({
         view_note: function(note) {
             this.active_note_id = note.id
 
-            if (!this.active_view_label) {
+            // Set active view/notebook
+            if (note.deleted_at !== null) {
+                this.active_view_label = 'trash';
+            }
+            else if (!this.active_view_label) {
                 this.active_notebook_id = note.notebook_id
             }
 
@@ -165,6 +189,25 @@ var vueApp = new Vue({
                     tinymce.get('editor').setContent(note.content)
                 }
             }
+
+            this.toggle_editor_disabled(note)
+        },
+
+        /**
+         * Toggle wether the editor should be editable or not.
+         *
+         */
+        toggle_editor_disabled: function(note) {
+            // Disable editor (if note is deleted)
+            let allow_edit_body = note.deleted_at ? 'false' : 'true'
+
+            if (tinymce.get('editor') === null) {
+                // tinymce is not initialized yet, this only happens on pageload.
+                // The 'editor_init' method will take care of that.
+                return
+            }
+
+            tinymce.get('editor').getBody().setAttribute('contenteditable', allow_edit_body);
         },
 
         /**
@@ -172,12 +215,11 @@ var vueApp = new Vue({
          *
          */
         delete_note: function(delete_note) {
-            // Confirm: Disabled while developing.
+            // Confirm
             if (!confirm('Are you sure you want to delete this note?')) {
                 return
             }
 
-            let found = false
             this.waiting_for_ajax = true
 
             axios
@@ -185,30 +227,111 @@ var vueApp = new Vue({
             .then(response => {
                 this.waiting_for_ajax = false
 
-                // Set the active note to the first note in current notebook.
-                for (var note_id in this.notes) {
-                    let note = this.notes[note_id]
+                this.view_note_after_deletion(delete_note)
 
-                    if (note.id === delete_note.id) {
-                        continue
-                    }
+                delete_note.deleted_at = response.data.deleted_at
+                // this.toggle_editor_disabled(delete_note)
+            })
+        },
 
-                    if (note.notebook_id === delete_note.notebook_id) {
-                        found = true
-                        this.view_note(note)
-                        break
-                    }
+        /**
+         * Change active note to the first active note in current notebook.
+         * Used after deleting a note.
+         *
+         */
+        view_note_after_deletion: function(delete_note) {
+            let found = false
+
+            for (var note_id in this.notes) {
+                let note = this.notes[note_id]
+
+                if (note.id === delete_note.id) {
+                    continue
                 }
 
-                if (!found) {
-                    // No more notes in this notebook.
-                    this.active_note_id = null
-                    window.location.hash = '#'
+                if (note.notebook_id === delete_note.notebook_id) {
+                    found = true
+                    this.view_note(note)
+                    break
+                }
+            }
+
+            if (!found) {
+                // No active notes in this notebook.
+                this.active_note_id = null
+                window.location.hash = '#'
+            }
+        },
+
+        /**
+         * Restore a deleted note.
+         *
+         */
+        restore_note: function(note) {
+            if (!note.deleted_at) {
+                // Not deleted.
+                alert('Cant restore a note thats not deleted.')
+                return
+            }
+
+            this.waiting_for_ajax = true
+
+            axios
+            .post('/note/' + note.id + '/restore')
+            .then(response => {
+                this.waiting_for_ajax = false
+
+                // If note's notebook is deleted, then find a new notebook.
+                if (!this.getNotebookByID(note.notebook_id)) {
+                    // Set notebook_id (TODO: Do it backend.)
+                    this.set_notebook_id_on_note(note, this.notebooks[0].id)
                 }
 
-                // Delete note from notes array
-                let delete_note_index = this.notes.findIndex(note => note.id === delete_note.id)
-                this.notes.splice(delete_note_index, 1)
+                // Restore in vue.
+                note.deleted_at = null
+            })
+        },
+
+        /**
+         * Permanently delete a note
+         *
+         */
+        perm_delete_note: function(note) {
+            // Confirm
+            if (!confirm('Are you sure you want to permanently delete this note?\r\nThis action CANNOT be undone.')) {
+                return
+            }
+
+            this.waiting_for_ajax = true
+
+            axios
+            .post('/note/' + note.id + '/perm_delete')
+            .then(response => {
+                this.waiting_for_ajax = false
+
+                // Remove note from array.
+                let note_index = this.notes.indexOf(note)
+                console.log('index', note_index)
+                this.notes.splice(note_index, 1)
+
+                this.view_note_after_deletion(note)
+
+                // This should not be needed anymore.
+                // this.toggle_editor_disabled(note)
+            })
+        },
+
+        set_notebook_id_on_note: function(note, notebook_id) {
+            this.waiting_for_ajax = true
+
+            axios
+            .post('/note/' + note.id + '/set_notebook', {
+                notebook_id: notebook_id
+            })
+            .then(response => {
+                this.waiting_for_ajax = false
+
+                note.notebook_id = notebook_id
             })
         },
 
@@ -228,6 +351,7 @@ var vueApp = new Vue({
 
                 let note = response.data.note
 
+                note.deleted_at = null
                 this.notes.push(note)
                 this.sort_notes()
                 this.view_note(note)
@@ -310,6 +434,11 @@ var vueApp = new Vue({
          *
          */
         set_title: function(note) {
+            if (note.deleted_at) {
+                alert('Cannot edit the title of a deleted note.')
+                return
+            }
+
             // Update <title>
             document.title = this.get_note_title(note) + ' | Dopenote'
 
@@ -337,9 +466,11 @@ var vueApp = new Vue({
 
             if (this.active_view_label) {
                 // View: Starred / trash.
-                // Prepend the notebook title.
+                // Prepend the notebook title (if not deleted).
                 let notebook = this.getNotebookByID(note.notebook_id)
-                prepend = notebook.title + ': '
+                if (notebook) {
+                    prepend = notebook.title + ': '
+                }
             }
 
             if (note.title.length) {
@@ -403,6 +534,21 @@ var vueApp = new Vue({
             window.location.hash = '#/' + view.label
         },
 
+        get_note_list: function() {
+            return this.notes.filter(this.render_note_in_list)
+        },
+
+        get_empty_note_list_text: function() {
+            if (this.active_view_label === 'starred') {
+                return 'No starred notes'
+            }
+            if (this.active_view_label === 'trash') {
+                return 'No deleted notes'
+            }
+
+            return 'Nothing here...'
+        },
+
         /**
          * Filter function
          * Whether to show the note in the sidebar or note
@@ -414,15 +560,23 @@ var vueApp = new Vue({
                 // View
                 if (this.active_view_label == 'starred') {
                     // Starred
+                    if (note.deleted_at) {
+                        return false
+                    }
+
                     return note.starred
                 }
                 if (this.active_view_label == 'trash') {
-                    // Trash (todo)
                     return note.deleted_at
                 }
             }
 
-            // Notebook
+            // Don't render deleted.
+            if (note.deleted_at) {
+                return false
+            }
+
+            // Only render notes for active notebook.
             return note.notebook_id === this.active_notebook_id
         },
 
@@ -440,8 +594,6 @@ var vueApp = new Vue({
          *
          */
         notebook_context_menu_action: function(event) {
-            console.log(event.option.method + ' : ' + event.item.title)
-
             // Call this option's 'method' with the notebook. (event.item = notebook object)
             // See the 'notebook_context_menu' array.
             this[event.option.method](event.item)
@@ -479,9 +631,17 @@ var vueApp = new Vue({
             axios.post('/notebook/' + notebook.id + '/delete')
             .then(response => {
                 this.waiting_for_ajax = false
+
+                // Delete notes in this notebook.
+                // They are already deleted in backend.
+                this.notes.forEach(function(note) {
+                    if (response.data.notes.indexOf(note.id) !== -1) {
+                        note.deleted_at = response.data.deleted_at
+                    }
+                })
+
                 // Delete notebook from notebooks array
                 let index = this.notebooks.findIndex(nb => nb.id === notebook.id)
-                console.log('index:', index)
                 this.notebooks.splice(index, 1)
             })
         },
@@ -505,3 +665,14 @@ var vueApp = new Vue({
 
     }
 })
+
+
+//
+// console.log(tinymce.get('editor'))
+// tinymce.get('editor').setup = function(ed) {
+//     // console.log('tinymce setup.')
+//     ed.on('keyup change redo undo', function(e) {
+//         // Update content backend
+//         vueApp.set_content(vueApp.getActiveNote(), ed.getContent())
+//     });
+// }

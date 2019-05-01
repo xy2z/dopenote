@@ -100,6 +100,11 @@ nav .nav-notebooks a.sortable-ghost {
 	border-left: 4px solid #f93;
 }
 
+.notes-list .empty-note-list {
+	text-align: center;
+	color: #999;
+}
+
 
 /* nav bottom links */
 .nav-bottom-links {

@@ -8,8 +8,11 @@ Route::post('/note/create', 'NoteController@create');
 // Validate user has access to change note.
 Route::middleware(['can:update,note'])->group(function () {
 	Route::post('/note/{note}/delete', 'NoteController@delete');
+	Route::post('/note/{note}/perm_delete', 'NoteController@perm_delete');
+	Route::post('/note/{note}/restore', 'NoteController@restore');
 	Route::post('/note/{note}/toggle_star', 'NoteController@toggle_star');
 	Route::post('/note/{note}/set_title', 'NoteController@set_title');
+	Route::post('/note/{note}/set_notebook', 'NoteController@set_notebook');
 	Route::post('/note/{note}/set_content', 'NoteController@set_content');
 });
 
@@ -34,3 +37,9 @@ Route::get('/user/logout', function() {
 
 // Auth routes for login, register, reset password, etc.
 Auth::routes();
+
+
+// Route bindings
+Route::bind('note', function ($id) {
+	return \App\Note::withTrashed()->find($id);
+});

@@ -26,9 +26,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>
 
     {{-- Custom scripts --}}
-    <script src="/js/vue_init.js"></script>
-    <script src="/js/tinymce_init.js"></script>
     <script src="/js/editor.js"></script>
+    <script src="/js/tinymce_init.js"></script>
+    <script src="/js/vue_init.js"></script>
 @endsection
 
 @section('content')
@@ -108,16 +108,20 @@
 				v-if="active_notebook_id"
 				:disabled="waiting_for_ajax">New Note</button>
 
-			<a
-				v-for="note in notes"
-				{{-- v-if="note.notebook_id === active_notebook_id" --}}
-				v-if="render_note_in_list(note)"
-				:href="'#/note/' + note.id"
-				v-on:click="view_note(note)"
-				v-bind:class="get_note_class(note)"
-				>
-				@{{ get_note_title(note) }}
-			</a>
+
+			<div v-if="get_note_list().length">
+				<a
+					v-for="note in get_note_list()"
+					:href="'#/note/' + note.id"
+					v-on:click="view_note(note)"
+					v-bind:class="get_note_class(note)"
+					>
+					@{{ get_note_title(note) }}
+				</a>
+			</div>
+			<div class="empty-note-list" v-else>
+				@{{ get_empty_note_list_text() }}
+			</div>
 
 		</div>
 
@@ -125,13 +129,30 @@
 		{{-- Note Content Editor --}}
 		<div id="note" v-if="notes.length">
 			<div id="actions" v-if="notes.length">
-				<button v-on:click="toggle_star(getActiveNote())" :disabled="waiting_for_ajax" v-bind:class="getStarClass(getActiveNote())">&star;</button>
-				<button v-on:click="delete_note(getActiveNote())" :disabled="waiting_for_ajax">Delete Note</button>
+				{{-- Buttons for active notes --}}
+				<span v-if="getActiveNote() && getActiveNote().deleted_at === null">
+					<button v-on:click="toggle_star(getActiveNote())" :disabled="waiting_for_ajax" v-bind:class="getStarClass(getActiveNote())">&star;</button>
+					<button v-on:click="delete_note(getActiveNote())" :disabled="waiting_for_ajax">Delete Note</button>
+				</span>
+
+				{{-- Buttons for deleted notes --}}
+				<span v-if="getActiveNote() && getActiveNote().deleted_at">
+					<button v-on:click="restore_note(getActiveNote())" :disabled="waiting_for_ajax">Restore</button>
+					<button v-on:click="perm_delete_note(getActiveNote())" :disabled="waiting_for_ajax">Delete forever</button>
+				</span>
 			</div>
 			<br />
 
 			<div class="note-title">
-				<input type="text" ref="note_title" v-if="getActiveNote()" v-model="getActiveNote().title" @change="set_title(getActiveNote())" placeholder="New note" />
+				<input
+					type="text"
+					ref="note_title"
+					v-if="getActiveNote()"
+					v-model="getActiveNote().title"
+					:disabled="getActiveNote().deleted_at"
+					@change="set_title(getActiveNote())"
+					placeholder="New note"
+				/>
 			</div>
 
 			<div class="note-content" v-if="getActiveNote()">
