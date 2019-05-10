@@ -18,14 +18,23 @@ class Notebook extends Model {
 	public static function get_last_sort_order(int $user_id) {
 		return static::where('user_id', $user_id)->max('sort_order');
 	}
+	/**
+	*The user of the notebook
+	*
+	*@return \Illuminate\Database\Eloquent\Relations\belongsTo
+	*/
 
-	public function user()
-	{
+	public function user(){
 		return $this->belongsTo(User::class);
 	}
 
-	public function path()
-	{
+	/**
+	*Get the path to the notebook
+	*
+	*@return string
+	*/
+
+	public static function path(){
 		return "/notebook/{ notebook }";
 	}
 }

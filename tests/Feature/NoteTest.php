@@ -18,8 +18,7 @@ class NoteTest extends TestCase
      */
 
      /** @test */
-     public function an_authorized_user_can_create_a_note()
-     {
+     public function an_authorized_user_can_create_a_note(){
          $notebook = factory(Notebook::class)->create();
          $note = factory(Note::class)->create();
          $this->actingAs($notebook->user)
@@ -35,24 +34,21 @@ class NoteTest extends TestCase
      }
 
      /** @test */
-    public function an_unauthorized_user_cannot_access_a_note()
-    {
+    public function an_unauthorized_user_cannot_access_a_note(){
         $note = factory(Note::class)->create();
         $this->post('/note/create', $note->toArray())
         ->assertRedirect('/login');
     }
 
     /** @test */
-    public function perm_delete_Note()
-    {
+    public function perm_delete_note(){
         $note = factory(Note::class)->create();
         $response = $this->call('post', $note->path().'/perm_delete');
         $this->assertEquals(302, $response->getStatusCode());
     }
 
     /** @test */
-    public function deleteNote()
-    {
+    public function delete_note(){
         $this->withoutMiddleware();
         $note = factory(Note::class)->create();
         $response = $this->call('POST', $note->path().'/delete');
@@ -60,39 +56,37 @@ class NoteTest extends TestCase
     }
 
     /** @test */
-    public function set_content_Note()
-    {
+    public function set_content_note(){
         $note = factory(Note::class)->create();
         $response = $this->call('post', $note->path().'/set_content');
         $this->assertEquals(302, $response->getStatusCode());
     }
+
     /** @test */
-    public function set_notebook_Note()
-    {
+    public function set_notebook_note(){
         $note = factory(Note::class)->create();
         $response = $this->call('post', $note->path().'/set_notebook');
         $this->assertEquals(302, $response->getStatusCode());
     }
+
     /** @test */
-    public function set_title_Note()
-    {
+    public function set_title_note(){
         $note = factory(Note::class)->create();
         $response = $this->call('post', $note->path().'/set_title');
         $this->assertEquals(302, $response->getStatusCode());
     }
+
     /** @test */
-    public function toggle_star_Note()
-    {
+    public function toggle_star_note(){
         $note = factory(Note::class)->create();
         $response = $this->call('post', $note->path().'/toggle_star');
         $this->assertEquals(302, $response->getStatusCode());
     }
+    
     /** @test */
-    public function restore_Note()
-    {
+    public function restore_note(){
         $note = factory(Note::class)->create();
         $response = $this->call('post', $note->path().'/restore');
         $this->assertEquals(302, $response->getStatusCode());
     }
-
 }

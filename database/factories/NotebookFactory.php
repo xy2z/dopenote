@@ -11,7 +11,7 @@ $factory->define(Notebook::class, function (Faker $faker) {
         'title' => $faker->sentence(4),
         'sort_order' => $faker->randomDigit,
         'user_id' => function(){
-         return factory(User::class)->create()->id;
+            return factory(User::class)->create()->id;
         }
     ];
 });

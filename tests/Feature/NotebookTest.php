@@ -18,8 +18,7 @@ class NotebookTest extends TestCase
      */
 
      /** @test */
-    public function an_authorized_user_can_create_a_notebook() // can create
-    {
+    public function an_authorized_user_can_create_a_notebook(){
         $notebook = factory(Notebook::class)->create();
         $this->actingAs($notebook->user)
         ->post('/notebook/create', $notebook->toArray())
@@ -31,8 +30,7 @@ class NotebookTest extends TestCase
     }
 
     /** @test */
-    public function a_notebook_attributes_can_be_persisted_to_db()
-    {
+    public function a_notebook_attributes_can_be_persisted_to_db(){
         $notebook = factory(Notebook::class)->create();
         $this->actingAs($notebook->user)
         ->post($notebook->path(), $attributes = [
@@ -40,40 +38,35 @@ class NotebookTest extends TestCase
             'sort_order' => $notebook->sort_order,
             'user_id' => $notebook->user_id
         ]);
-         $this->assertDatabaseHas('notebooks', $attributes);
+        $this->assertDatabaseHas('notebooks', $attributes);
     }
 
     /** @test */
-    public function an_unathorized_user_cannot_create_a_notebook()
-    {
+    public function an_unathorized_user_cannot_create_a_notebook(){
         $notebook = factory(Notebook::class)->create();
         $this->post('/notebook/create', $notebook->toArray())
         ->assertRedirect('/login');
     }
 
     /** @test */
-    public function delete_Notebook()
-    {
+    public function delete_notebook(){
         $notebook = factory(Notebook::class)->create();
         $response = $this->call('post', $notebook->path().'/delete');
         $this->assertEquals(302, $response->getStatusCode());
     }
 
     /** @test */
-    public function rename_Notebook()
-    {
+    public function rename_notebook(){
         $notebook = factory(Notebook::class)->create();
         $response = $this->call('post', $notebook->path().'/rename');
         $this->assertEquals(302, $response->getStatusCode());
     }
 
     /** @test */
-    public function an_authorized_user_cannot_update_a_sort_order()
-    {
+    public function an_authorized_user_cannot_update_a_sort_order(){
         $notebook = factory(Notebook::class)->create();
         $this->actingAs($notebook->user)
         ->post('/notebook/update_sort_order')
         ->assertStatus(403);
     }
-
 }

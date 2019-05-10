@@ -37,7 +37,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    /**
+    *The user has many notebooks
+    *
+    *@return \Illuminate\Database\Eloquent\Relations\hasMany
+    */
     public function notebooks()
     {
         $this->hasMany(Notebook::class)->orderBy('updated_at');
