@@ -31,8 +31,8 @@
 										required
 										autofocus
 										value="{{ old('email') }}"
-										class="input {{ $errors->has('email') ? ' is-danger' : '' }}
-									">
+										class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
+									>
 									<span class="icon is-small is-left">
 										<i class="fas fa-envelope"></i>
 									</span>
@@ -52,8 +52,8 @@
 										name="password"
 										placeholder="Password"
 										required
-										class="input {{ $errors->has('password') ? ' is-danger' : '' }}
-									">
+										class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
+									>
 									<span class="icon is-small is-left">
 										<i class="fas fa-lock"></i>
 									</span>

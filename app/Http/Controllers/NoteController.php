@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Note;
 use App\Notebook;
+use App\UserSettings;
 
 /**
  * Note controller
@@ -28,6 +29,7 @@ class NoteController extends Controller {
 	public function app(Note $note) {
 		$notebooks = Notebook::where('user_id', Auth::id())->orderBy('sort_order')->get();
 		$notes = Note::where('user_id', Auth::id())->withTrashed()->orderByDesc('id')->get();
+		$user_settings = UserSettings::get(Auth::id());
 
 		return view('app', [
 			'app_data' => [
@@ -36,7 +38,8 @@ class NoteController extends Controller {
 				'waiting_for_ajax' => false,
 				'notes' => $notes,
 				'notebooks' => $notebooks,
-			]
+			],
+			'user_settings' => $user_settings,
 		]);
 	}
 

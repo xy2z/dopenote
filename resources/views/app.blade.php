@@ -5,21 +5,28 @@
     <link rel="stylesheet" href="/css/nav.css" />
     <link rel="stylesheet" href="/css/editor.css" />
     <link rel="stylesheet" href="/css/buttons.css" />
+
+    {{-- User settings styles --}}
+    <style>
+    	.tox-edit-area {
+    		font-family: '{{ $user_settings->font_family }}' !important;
+    	}
+    </style>
 @endsection
 
 @section('scripts')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/{{ Config::get('versions.vue') }}/vue.min.js"></script>
 
     {{-- Vue context menu --}}
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-simple-context-menu/dist/vue-simple-context-menu.css">
-    <script src="https://unpkg.com/vue-simple-context-menu@3.1.3/dist/vue-simple-context-menu.min.js"></script>
+    <script src="https://unpkg.com/vue-simple-context-menu{{ '@' . Config::get('versions.vue-simple-context-menu') }}/dist/vue-simple-context-menu.min.js"></script>
 
     {{-- Sortable - Required by 'Vue.Draggable' --}}
-    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.3/Sortable.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sortablejs{{ '@' . Config::get('versions.sortable') }}/Sortable.min.js"></script>
 
     {{-- Vue.Draggable --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/15.0.0/vuedraggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/{{ Config::get('versions.vue_draggable') }}/vuedraggable.min.js"></script>
 
     {{-- Rich-text editor --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
@@ -107,7 +114,6 @@
 				v-on:click="create_note()"
 				v-if="active_notebook_id"
 				:disabled="waiting_for_ajax">New Note</button>
-
 
 			<div v-if="get_note_list().length">
 				<a

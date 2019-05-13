@@ -37,8 +37,8 @@
 												required
 												autofocus
 												value="{{ old('name') }}"
-												class="input {{ $errors->has('name') ? ' is-danger' : '' }}
-											">
+												class="input {{ $errors->has('name') ? ' is-danger' : '' }}"
+											>
 											<span class="icon is-small is-left">
 												<i class="fas fa-user"></i>
 											</span>
@@ -66,8 +66,8 @@
 												placeholder="Email"
 												required
 												value="{{ old('email') }}"
-												class="input {{ $errors->has('email') ? ' is-danger' : '' }}
-											">
+												class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
+											>
 											<span class="icon is-small is-left">
 												<i class="fas fa-envelope"></i>
 											</span>
@@ -95,8 +95,8 @@
 												placeholder="Password"
 												required
 												value="{{ old('password') }}"
-												class="input {{ $errors->has('password') ? ' is-danger' : '' }}
-											">
+												class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
+											>
 											<span class="icon is-small is-left">
 												<i class="fas fa-lock"></i>
 											</span>
@@ -124,8 +124,8 @@
 												placeholder="Re-enter Password"
 												required
 												value="{{ old('password_confirmation') }}"
-												class="input {{ $errors->has('password_confirmation') ? ' is-danger' : '' }}
-											">
+												class="input {{ $errors->has('password_confirmation') ? ' is-danger' : '' }}"
+											>
 											<span class="icon is-small is-left">
 												<i class="fas fa-lock"></i>
 											</span>
