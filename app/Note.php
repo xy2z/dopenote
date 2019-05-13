@@ -13,4 +13,14 @@ class Note extends Model {
 	public function notebook() {
 		return $this->belongsTo(Notebook::class);
 	}
+
+	/**
+	*Get the path to the note
+	*
+	*@return string
+	*/
+
+	public static function path(){
+		return "/note/{ note }";
+	}
 }
