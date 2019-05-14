@@ -25,6 +25,13 @@ hr {
 	width: 80%;
 }
 
+hr.bold {
+	background: rgba(0, 0, 0, 0.1);
+	height: 3px;
+	margin: 3em auto;
+
+}
+
 #status {
 	position: fixed;
 	top: 30px;
@@ -68,4 +75,29 @@ _:-ms-lang(x),
 		display: block !important;
 		font-size: 2em;
 	}
+}
+
+
+/* Bulma overwrites */
+.subtitle {
+	font-size: 1.4em;
+	color: #999;
+}
+
+.header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+
+a.title {
+	display: block;
+}
+
+.notification.is-success {
+	background: #48bb74;
+}
+
+.notification.is-danger {
+	background: #c56167;
 }

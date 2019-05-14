@@ -47,8 +47,8 @@
 												placeholder="Email"
 												required
 												value="{{ old('email') }}"
-												class="input {{ $errors->has('email') ? ' is-danger' : '' }}
-											">
+												class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
+											>
 											<span class="icon is-small is-left">
 												<i class="fas fa-envelope"></i>
 											</span>

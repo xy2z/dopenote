@@ -6,6 +6,23 @@ return [
     'version' => '1.0.0-alpha.1',
     'github_url' => 'https://github.com/xy2z/dopenote',
 
+    // Fonts
+    'fonts' => [
+        'Arial',
+        'Verdana',
+        'Helvetica',
+        'Times New Roman',
+        'Courier New',
+        'Tahoma',
+        'Georgia',
+    ],
+
+    // Default user settings.
+    'default_user_settings' => (object) [
+        'font_size' => 12, // px
+        'font_family' => 'Verdana',
+        'line_height' => 1.5, // em
+    ],
 
 
     /*
