@@ -8,6 +8,19 @@ Dopenote is a self-hosted notes webapp. The first releases will be very basic, a
 
 Join the [Dopenote Discord server](https://discord.gg/6VkYFwF).
 
+## Current Features
+
+- Fast (all note actions are done via ajax)
+- Multiple users
+- Notebooks (folders)
+- Notes
+- Rich text editor
+- Trash
+- Favorites
+
+Alot more features will come over time.
+
+
 ## Progress
 
 Follow the progress via [Milestones](https://github.com/xy2z/dopenote/milestones)
