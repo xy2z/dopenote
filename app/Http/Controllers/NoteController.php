@@ -51,7 +51,12 @@ class NoteController extends Controller {
 	 * @return array
 	 */
 	public function create(Request $request) {
-		// Todo: Validate $request->notebook_id is mine.
+		// Validate $request->notebook_id belongs to user.
+		if (!Notebook::belongs_to_user($request->notebook_id, Auth::id())) {
+			return [
+				'result' => false
+			];
+		}
 
 		$note = new Note;
 		$note->title = '';
