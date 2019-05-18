@@ -26,6 +26,8 @@ If you've found a vulnerability bug please email xy2z@pm.me instead of opening a
 
 ## Coding Style Guide
 
+Remember to use the `.editorconfig` file for your editor.
+
 ### General (php, js, html, css)
 - Encoding should always be UTF-8.
 - Use 1 tab for indenting, not spaces.
