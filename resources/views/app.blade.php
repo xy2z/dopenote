@@ -137,17 +137,39 @@
 			<div id="actions" v-if="notes.length">
 				{{-- Buttons for active notes --}}
 				<span v-if="getActiveNote() && getActiveNote().deleted_at === null">
-					<button v-on:click="toggle_star(getActiveNote())" :disabled="waiting_for_ajax" v-bind:class="getStarClass(getActiveNote())">&star;</button>
-					<button v-on:click="delete_note(getActiveNote())" :disabled="waiting_for_ajax">Delete Note</button>
+					<button
+						v-on:click="toggle_star(getActiveNote())"
+						:disabled="waiting_for_ajax"
+						class="note-action fas fa-star"
+						v-bind:class="getStarClass(getActiveNote())"
+						title="Star note"
+						></button>
+
+					<button
+						v-on:click="delete_note(getActiveNote())"
+						:disabled="waiting_for_ajax"
+						class="note-action fas fa-trash"
+						title="Trash note"
+						></button>
 				</span>
 
 				{{-- Buttons for deleted notes --}}
 				<span v-if="getActiveNote() && getActiveNote().deleted_at">
-					<button v-on:click="restore_note(getActiveNote())" :disabled="waiting_for_ajax">Restore</button>
-					<button v-on:click="perm_delete_note(getActiveNote())" :disabled="waiting_for_ajax">Delete forever</button>
+					<button
+						v-on:click="restore_note(getActiveNote())"
+						:disabled="waiting_for_ajax"
+						class="note-action fas fa-trash-restore"
+						title="Restore note"
+						></button>
+
+					<button
+						v-on:click="perm_delete_note(getActiveNote())"
+						:disabled="waiting_for_ajax"
+						title="Permanently delete note"
+						class="note-action fas fa-trash-alt red"
+						></button>
 				</span>
 			</div>
-			<br />
 
 			<div class="note-title">
 				<input

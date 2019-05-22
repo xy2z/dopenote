@@ -486,8 +486,7 @@ var vueApp = new Vue({
          */
         getStarClass: function(note) {
             return {
-                'star': true,
-                'starred': note && note.starred
+                'starred': note && note.starred,
             }
         },
 
