@@ -1,10 +1,10 @@
 @extends('assets.layout')
 
 @section('styles')
-	<link rel="stylesheet" href="/css/layout.css" />
-	<link rel="stylesheet" href="/css/nav.css" />
-	<link rel="stylesheet" href="/css/editor.css" />
-	<link rel="stylesheet" href="/css/buttons.css" />
+	<link rel="stylesheet" href="/css/layout.css">
+	<link rel="stylesheet" href="/css/nav.css">
+	<link rel="stylesheet" href="/css/editor.css">
+	<link rel="stylesheet" href="/css/buttons.css">
 
 	{{-- User settings styles --}}
 	<style>
@@ -60,7 +60,7 @@
 
 			<button class="action center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
-			<hr />
+			<hr>
 
 			{{-- Views: Starred, trash --}}
 			<div class="nav-notebooks">
@@ -72,7 +72,7 @@
 				</a>
 			</div>
 
-			<br />
+			<br>
 
 			{{-- List Notebooks --}}
 			<div class="nav-notebooks-header">Notebooks</div>
@@ -91,11 +91,11 @@
 				</a>
 			</draggable>
 
-			<br />
-			<br />
-			<hr />
-			<br />
-			<br />
+			<br>
+			<br>
+			<hr>
+			<br>
+			<br>
 
 			<div class="nav-bottom-links">
 				<span>Signed in as <strong>{{ Auth::user()->name }}</strong></span>
@@ -180,7 +180,7 @@
 					:disabled="getActiveNote().deleted_at"
 					@change="set_title(getActiveNote())"
 					placeholder="New note"
-				/>
+				>
 			</div>
 
 			<div class="note-content" v-if="getActiveNote()">

@@ -1,7 +1,7 @@
 @extends('assets.layout')
 
 @section('styles')
-		<link rel="stylesheet" href="/css/layout.css" />
+		<link rel="stylesheet" href="/css/layout.css">
 @endsection
 
 @section('scripts')
@@ -48,7 +48,7 @@
 					])
 				</fieldset>
 
-				<hr class="bold" />
+				<hr class="bold">
 
 				<h2 class="subtitle">Change Password</h2>
 				<fieldset class="content">
@@ -71,7 +71,7 @@
 					])
 				</fieldset>
 
-				<hr class="bold" />
+				<hr class="bold">
 
 				<h2 class="subtitle">Editor Settings (todo)</h2>
 				<fieldset class="content">

@@ -3,7 +3,7 @@
 @section('title', __('Forgot Password'))
 
 @section('styles')
-	<link rel="stylesheet" href="/css/layout.css" />
+	<link rel="stylesheet" href="/css/layout.css">
 @endsection
 
 @section('content')
@@ -31,7 +31,7 @@
 							<p class="has-text-grey">
 								Enter the email address associated with your Dopenote account, then click Continue.
 							</p>
-							<br />
+							<br>
 
 							{{-- Email --}}
 							<div class="field is-horizontal">

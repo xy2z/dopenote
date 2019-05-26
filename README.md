@@ -1,4 +1,4 @@
-<p align="center"><img title="Dopenote" alt="Dopenote" src="https://i.imgur.com/CaXtfc4.png" /></p>
+<p align="center"><img title="Dopenote" alt="Dopenote" src="https://i.imgur.com/CaXtfc4.png"></p>
 
 # Dopenote
 

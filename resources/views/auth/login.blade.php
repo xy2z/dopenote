@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('styles')
-	<link rel="stylesheet" href="/css/layout.css" />
+	<link rel="stylesheet" href="/css/layout.css">
 @endsection
 
 @section('content')
@@ -71,8 +71,8 @@
 								{{ __('Remember me') }}
 							</label>
 
-							<br />
-							<br />
+							<br>
+							<br>
 
 							{{-- Submit --}}
 							<div class="field">
