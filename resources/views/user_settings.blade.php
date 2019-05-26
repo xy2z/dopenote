@@ -5,8 +5,8 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/{{ Config::get('versions.jquery') }}/jquery.min.js"></script>
-    <script src="/js/form.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/{{ Config::get('versions.jquery') }}/jquery.min.js"></script>
+	<script src="/js/form.js"></script>
 @endsection
 
 @section('content')
