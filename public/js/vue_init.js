@@ -545,7 +545,7 @@ var vueApp = new Vue({
                 return 'No deleted notes'
             }
 
-            return 'Nothing here...'
+            return 'Empty.'
         },
 
         /**
