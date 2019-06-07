@@ -60,7 +60,7 @@
 
 			<button class="action center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
-			<hr>
+			<hr class="center">
 
 			{{-- Views: Starred, trash --}}
 			<div class="nav-notebooks">
@@ -92,9 +92,7 @@
 			</draggable>
 
 			<br>
-			<br>
-			<hr>
-			<br>
+			<hr class="center">
 			<br>
 
 			<div class="nav-bottom-links">
