@@ -11,8 +11,7 @@ class CreateNotebooks extends Migration
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
+	public function up() {
 		Schema::create('notebooks', function (Blueprint $table) {
 			$table->increments('id');
 			$table->unsignedInteger('user_id');
@@ -27,8 +26,7 @@ class CreateNotebooks extends Migration
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
 		Schema::dropIfExists('notebooks');
 	}
 }

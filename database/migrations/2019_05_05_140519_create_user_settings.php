@@ -11,8 +11,7 @@ class CreateUserSettings extends Migration
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
+	public function up() {
 		Schema::create('user_settings', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->unsignedInteger('user_id')->unique();
@@ -30,8 +29,7 @@ class CreateUserSettings extends Migration
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
 		Schema::dropIfExists('user_settings');
 	}
 }

@@ -11,8 +11,7 @@ class NotebookIdOnNotes extends Migration
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
+	public function up() {
 		Schema::table('notes', function (Blueprint $table) {
 			$table->unsignedInteger('notebook_id')->after('deleted_at');
 		});
@@ -23,8 +22,7 @@ class NotebookIdOnNotes extends Migration
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
 		//
 	}
 }
