@@ -53,6 +53,7 @@
 
 
 		{{-- Notebooks Sidebar --}}
+		<div class="nav-wrap">
 		<nav>
 			<div class="logo-wrapper">
 				<a class="logo ondark is-small" href="/">Dopenote</a>
@@ -72,7 +73,7 @@
 				</a>
 			</div>
 
-			<br>
+			<br> <!-- do we need this? -->
 
 			{{-- List Notebooks --}}
 			<div class="nav-notebooks-header">Notebooks</div>
@@ -130,9 +131,14 @@
 			</div>
 
 		</div>
+		</div><!-- end nav wrapper - for off screen nav toggle -->
 
 
 		{{-- Note Content Editor --}}
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger"></label>
+<div class="site-wrap">
+		
 		<div id="note" v-if="notes.length">
 			<div id="actions" v-if="notes.length">
 				{{-- Buttons for active notes --}}
@@ -198,6 +204,7 @@
 		</vue-simple-context-menu>
 
 	</div>
+	</div><!-- site-wrap end -->
 
 	<script>
 		var app_data = @json($app_data)
