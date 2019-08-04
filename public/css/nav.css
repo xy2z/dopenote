@@ -34,7 +34,7 @@ nav {
   z-index: 1;
   
   /* non-critical apperance styles */
-  padding:0 4em 2em;
+  padding:2em 4em 2em;
 }
 
 /* Nav Trigger */
@@ -100,6 +100,7 @@ nav .nav-notebooks-header {
 	font-weight: bold;
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	border-bottom: 1px solid rgba(0, 0, 0, 1);
+	
 }
 
 nav .nav-notebooks a {
@@ -172,7 +173,8 @@ nav .nav-notebooks a.sortable-ghost {
 
 /* nav bottom links */
 .nav-bottom-links {
-	padding-left: 30px;
+    padding-left: 30px;
+    margin-top: 1em;
 }
 
 .nav-bottom-links a,
@@ -194,4 +196,81 @@ nav .nav-notebooks a.sortable-ghost {
 
 .nav-bottom-links a:hover {
 	color: #999;
+}
+nav {
+    top: 0;
+    flex-shrink: 0;
+    width: 225px;
+    background: #333;
+    padding-top: 30px;
+    color: #eee;
+    height: 100%;
+    position: fixed;
+}
+.newnotebook {
+    background: #535353;
+    border: 0;
+    border-radius: 0;
+    font-weight: 500;
+    padding: 2em;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-size: 11px;
+    color: #e3e3e3;
+    cursor: pointer;
+    transition: background .17s ease;
+}
+nav button.newnotebook:hover { background: #5e5e5e; }
+.notes-list {
+    margin-left: 225px;
+    top: 0;
+    height: 100%;
+    width: 260px;
+    background: #f5f5f5;
+    padding-top: 6em;
+}
+.notes-list button.newnote {
+    background: #e0e1df;
+    border: 0;
+    border-radius: 0;
+    font-weight: 500;
+    padding: 2em;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-size: 11px;
+    color: #6f6f6f;
+    cursor: pointer;
+    transition: background .12s ease;
+}
+.notes-list button.newnote:hover { background: #e7e8e7; }
+
+.notes-list a {
+    display: block;
+    padding: 2em;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e5e6e5;
+    letter-spacing: -.01rem;
+    transition:background .076s ease,color .4s ease;
+    color: #999;
+    font-size: 0.9em;
+}
+.notes-list a.active {
+    background: #e6e6e6;
+    color: inherit;
+    font-weight: 600;
+    letter-spacing: -.01rem;
+}
+/* .notes-list a.starred { border-left:0; box-shadow: inset 5px 0 0 #00ff04; } keep orange */
+/* empty note list message font size + spacing */
+.notes-list .empty-note-list {
+    text-align: center;
+    color: #999;
+    padding: 2.5em;
+    font-size: 1.5em;
 }
