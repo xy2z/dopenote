@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="/css/nav.css">
 	<link rel="stylesheet" href="/css/editor.css">
 	<link rel="stylesheet" href="/css/buttons.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/0.3.0/tippy.css">
 
 	{{-- User settings styles --}}
 	<style>
@@ -31,11 +32,18 @@
 	{{-- Rich-text editor --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>
-
+	
+	{{-- tooltips --}}
+	<script src="https://unpkg.com/popper.js"></script> <!-- tippy uses popper as a depedency -->
+	<script src="https://unpkg.com/tippy.js"></script>
+	
 	{{-- Custom scripts --}}
 	<script src="/js/editor.js"></script>
 	<script src="/js/tinymce_init.js"></script>
 	<script src="/js/vue_init.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/tippy.js"></script>
+	<script src="/js/tippy_settings.js"></script>
 @endsection
 
 @section('content')
@@ -59,7 +67,7 @@
 				<a class="logo ondark is-small" href="/">Dopenote</a>
 			</div>
 
-			<button class="action center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
+			<button class="newnotebook center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
 			<hr>
 
@@ -92,26 +100,19 @@
 				</a>
 			</draggable>
 
-			<br>
-			<br>
-			<hr>
-			<br>
-			<br>
-
 			<div class="nav-bottom-links">
 				<span>Signed in as <strong>{{ Auth::user()->name }}</strong></span>
 				{{-- <a href="{{ Config::get('app.github_url') }}">Dopenote v{{ Config::get('app.version') }}</a> --}}
 				<a href="{{ route('user_settings') }}">User Settings</a>
 				<a href="{{ route('user_logout') }}">Log Out</a>
 			</div>
-
 		</nav>
 
 
 		{{-- List Notes --}}
 		<div class="notes-list">
 			<button
-				class="action center"
+				class="newnote center"
 				v-on:click="create_note()"
 				v-if="active_notebook_id"
 				:disabled="waiting_for_ajax">New Note</button>
@@ -143,37 +144,14 @@
 			<div id="actions" v-if="notes.length">
 				{{-- Buttons for active notes --}}
 				<span v-if="getActiveNote() && getActiveNote().deleted_at === null">
-					<button
-						v-on:click="toggle_star(getActiveNote())"
-						:disabled="waiting_for_ajax"
-						class="note-action fas fa-star"
-						v-bind:class="getStarClass(getActiveNote())"
-						title="Star note"
-						></button>
-
-					<button
-						v-on:click="delete_note(getActiveNote())"
-						:disabled="waiting_for_ajax"
-						class="note-action fas fa-trash"
-						title="Trash note"
-						></button>
+					<button v-on:click="toggle_star(getActiveNote())":disabled="waiting_for_ajax" class="note-action tippy fas fa-star" v-bind:class="getStarClass(getActiveNote())" title="Star Note"></button>
+					<button v-on:click="delete_note(getActiveNote())":disabled="waiting_for_ajax" class="note-action tippy fas fa-trash" title="Delete Note"></button>
 				</span>
 
 				{{-- Buttons for deleted notes --}}
 				<span v-if="getActiveNote() && getActiveNote().deleted_at">
-					<button
-						v-on:click="restore_note(getActiveNote())"
-						:disabled="waiting_for_ajax"
-						class="note-action fas fa-trash-restore"
-						title="Restore note"
-						></button>
-
-					<button
-						v-on:click="perm_delete_note(getActiveNote())"
-						:disabled="waiting_for_ajax"
-						title="Permanently delete note"
-						class="note-action fas fa-trash-alt red"
-						></button>
+					<button v-on:click="restore_note(getActiveNote())":disabled="waiting_for_ajax" class="note-action tippy fas fa-trash-restore" title="Restore Note"></button>
+					<button v-on:click="perm_delete_note(getActiveNote())":disabled="waiting_for_ajax" class="note-action tippy fas fa-trash-alt red" title="Permanently Delete Note"></button>
 				</span>
 			</div>
 
@@ -185,8 +163,7 @@
 					v-model="getActiveNote().title"
 					:disabled="getActiveNote().deleted_at"
 					@change="set_title(getActiveNote())"
-					placeholder="New note"
-				>
+					placeholder="New Note">
 			</div>
 
 			<div class="note-content" v-if="getActiveNote()">
@@ -207,6 +184,6 @@
 	</div><!-- site-wrap end -->
 
 	<script>
-		var app_data = @json($app_data)
+	var app_data = @json($app_data)
 	</script>
 @endsection
