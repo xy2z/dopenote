@@ -43,6 +43,7 @@
 	font-size: 1.2em;
 	cursor: pointer;
 	color: rgba(0, 0, 0, 0.5);
+    margin-right: .5em;
 }
 
 #note .note-action.red {
