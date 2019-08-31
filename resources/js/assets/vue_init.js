@@ -1,3 +1,15 @@
+window.Vue = require('vue');
+window.axios = require('axios');
+
+// Import components
+// vue-simple-context-menu: Used for renaming and deleting notebooks in the sidebar.
+import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
+import VueSimpleContextMenu from 'vue-simple-context-menu'
+
+// Draggable: Used for sorting notebooks in the sidebar.
+import draggable from 'vuedraggable'
+
+
 // Views (starred, trash)
 app_data.active_view_label = null;
 app_data.views = [
@@ -30,6 +42,10 @@ app_data.notebook_context_menu = [
 
 var vueApp = new Vue({
     el: "#app",
+    components: {
+    	'vue-simple-context-menu': VueSimpleContextMenu,
+    	draggable,
+    },
     data: app_data,
 
     mounted: function() {
@@ -311,7 +327,6 @@ var vueApp = new Vue({
 
                 // Remove note from array.
                 let note_index = this.notes.indexOf(note)
-                console.log('index', note_index)
                 this.notes.splice(note_index, 1)
 
                 this.view_note_after_deletion(note)
@@ -502,7 +517,8 @@ var vueApp = new Vue({
             if (split[1] == 'note') {
                 // Render note.
                 let note_id = parseInt(split[2])
-                if (note = this.getNoteByID(note_id)) {
+                var note = this.getNoteByID(note_id)
+                if (note) {
                     // this.active_note_id = note_id
                     this.view_note(note)
                 } else {
@@ -663,15 +679,9 @@ var vueApp = new Vue({
         },
 
     }
-})
+});
 
 
-//
-// console.log(tinymce.get('editor'))
-// tinymce.get('editor').setup = function(ed) {
-//     // console.log('tinymce setup.')
-//     ed.on('keyup change redo undo', function(e) {
-//         // Update content backend
-//         vueApp.set_content(vueApp.getActiveNote(), ed.getContent())
-//     });
-// }
+// vueApp.use(VueDraggable);
+
+export default vueApp;
