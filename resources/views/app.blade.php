@@ -165,7 +165,8 @@
 			</div>
 
 			<div class="note-content" v-if="getActiveNote()">
-				<textarea id="editor">@{{ getActiveNote().content }}</textarea>
+				{{-- <textarea id="editor">@{{ getActiveNote().content }}</textarea> --}}
+				<editor-content></editor-content>
 			</div>
 		</div>
 

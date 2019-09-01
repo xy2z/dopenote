@@ -9,6 +9,8 @@ import VueSimpleContextMenu from 'vue-simple-context-menu'
 // Draggable: Used for sorting notebooks in the sidebar.
 import draggable from 'vuedraggable'
 
+// Editor
+import EditorContent from '../components/EditorContent.vue'
 
 // Views (starred, trash)
 app_data.active_view_label = null;
@@ -45,6 +47,7 @@ var vueApp = new Vue({
     components: {
         'vue-simple-context-menu': VueSimpleContextMenu,
         draggable,
+        'editor-content': EditorContent
     },
     data: app_data,
 
