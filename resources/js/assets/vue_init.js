@@ -64,19 +64,19 @@ var vueApp = new Vue({
          */
         editor_init: function() {
             console.log('editor init.')
-            let editor = tinymce.get('editor')
+            // let editor = tinymce.get('editor')
 
             // Set editor to disabled if note is deleted.
             this.toggle_editor_disabled(this.getActiveNote())
 
             // Update content backend on change.
             var self = this
-            editor.on('keyup change redo undo', function(e) {
-                if (self.getActiveNote().deleted_at === null) {
-                    // Only allow update content if note is not deleted.
-                    vueApp.set_content(vueApp.getActiveNote(), editor.getContent())
-                }
-            });
+            // editor.on('keyup change redo undo', function(e) {
+            //     if (self.getActiveNote().deleted_at === null) {
+            //         // Only allow update content if note is not deleted.
+            //         vueApp.set_content(vueApp.getActiveNote(), editor.getContent())
+            //     }
+            // });
         },
 
         /**
@@ -200,12 +200,12 @@ var vueApp = new Vue({
             document.title = this.get_note_title(note) + ' | Dopenote'
             window.location.hash = '#/note/' + note.id
 
-            if (typeof tinymce !== 'undefined') {
-                if (tinymce.get('editor') !== null) {
-                    // "tinymce" variable is unset first time page loads.
-                    tinymce.get('editor').setContent(note.content)
-                }
-            }
+            // if (typeof tinymce !== 'undefined') {
+            //     if (tinymce.get('editor') !== null) {
+            //         // "tinymce" variable is unset first time page loads.
+            //         tinymce.get('editor').setContent(note.content)
+            //     }
+            // }
 
             this.toggle_editor_disabled(note)
         },
@@ -218,13 +218,13 @@ var vueApp = new Vue({
             // Disable editor (if note is deleted)
             let allow_edit_body = note.deleted_at ? 'false' : 'true'
 
-            if (tinymce.get('editor') === null) {
-                // tinymce is not initialized yet, this only happens on pageload.
-                // The 'editor_init' method will take care of that.
-                return
-            }
+            // if (tinymce.get('editor') === null) {
+            //     // tinymce is not initialized yet, this only happens on pageload.
+            //     // The 'editor_init' method will take care of that.
+            //     return
+            // }
 
-            tinymce.get('editor').getBody().setAttribute('contenteditable', allow_edit_body);
+            // tinymce.get('editor').getBody().setAttribute('contenteditable', allow_edit_body);
         },
 
         /**
