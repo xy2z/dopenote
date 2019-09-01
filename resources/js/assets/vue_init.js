@@ -43,8 +43,8 @@ app_data.notebook_context_menu = [
 var vueApp = new Vue({
     el: "#app",
     components: {
-    	'vue-simple-context-menu': VueSimpleContextMenu,
-    	draggable,
+        'vue-simple-context-menu': VueSimpleContextMenu,
+        draggable,
     },
     data: app_data,
 
@@ -63,6 +63,7 @@ var vueApp = new Vue({
          *
          */
         editor_init: function() {
+            console.log('editor init.')
             let editor = tinymce.get('editor')
 
             // Set editor to disabled if note is deleted.

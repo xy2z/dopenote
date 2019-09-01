@@ -15,13 +15,7 @@
 @endsection
 
 @section('scripts')
-	{{-- Rich-text editor --}}
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>
-
-	{{-- Custom scripts --}}
 	<script src="/js/editor.js"></script>
-	<script src="/js/tinymce_init.js"></script>
 	<script src="/js/app.js"></script>
 @endsection
 
