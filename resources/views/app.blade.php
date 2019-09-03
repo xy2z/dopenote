@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@php
+	$bulma_disable = true
+@endphp
+
 @section('styles')
 	<link rel="stylesheet" href="/css/layout.css">
 	<link rel="stylesheet" href="/css/nav.css">
@@ -165,8 +169,7 @@
 			</div>
 
 			<div class="note-content" v-if="getActiveNote()">
-				{{-- <textarea id="editor">@{{ getActiveNote().content }}</textarea> --}}
-				<editor-content></editor-content>
+				<editor-content ref="editor" id="editor"></editor-content>
 			</div>
 		</div>
 
