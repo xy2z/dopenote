@@ -1,3 +1,17 @@
+window.Vue = require('vue');
+window.axios = require('axios');
+
+// Import components
+// vue-simple-context-menu: Used for renaming and deleting notebooks in the sidebar.
+import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
+import VueSimpleContextMenu from 'vue-simple-context-menu'
+
+// Draggable: Used for sorting notebooks in the sidebar.
+import draggable from 'vuedraggable'
+
+// Editor
+import EditorContent from '../components/EditorContent.vue'
+
 // Views (starred, trash)
 app_data.active_view_label = null;
 app_data.views = [
@@ -30,15 +44,23 @@ app_data.notebook_context_menu = [
 
 var vueApp = new Vue({
     el: "#app",
+    components: {
+        'vue-simple-context-menu': VueSimpleContextMenu,
+        draggable,
+        'editor-content': EditorContent
+    },
     data: app_data,
 
     mounted: function() {
+        this.editor = this.$refs.editor.editor
         this.sort_notes()
         this.sort_notebooks()
-        this.load_note_from_hash();
+        this.load_note_from_hash()
+        this.editor_init()
 
         // On hash change
         window.onhashchange = this.onhashchange
+
     },
 
     methods: {
@@ -47,19 +69,12 @@ var vueApp = new Vue({
          *
          */
         editor_init: function() {
-            let editor = tinymce.get('editor')
-
-            // Set editor to disabled if note is deleted.
-            this.toggle_editor_disabled(this.getActiveNote())
+            var self = this
 
             // Update content backend on change.
-            var self = this
-            editor.on('keyup change redo undo', function(e) {
-                if (self.getActiveNote().deleted_at === null) {
-                    // Only allow update content if note is not deleted.
-                    vueApp.set_content(vueApp.getActiveNote(), editor.getContent())
-                }
-            });
+            this.editor.on('update', ({ getHTML }) => {
+                self.set_content(self.getActiveNote(), getHTML())
+            })
         },
 
         /**
@@ -183,12 +198,7 @@ var vueApp = new Vue({
             document.title = this.get_note_title(note) + ' | Dopenote'
             window.location.hash = '#/note/' + note.id
 
-            if (typeof tinymce !== 'undefined') {
-                if (tinymce.get('editor') !== null) {
-                    // "tinymce" variable is unset first time page loads.
-                    tinymce.get('editor').setContent(note.content)
-                }
-            }
+            this.editor.setContent(note.content)
 
             this.toggle_editor_disabled(note)
         },
@@ -199,15 +209,11 @@ var vueApp = new Vue({
          */
         toggle_editor_disabled: function(note) {
             // Disable editor (if note is deleted)
-            let allow_edit_body = note.deleted_at ? 'false' : 'true'
+            let allow_edit_body = note.deleted_at ? false : true
 
-            if (tinymce.get('editor') === null) {
-                // tinymce is not initialized yet, this only happens on pageload.
-                // The 'editor_init' method will take care of that.
-                return
-            }
-
-            tinymce.get('editor').getBody().setAttribute('contenteditable', allow_edit_body);
+            this.editor.setOptions({
+                editable: allow_edit_body,
+            })
         },
 
         /**
@@ -311,7 +317,6 @@ var vueApp = new Vue({
 
                 // Remove note from array.
                 let note_index = this.notes.indexOf(note)
-                console.log('index', note_index)
                 this.notes.splice(note_index, 1)
 
                 this.view_note_after_deletion(note)
@@ -502,7 +507,8 @@ var vueApp = new Vue({
             if (split[1] == 'note') {
                 // Render note.
                 let note_id = parseInt(split[2])
-                if (note = this.getNoteByID(note_id)) {
+                var note = this.getNoteByID(note_id)
+                if (note) {
                     // this.active_note_id = note_id
                     this.view_note(note)
                 } else {
@@ -663,15 +669,9 @@ var vueApp = new Vue({
         },
 
     }
-})
+});
 
 
-//
-// console.log(tinymce.get('editor'))
-// tinymce.get('editor').setup = function(ed) {
-//     // console.log('tinymce setup.')
-//     ed.on('keyup change redo undo', function(e) {
-//         // Update content backend
-//         vueApp.set_content(vueApp.getActiveNote(), ed.getContent())
-//     });
-// }
+// vueApp.use(VueDraggable);
+
+export default vueApp;

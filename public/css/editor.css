@@ -21,17 +21,28 @@
 	line-height: 1.4em;
 }
 
-#note #editor {
-	display: none;
+#note #editor h1,
+#note #editor h2,
+#note #editor h3,
+#note #editor h4 {
+	font-weight: normal;
 }
 
-#note .tox-tinymce {
-	border-left: 0;
-	border-right: 0;
-	border-bottom: 0;
+#note #editor h1 {
+	font-size: 2.1em;
 }
 
+#note #editor h2 {
+	font-size: 1.8em;
+}
 
+#note #editor h3 {
+	font-size: 1.5em;
+}
+
+#note #editor h4 {
+	font-size: 1.2em;
+}
 
 #note #actions {
 	margin-bottom: 0.5em;
