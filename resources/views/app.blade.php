@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@php
+	$bulma_disable = true
+@endphp
+
 @section('styles')
 	<link rel="stylesheet" href="/css/layout.css">
 	<link rel="stylesheet" href="/css/nav.css">
@@ -15,27 +19,8 @@
 @endsection
 
 @section('scripts')
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/{{ Config::get('versions.vue') }}/vue.min.js"></script>
-
-	{{-- Vue context menu --}}
-	<link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-simple-context-menu/dist/vue-simple-context-menu.css">
-	<script src="https://unpkg.com/vue-simple-context-menu{{ '@' . Config::get('versions.vue-simple-context-menu') }}/dist/vue-simple-context-menu.min.js"></script>
-
-	{{-- Sortable - Required by 'Vue.Draggable' --}}
-	<script src="//cdn.jsdelivr.net/npm/sortablejs{{ '@' . Config::get('versions.sortable') }}/Sortable.min.js"></script>
-
-	{{-- Vue.Draggable --}}
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/{{ Config::get('versions.vue_draggable') }}/vuedraggable.min.js"></script>
-
-	{{-- Rich-text editor --}}
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/tinymce.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.0/plugins/textpattern/plugin.min.js"></script>
-
-	{{-- Custom scripts --}}
 	<script src="/js/editor.js"></script>
-	<script src="/js/tinymce_init.js"></script>
-	<script src="/js/vue_init.js"></script>
+	<script src="/js/app.js"></script>
 @endsection
 
 @section('content')
@@ -182,7 +167,7 @@
 			</div>
 
 			<div class="note-content" v-if="getActiveNote()">
-				<textarea id="editor">@{{ getActiveNote().content }}</textarea>
+				<editor-content ref="editor" id="editor"></editor-content>
 			</div>
 		</div>
 

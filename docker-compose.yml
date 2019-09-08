@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - 8060:80
+    volumes:
+      - ./:/app
+      - ./docker/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+
+  db:
+    image: mariadb:10.3
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - "./storage/db:/var/lib/mysql"
