@@ -19,7 +19,6 @@
 @endsection
 
 @section('scripts')
-	<script src="/js/editor.js"></script>
 	<script src="/js/app.js"></script>
 @endsection
 

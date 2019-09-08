@@ -56,27 +56,13 @@ var vueApp = new Vue({
         this.sort_notes()
         this.sort_notebooks()
         this.load_note_from_hash()
-        this.editor_init()
+        this.editor_events()
 
         // On hash change
         window.onhashchange = this.onhashchange
-
     },
 
     methods: {
-        /**
-         * Called when the editor is loaded and ready
-         *
-         */
-        editor_init: function() {
-            var self = this
-
-            // Update content backend on change.
-            this.editor.on('update', ({ getHTML }) => {
-                self.set_content(self.getActiveNote(), getHTML())
-            })
-        },
-
         /**
          * Get current status
          *
@@ -666,6 +652,27 @@ var vueApp = new Vue({
             .then(response => {
                 this.waiting_for_ajax = false
             })
+        },
+
+        /**
+         * Handle events on editor and title fields
+         *
+         */
+        editor_events: function() {
+            var self = this
+
+            // Update content backend on change.
+            self.editor.on('update', ({ getHTML }) => {
+                self.set_content(self.getActiveNote(), getHTML())
+            })
+
+            // On key down on title
+            document.querySelector('.note-title input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    // Focus on editor'
+                    self.editor.focus()
+                }
+            });
         },
 
     }
