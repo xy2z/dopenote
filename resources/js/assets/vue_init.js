@@ -1,7 +1,8 @@
 window.Vue = require('vue');
-window.axios = require('axios');
 
-// Import components
+import Ajax from './Ajax.js'
+
+// Import Vue components
 // vue-simple-context-menu: Used for renaming and deleting notebooks in the sidebar.
 import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
 import VueSimpleContextMenu from 'vue-simple-context-menu'
@@ -52,6 +53,15 @@ var vueApp = new Vue({
     data: app_data,
 
     mounted: function() {
+        let self = this
+
+        Ajax.before_post = function() {
+            self.waiting_for_ajax = true
+        }
+        Ajax.after_post = function() {
+            self.waiting_for_ajax = false
+        }
+
         this.editor = this.$refs.editor.editor
         this.sort_notes()
         this.sort_notebooks()
@@ -212,17 +222,14 @@ var vueApp = new Vue({
                 return
             }
 
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/note/' + delete_note.id + '/delete')
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                this.view_note_after_deletion(delete_note)
-
-                delete_note.deleted_at = response.data.deleted_at
-                // this.toggle_editor_disabled(delete_note)
+            Ajax.post({
+                url: '/note/' + delete_note.id + '/delete',
+                success: function(response) {
+                    self.view_note_after_deletion(delete_note)
+                    delete_note.deleted_at = response.data.deleted_at
+                }
             })
         },
 
@@ -234,7 +241,7 @@ var vueApp = new Vue({
         view_note_after_deletion: function(delete_note) {
             let found = false
 
-            for (var note_id in this.notes) {
+            for (let note_id in this.notes) {
                 let note = this.notes[note_id]
 
                 if (note.id === delete_note.id) {
@@ -266,21 +273,20 @@ var vueApp = new Vue({
                 return
             }
 
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/note/' + note.id + '/restore')
-            .then(response => {
-                this.waiting_for_ajax = false
+            Ajax.post({
+                url: '/note/' + note.id + '/restore',
+                success: function(response) {
+                    // If note's notebook is deleted, then find and set a new notebook.
+                    if (!self.getNotebookByID(note.notebook_id)) {
+                        // Set notebook_id (TODO: Do it backend.)
+                        self.set_notebook_id_on_note(note, self.notebooks[0].id)
+                    }
 
-                // If note's notebook is deleted, then find a new notebook.
-                if (!this.getNotebookByID(note.notebook_id)) {
-                    // Set notebook_id (TODO: Do it backend.)
-                    this.set_notebook_id_on_note(note, this.notebooks[0].id)
+                    // Restore in vue.
+                    note.deleted_at = null
                 }
-
-                // Restore in vue.
-                note.deleted_at = null
             })
         },
 
@@ -294,35 +300,30 @@ var vueApp = new Vue({
                 return
             }
 
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/note/' + note.id + '/perm_delete')
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                // Remove note from array.
-                let note_index = this.notes.indexOf(note)
-                this.notes.splice(note_index, 1)
-
-                this.view_note_after_deletion(note)
-
-                // This should not be needed anymore.
-                // this.toggle_editor_disabled(note)
+            Ajax.post({
+                url: '/note/' + note.id + '/perm_delete',
+                success: function(response) {
+                    // Remove note from array.
+                    let note_index = self.notes.indexOf(note)
+                    self.notes.splice(note_index, 1)
+                    self.view_note_after_deletion(note)
+                }                
             })
         },
 
         set_notebook_id_on_note: function(note, notebook_id) {
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/note/' + note.id + '/set_notebook', {
-                notebook_id: notebook_id
-            })
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                note.notebook_id = notebook_id
+            Ajax.post({
+                url: '/note/' + note.id + '/set_notebook',
+                data: {
+                    notebook_id: notebook_id,
+                },
+                success: function(response) {
+                    note.notebook_id = notebook_id
+                }                
             })
         },
 
@@ -331,23 +332,23 @@ var vueApp = new Vue({
          *
          */
         create_note: function() {
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/note/create', {
-                notebook_id: this.active_notebook_id
-            })
-            .then(response => {
-                this.waiting_for_ajax = false
+            Ajax.post({
+                url: '/note/create',
+                data: {
+                    notebook_id: self.active_notebook_id
+                },
+                success: function(response) {
+                    let note = response.data.note
 
-                let note = response.data.note
+                    note.deleted_at = null
+                    self.notes.push(note)
+                    self.sort_notes()
+                    self.view_note(note)
 
-                note.deleted_at = null
-                this.notes.push(note)
-                this.sort_notes()
-                this.view_note(note)
-
-                this.$refs.note_title.focus()
+                    self.$refs.note_title.focus()
+                }                
             })
         },
 
@@ -356,20 +357,18 @@ var vueApp = new Vue({
          *
          */
         create_notebook: function() {
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/notebook/create',)
-            .then(response => {
-                this.waiting_for_ajax = false
+            console.log('create_notebook')
 
-                let notebook = response.data.notebook
-
-                this.notebooks.push(notebook)
-                // this.sort_notes()
-                // this.view_note(note)
-
-                // this.$refs.note_title.focus()
+            Ajax.post({
+                url: '/notebook/create',
+                success: function(response) {
+                    console.log(response)
+                    console.log(response.data)
+                    let notebook = response.data.notebook
+                    self.notebooks.push(notebook)
+                }                
             })
         },
 
@@ -388,16 +387,15 @@ var vueApp = new Vue({
          *
          */
         toggle_star: function(note) {
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/note/' + note.id + '/toggle_star')
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                note.starred = response.data.note.starred
-                note.updated_at = response.data.note.updated_at
-                this.sort_notes()
+            Ajax.post({
+                url: '/note/' + note.id + '/toggle_star',
+                success: function(response) {
+                    note.starred = response.data.note.starred
+                    note.updated_at = response.data.note.updated_at
+                    self.sort_notes()
+                }
             })
         },
 
@@ -406,17 +404,18 @@ var vueApp = new Vue({
          *
          */
         set_content: function(note, content) {
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios.post('/note/' + note.id + '/set_content', {
-                content: content
-            })
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                note.content = content
-                note.updated_at = response.data.note.updated_at
-                this.sort_notes()
+            Ajax.post({
+                url: '/note/' + note.id + '/set_content',
+                data: {
+                    content: content,
+                },
+                success: function(response) {
+                    note.content = content
+                    note.updated_at = response.data.note.updated_at
+                    self.sort_notes()
+                }
             })
         },
 
@@ -433,17 +432,17 @@ var vueApp = new Vue({
             // Update <title>
             document.title = this.get_note_title(note) + ' | Dopenote'
 
-            // Update Backend
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios.post('/note/' + note.id + '/set_title', {
-                title: note.title
-            })
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                note.updated_at = response.data.note.updated_at
-                this.sort_notes()
+            Ajax.post({
+                url: '/note/' + note.id + '/set_title',
+                data: {
+                    title: note.title
+                },
+                success: function(response) {
+                    note.updated_at = response.data.note.updated_at
+                    self.sort_notes()
+                }
             })
         },
 
@@ -489,11 +488,12 @@ var vueApp = new Vue({
             // Get note ID from URL hash
             let hash = window.location.hash
             let split = hash.split('/')
+            let view
 
             if (split[1] == 'note') {
                 // Render note.
                 let note_id = parseInt(split[2])
-                var note = this.getNoteByID(note_id)
+                let note = this.getNoteByID(note_id)
                 if (note) {
                     // this.active_note_id = note_id
                     this.view_note(note)
@@ -599,12 +599,14 @@ var vueApp = new Vue({
             notebook.title = new_title
 
             // Update backend
-            this.waiting_for_ajax = true
-            axios.post('/notebook/' + notebook.id + '/rename', {
-                title: new_title
-            })
-            .then(response => {
-                this.waiting_for_ajax = false
+            let self = this
+            Ajax.post({
+                url: '/notebook/' + notebook.id + '/rename',
+                data: {
+                    title: new_title
+                },
+                success: function(response) {
+                }
             })
         },
 
@@ -617,23 +619,22 @@ var vueApp = new Vue({
                 return
             }
 
-            this.waiting_for_ajax = true
+            let self = this
+            Ajax.post({
+                url: '/notebook/' + notebook.id + '/delete',
+                success: function(response) {
+                    // Delete notes in this notebook.
+                    // They are already deleted in backend.
+                    self.notes.forEach(function(note) {
+                        if (response.data.notes.indexOf(note.id) !== -1) {
+                            note.deleted_at = response.data.deleted_at
+                        }
+                    })
 
-            axios.post('/notebook/' + notebook.id + '/delete')
-            .then(response => {
-                this.waiting_for_ajax = false
-
-                // Delete notes in this notebook.
-                // They are already deleted in backend.
-                this.notes.forEach(function(note) {
-                    if (response.data.notes.indexOf(note.id) !== -1) {
-                        note.deleted_at = response.data.deleted_at
-                    }
-                })
-
-                // Delete notebook from notebooks array
-                let index = this.notebooks.findIndex(nb => nb.id === notebook.id)
-                this.notebooks.splice(index, 1)
+                    // Delete notebook from notebooks array
+                    let index = self.notebooks.findIndex(nb => nb.id === notebook.id)
+                    self.notebooks.splice(index, 1)
+                }
             })
         },
 
@@ -642,15 +643,14 @@ var vueApp = new Vue({
          *
          */
         notebooks_draggable_change: function(event) {
-            this.waiting_for_ajax = true
+            let self = this
 
-            axios
-            .post('/notebook/update_sort_order', {
-                old_index: event.oldIndex,
-                new_index: event.newIndex,
-            })
-            .then(response => {
-                this.waiting_for_ajax = false
+            Ajax.post({
+                url: '/notebook/update_sort_order',
+                data: {
+                    old_index: event.oldIndex,
+                    new_index: event.newIndex,
+                }
             })
         },
 
@@ -659,7 +659,7 @@ var vueApp = new Vue({
          *
          */
         editor_events: function() {
-            var self = this
+            let self = this
 
             // Update content backend on change.
             self.editor.on('update', ({ getHTML }) => {
