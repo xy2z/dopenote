@@ -33,4 +33,4 @@ Coming soon - this project is still a work in progress.
 
 ## Contributing
 
-Feel free to contribute! See the `CONTRIBUTING.md` file.
+Contributions are welcome! See https://dopenote.gitbook.io/docs/contributing
