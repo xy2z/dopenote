@@ -2,33 +2,16 @@
 
 # Dopenote
 
-**Work in Progress - Project started Feb. 2019**
+**Work in Progress - Project started Feb. 2019 - Expected release Oct/Nov 2019**
 
-Dopenote is a self-hosted notes webapp. The first releases will be very basic, and improve over time.
+Dopenote is a modern self-hosted note-taking webapp.
 
-Join the [Dopenote Discord server](https://discord.gg/6VkYFwF).
-
-## Current Features
-
-- Fast (all note actions are done via ajax)
-- Multiple users
-- Notebooks (folders)
-- Notes
-- Rich text editor
-- Trash
-- Favorites
-
-Alot more features will come over time.
+Read the [Docs](https://dopenote.gitbook.io/docs/) for features, install, contributing, etc.
 
 
 ## Progress
 
 Follow the progress via [Milestones](https://github.com/xy2z/dopenote/milestones)
-
-
-## Setup
-
-Coming soon - this project is still a work in progress.
 
 
 ## Contributing
