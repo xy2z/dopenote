@@ -359,13 +359,9 @@ var vueApp = new Vue({
         create_notebook: function() {
             let self = this
 
-            console.log('create_notebook')
-
             Ajax.post({
                 url: '/notebook/create',
                 success: function(response) {
-                    console.log(response)
-                    console.log(response.data)
                     let notebook = response.data.notebook
                     self.notebooks.push(notebook)
                 }                
@@ -490,12 +486,14 @@ var vueApp = new Vue({
             let split = hash.split('/')
             let view
 
-            if (split[1] == 'note') {
+            if (hash.length === 0) {
+                // Use 'active_note_id' sent from backend
+                this.view_note(this.getActiveNote())
+            } else if (split[1] == 'note') {
                 // Render note.
                 let note_id = parseInt(split[2])
                 let note = this.getNoteByID(note_id)
                 if (note) {
-                    // this.active_note_id = note_id
                     this.view_note(note)
                 } else {
                     alert('Note not found.')
