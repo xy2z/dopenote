@@ -4,7 +4,7 @@
 
 **Work in Progress - Project started Feb. 2019 - Expected release Oct/Nov 2019**
 
-Dopenote is a modern self-hosted note-taking webapp.
+Dopenote is a modern self-hosted note-taking webapp. Build in Laravel and Vue.js
 
 Read the [Docs](https://dopenote.gitbook.io/docs/) for features, install, contributing, etc.
 
