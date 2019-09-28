@@ -1,5 +1,9 @@
 <?php
 
+
+Route::get('redirect/{service}', 'Auth\LoginController@redirectToProvider');
+Route::get('callback/{service}', 'Auth\LoginController@handleProviderCallback');
+
 Route::middleware('auth')->group(function() {
 	Route::get('/', 'NoteController@app')->name('home');
 

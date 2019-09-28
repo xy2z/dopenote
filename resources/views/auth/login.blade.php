@@ -10,6 +10,15 @@
 	<section class="hero is-fullheight" style="background: #eee;">
 		<div class="hero-body">
 			<div class="container has-text-centered">
+			@if ($errors->any())
+    <div class="alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 				<header class="title logo">
 					Dopenote
 				</header>
@@ -83,7 +92,41 @@
 								</p>
 							</div>
 
+
 						</form>
+
+						<div style="margin-top: 10px">
+						@if(config()->has('services.facebook'))
+						<div  class="field">
+								<p class="control">
+								<button class="button is-fullwidth is-info">
+								<a style="color:white;" href="{{url('/redirect/facebook')}}"><i class="fab fa-facebook-f"></i> &nbsp; Login With Facebook
+								</a>
+								</button>
+								</p>
+						</div>
+						@endif
+
+						@if(config()->has('services.google'))
+							<div class="field">
+								<p class="control">
+								<button class="button is-fullwidth is-info">
+								<a style="color:white;" href="{{url('/redirect/google')}}"><i class="fab fa-google"></i> &nbsp; Login With Google
+								</a></button>
+								</p>
+							</div>
+							@endif
+
+							@if(config()->has('services.twitter'))
+							<div class="field">
+								<p class="control">
+								<button class="button is-fullwidth is-info">
+								<a style="color:white;" href="{{url('/redirect/twitter')}}"><i class="fab fa-twitter"></i> &nbsp;	Login With Twitter
+								</a>
+								</button>
+								</p>
+							</div>
+							@endif
 					</div>
 
 
