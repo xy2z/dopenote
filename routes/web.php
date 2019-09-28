@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function() {
 
 	// User: settings
 	Route::get('/user/settings', 'UserSettingsController@show')->name('user_settings');
+	Route::get('/user/settings/export', 'UserSettingsController@export')->name('user_settings_export');
 	Route::post('/user/settings', 'UserSettingsController@submit');
 
 
