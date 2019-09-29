@@ -72,6 +72,16 @@ class RegisterController extends Controller
 			return false;
 		}
 
+		self::create_new_user_note($user);
+
+		return $user;
+	}
+
+	/**
+	 * Create default note and notebook for a new user.
+	 *
+	 */
+	static public function create_new_user_note(User $user) {
 		// Create a default notebook
 		$notebook = Notebook::create([
 			'title' => 'My Notebook',
@@ -87,7 +97,5 @@ class RegisterController extends Controller
 			'content' => 'Thanks for trying out <strong>Dopenote</strong>!',
 			'starred' => true
 		]);
-
-		return $user;
 	}
 }
