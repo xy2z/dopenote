@@ -120,7 +120,7 @@ class UserSettingsController extends Controller
 		$zip->close();
 
 		// Return the zip file, and delete it afterwards
-		$fileName = 'archive_'.date('Y-m-d').'.zip';
+		$fileName = 'dopenote_archive_'.date('Y-m-d').'.zip';
 		return response()->download($temp, $fileName, [
 			'Content-Type' => 'application/zip',
 		])->deleteFileAfterSend();
