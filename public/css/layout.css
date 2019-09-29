@@ -105,11 +105,3 @@ a.title {
 .notification.is-danger {
 	background: #c56167;
 }
-
-.alert-danger{
-	color: white;
-    background-color: #c56167;
-    border-color: #ebccd1;
-    opacity: 1;
-    padding: 10px;
-}

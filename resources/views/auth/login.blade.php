@@ -3,116 +3,108 @@
 @section('title', 'Login')
 
 @section('styles')
-	<link rel="stylesheet" href="/css/layout.css">
+<link rel="stylesheet" href="/css/layout.css">
 @endsection
 
 @section('content')
-	<section class="hero is-fullheight" style="background: #eee;">
-		<div class="hero-body">
-			<div class="container has-text-centered">
-			@if ($errors->any())
-    <div class="alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-				<header class="title logo">
-					Dopenote
-				</header>
+<section class="hero is-fullheight" style="background: #eee;">
+	<div class="hero-body">
+		<div class="container has-text-centered">
+			@include('assets.errors_any')
+			<header class="title logo">
+				Dopenote
+			</header>
 
-				<div class="column is-4 is-offset-4">
-					<div class="box">
-						<form method="POST" action="{{ route('login') }}">
-							@csrf
+			<div class="column is-4 is-offset-4">
+				<div class="box">
+					<form method="POST" action="{{ route('login') }}">
+						@csrf
 
-							<h1 class="subtitle">Login</h1>
+						<h1 class="subtitle">Login</h1>
 
-							{{-- Email --}}
-							<div class="field">
-								<div class="control has-icons-left has-icons-right">
-									<input
-										type="email"
-										name="email"
-										placeholder="Email"
-										required
-										autofocus
-										value="{{ old('email') }}"
-										class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
-									>
-									<span class="icon is-small is-left">
-										<i class="fas fa-envelope"></i>
-									</span>
-								</div>
-								@if ($errors->has('email'))
-									<p class="help is-danger" role="alert">
-										{{ $errors->first('email') }}
-									</p>
-								@endif
+						{{-- Email --}}
+						<div class="field">
+							<div class="control has-icons-left has-icons-right">
+								<input
+								type="email"
+								name="email"
+								placeholder="Email"
+								required
+								autofocus
+								value="{{ old('email') }}"
+								class="input {{ $errors->has('email') ? ' is-danger' : '' }}"
+								>
+								<span class="icon is-small is-left">
+									<i class="fas fa-envelope"></i>
+								</span>
 							</div>
+							@if ($errors->has('email'))
+							<p class="help is-danger" role="alert">
+								{{ $errors->first('email') }}
+							</p>
+							@endif
+						</div>
 
-							{{-- Password --}}
-							<div class="field">
-								<div class="control has-icons-left">
-									<input
-										type="password"
-										name="password"
-										placeholder="Password"
-										required
-										class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
-									>
-									<span class="icon is-small is-left">
-										<i class="fas fa-lock"></i>
-									</span>
-								</div>
-								@if ($errors->has('password'))
-									<p class="help is-danger" role="alert">
-										{{ $errors->first('password') }}
-									</p>
-								@endif
+						{{-- Password --}}
+						<div class="field">
+							<div class="control has-icons-left">
+								<input
+								type="password"
+								name="password"
+								placeholder="Password"
+								required
+								class="input {{ $errors->has('password') ? ' is-danger' : '' }}"
+								>
+								<span class="icon is-small is-left">
+									<i class="fas fa-lock"></i>
+								</span>
 							</div>
+							@if ($errors->has('password'))
+							<p class="help is-danger" role="alert">
+								{{ $errors->first('password') }}
+							</p>
+							@endif
+						</div>
 
-							{{-- Remember me --}}
-							<label class="checkbox">
-								<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-								{{ __('Remember me') }}
-							</label>
+						{{-- Remember me --}}
+						<label class="checkbox">
+							<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+							{{ __('Remember me') }}
+						</label>
 
-							<br>
-							<br>
+						<br>
+						<br>
 
-							{{-- Submit --}}
-							<div class="field">
-								<p class="control">
+						{{-- Submit --}}
+						<div class="field">
+							<p class="control">
 								<button class="button is-fullwidth is-info">
 									Login
 								</button>
-								</p>
-							</div>
+							</p>
+						</div>
 
 
-						</form>
+					</form>
 
-						<div style="margin-top: 10px">
+					<div style="margin-top: 10px">
 						@if(config()->has('services.facebook'))
 						<div  class="field">
-								<p class="control">
+							<p class="control">
 								<button class="button is-fullwidth is-info">
-								<a style="color:white;" href="{{url('/redirect/facebook')}}"><i class="fab fa-facebook-f"></i> &nbsp; Login With Facebook
-								</a>
+									<a style="color:white;" href="{{url('/login/redirect/facebook')}}"><i class="fab fa-facebook-f"></i> &nbsp; Login With Facebook
+									</a>
 								</button>
-								</p>
+							</p>
 						</div>
 						@endif
 
 						@if(config()->has('services.google'))
-							<div class="field">
-								<p class="control">
+						<div class="field">
+							<p class="control">
 								<button class="button is-fullwidth is-info">
-								<a style="color:white;" href="{{url('/redirect/google')}}"><i class="fab fa-google"></i> &nbsp; Login With Google
-								</a></button>
+									<a style="color:white;" href="{{url('/login/redirect/google')}}"><i class="fab fa-google"></i> &nbsp; Login With Google
+									</a></button>
 								</p>
 							</div>
 							@endif
@@ -120,28 +112,28 @@
 							@if(config()->has('services.twitter'))
 							<div class="field">
 								<p class="control">
-								<button class="button is-fullwidth is-info">
-								<a style="color:white;" href="{{url('/redirect/twitter')}}"><i class="fab fa-twitter"></i> &nbsp;	Login With Twitter
-								</a>
-								</button>
+									<button class="button is-fullwidth is-info">
+										<a style="color:white;" href="{{url('/login/redirect/twitter')}}"><i class="fab fa-twitter"></i> &nbsp;	Login With Twitter
+										</a>
+									</button>
 								</p>
 							</div>
 							@endif
-					</div>
+						</div>
 
 
-					{{-- Links --}}
-					<div class="content has-text-grey is-small">
-						<a href="/register">Register</a> &nbsp;·&nbsp;
+						{{-- Links --}}
+						<div class="content has-text-grey is-small">
+							<a href="/register">Register</a> &nbsp;·&nbsp;
 
-						@if (Route::has('password.request'))
+							@if (Route::has('password.request'))
 							<a class="btn btn-link" href="{{ route('password.request') }}">
 								{{ __('Forgot Password') }}
 							</a>
-						@endif
+							@endif
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-@endsection
+		</section>
+		@endsection

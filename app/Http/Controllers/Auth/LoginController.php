@@ -49,10 +49,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider($service)
-    {
-        return Socialite::driver($service)->redirect();
-    }
+	 public function redirectToProvider($service)
+	 {
+	 	return Socialite::driver($service)->redirect();
+	 }
 
     /**
      * Obtain the user information from GitHub.
@@ -62,49 +62,29 @@ class LoginController extends Controller
     public function handleProviderCallback(Request $request, $service)
     {
 		//retrieve user details
-		try {	$user = Socialite::driver($service)->user();
-	} catch (\Exception $e) {
-		return redirect('/login')->withErrors(['Please verify your .env keys for ' . $service . ' login.']);
-	}
+    	try {	$user = Socialite::driver($service)->user();
+    	} catch (\Exception $e) {
+    		return redirect('/login')->withErrors(['Please verify your .env keys for ' . $service . ' login.']);
+    	}
 
+    	$email = $user->getEmail();
+    	$name = $user->getName();
+    	$socialAccountId = $user->getId();
+    	$user = User::whereEmail($email)->first();
 
-		$email = $user->getEmail();
-		$name = $user->getName();
-
-		$user = User::whereEmail($email)->first();
-
-		if (!$user) {
-		$user = User::create([
-			'name' => $name,
-			'email' => $email,
-			'password' => Hash::make($email),
-		]);
-		// TODO: We can convert these two methos into one method and pass parameters
-		// in order to create notebook and note records in database.
-		// since this code is used twice.
-		// once here and once in register controller.
-
-		// Create a default notebook
-		$notebook = Notebook::create([
-			'title' => 'My Notebook',
-			'user_id' => $user->id,
-			'sort_order' => 0
-		]);
-
-		// Create a welcome note
-		$note = Note::create([
-			'user_id' => $user->id,
-			'notebook_id' => $notebook->id,
-			'title' => 'Welcome to Dopenote',
-			'content' => 'Thanks for trying out <strong>Dopenote</strong>!',
-			'starred' => true
-		]);
-	}
-
+    	if (!$user) {
+    		$user = User::create([
+    			'name' => $name,
+    			'email' => $email,
+    			'social_account_id' => $socialAccountId,
+    			'social_account_type' => $service,
+    		]);
+    		RegisterController::create_new_user_note($user);
+    	}
 
 		//second parameter for remembering user
-		Auth::login($user, true);
+    	Auth::login($user, true);
 
-		return redirect('/');
+    	return redirect()->route('home');
     }
 }
