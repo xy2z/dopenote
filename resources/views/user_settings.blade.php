@@ -73,6 +73,17 @@
 
 				<hr class="bold">
 
+				<h2 class="subtitle">Export notes</h2>
+				<fieldset class="content">
+					@include('assets.form_link', [
+						'label' => 'Export notes',
+						'value' => 'Export',
+						'url' => route('user_settings_export')
+					])
+				</fieldset>
+
+				<hr class="bold">
+
 				<h2 class="subtitle">Editor Settings (todo)</h2>
 				<fieldset class="content">
 					@include('assets.form_field', [

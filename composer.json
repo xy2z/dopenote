@@ -13,8 +13,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "6.0.*",
         "laravel/socialite": "^4.2",
-        "laravel/tinker": "^1.0"
-    },
+        "laravel/tinker": "^1.0",
+        "ext-zip": "*"
+	},
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
