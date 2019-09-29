@@ -62,15 +62,16 @@ class LoginController extends Controller
     public function handleProviderCallback(Request $request, $service)
     {
 		//retrieve user details
-    	try {	$user = Socialite::driver($service)->user();
+    	try {	
+    		$user = Socialite::driver($service)->user();
     	} catch (\Exception $e) {
     		return redirect('/login')->withErrors(['Please verify your .env keys for ' . $service . ' login.']);
     	}
-
+    	
+    	$socialAccountId = $user->getId();
     	$email = $user->getEmail();
     	$name = $user->getName();
-    	$socialAccountId = $user->getId();
-    	$user = User::whereEmail($email)->first();
+    	$user = User::whereSocialAccountId($socialAccountId)->first();
 
     	if (!$user) {
     		$user = User::create([
