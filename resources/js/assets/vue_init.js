@@ -42,8 +42,6 @@ app_data.notebook_context_menu = [
     },
 ]
 
-app_data.debounce = {threshold: 10, counter: 0}
-
 var vueApp = new Vue({
     el: "#app",
     components: {
@@ -68,6 +66,7 @@ var vueApp = new Vue({
         this.sort_notebooks()
         this.load_note_from_hash()
         this.editor_events()
+        this.is_dirty = false
 
         // On hash change
         window.onhashchange = this.onhashchange
@@ -182,13 +181,7 @@ var vueApp = new Vue({
          *
          */
         view_note: function(note) {
-            if (this.debounce.counter != 0) {
-                let activeNote = this.getActiveNote()
-                if (confirm('You have unsaved changes made to "' +  activeNote.title  + '"  note.\nSave note?')) {
-                    this.set_content(activeNote, this.editor.getHTML())
-                }
-                this.debounce.counter = 0
-            }
+            this.set_content(this.getActiveNote(), this.editor.getHTML())
 
             this.active_note_id = note.id
 
@@ -409,7 +402,9 @@ var vueApp = new Vue({
          *
          */
         set_content: function(note, content) {
-            this.debounce.counter = 0
+            if (!this.is_dirty) return
+            this.is_dirty = false;
+
             let self = this
 
             Ajax.post({
@@ -663,18 +658,32 @@ var vueApp = new Vue({
         },
 
         /**
+         * Create debounced function
+         * 
+         */
+        debounce(func, wait) {
+            var timeout;
+            return function() {
+                clearTimeout(timeout)
+                timeout = setTimeout(() => {
+                    func()
+                }, wait)
+            };
+        },
+
+        /**
          * Handle events on editor and title fields
          *
          */
         editor_events: function() {
-            this.debounce.counter = 0
-            let self = this
+            let set_content = this.debounce(() => {
+                this.set_content(this.getActiveNote(), this.editor.getHTML())
+            }, 1000)
 
             // Update content backend on change.
-            self.editor.on('update', ({ getHTML }) => {
-                ++this.debounce.counter
-                if (this.debounce.counter < this.debounce.threshold) return
-                self.set_content(self.getActiveNote(), getHTML())
+            this.editor.on('update', ({ getHTML }) => {
+                this.is_dirty = true
+                set_content()
             })
 
             // On key down on title
