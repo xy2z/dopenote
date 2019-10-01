@@ -42,6 +42,7 @@ app_data.notebook_context_menu = [
     },
 ]
 
+app_data.debounce = {threshold: 10, counter: 0}
 
 var vueApp = new Vue({
     el: "#app",
@@ -181,6 +182,14 @@ var vueApp = new Vue({
          *
          */
         view_note: function(note) {
+            if (this.debounce.counter != 0) {
+                let activeNote = this.getActiveNote()
+                if (confirm('You have unsaved changes made to "' +  activeNote.title  + '"  note.\nSave note?')) {
+                    this.set_content(activeNote, this.editor.getHTML())
+                }
+                this.debounce.counter = 0
+            }
+
             this.active_note_id = note.id
 
             // Set active view/notebook
@@ -400,6 +409,7 @@ var vueApp = new Vue({
          *
          */
         set_content: function(note, content) {
+            this.debounce.counter = 0
             let self = this
 
             Ajax.post({
@@ -657,10 +667,13 @@ var vueApp = new Vue({
          *
          */
         editor_events: function() {
+            this.debounce.counter = 0
             let self = this
 
             // Update content backend on change.
             self.editor.on('update', ({ getHTML }) => {
+                ++this.debounce.counter
+                if (this.debounce.counter < this.debounce.threshold) return
                 self.set_content(self.getActiveNote(), getHTML())
             })
 
