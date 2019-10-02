@@ -12,7 +12,7 @@ class NotebookIdOnNotes extends Migration {
 	 */
 	public function up() {
 		Schema::table('notes', function (Blueprint $table) {
-			$table->unsignedInteger('notebook_id')->nullable()->after('deleted_at');
+			$table->unsignedInteger('notebook_id')->default()->after('deleted_at');
 		});
 	}
 
