@@ -147,7 +147,7 @@
 					<button
 						v-on:click="perm_delete_note(getActiveNote())"
 						:disabled="waiting_for_ajax"
-						title="Permanently delete note"
+						v-tooltip="'Permanently delete note'"
 						class="note-action fas fa-trash-alt red"
 						></button>
 				</span>
