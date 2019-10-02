@@ -66,10 +66,17 @@ var vueApp = new Vue({
         this.sort_notebooks()
         this.load_note_from_hash()
         this.editor_events()
-        this.is_dirty = false
+        this.note_changed = false
 
         // On hash change
         window.onhashchange = this.onhashchange
+
+        window.addEventListener('beforeunload', (e) => {
+            if (this.note_changed) {
+                e.preventDefault()
+                e.returnValue = ''
+            }
+        });
     },
 
     methods: {
@@ -402,8 +409,8 @@ var vueApp = new Vue({
          *
          */
         set_content: function(note, content) {
-            if (!this.is_dirty) return
-            this.is_dirty = false;
+            if (!this.note_changed) return
+            this.note_changed = false;
 
             let self = this
 
@@ -682,7 +689,7 @@ var vueApp = new Vue({
 
             // Update content backend on change.
             this.editor.on('update', ({ getHTML }) => {
-                this.is_dirty = true
+                this.note_changed = true
                 set_content()
             })
 
