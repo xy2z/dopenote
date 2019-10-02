@@ -124,14 +124,14 @@
 						:disabled="waiting_for_ajax"
 						class="note-action fas fa-star"
 						v-bind:class="getStarClass(getActiveNote())"
-						title="Star note"
+						v-tooltip="'Star note'"
 						></button>
 
 					<button
 						v-on:click="delete_note(getActiveNote())"
 						:disabled="waiting_for_ajax"
 						class="note-action fas fa-trash"
-						title="Trash note"
+						v-tooltip="'Trash note'"
 						></button>
 				</span>
 
@@ -141,7 +141,7 @@
 						v-on:click="restore_note(getActiveNote())"
 						:disabled="waiting_for_ajax"
 						class="note-action fas fa-trash-restore"
-						title="Restore note"
+						v-tooltip="'Restore note'"
 						></button>
 
 					<button

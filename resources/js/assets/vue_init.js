@@ -13,6 +13,10 @@ import draggable from 'vuedraggable'
 // Editor
 import EditorContent from '../components/EditorContent.vue'
 
+import Tooltip from 'vue-directive-tooltip';
+import 'vue-directive-tooltip/dist/vueDirectiveTooltip.css';
+Vue.use(Tooltip);
+
 // Views (starred, trash)
 app_data.active_view_label = null;
 app_data.views = [
