@@ -46,7 +46,6 @@ app_data.notebook_context_menu = [
     },
 ]
 
-
 var vueApp = new Vue({
     el: "#app",
     components: {
@@ -71,9 +70,17 @@ var vueApp = new Vue({
         this.sort_notebooks()
         this.load_note_from_hash()
         this.editor_events()
+        this.note_changed = false
 
         // On hash change
         window.onhashchange = this.onhashchange
+
+        window.addEventListener('beforeunload', (e) => {
+            if (this.note_changed) {
+                e.preventDefault()
+                e.returnValue = ''
+            }
+        });
     },
 
     methods: {
@@ -185,6 +192,8 @@ var vueApp = new Vue({
          *
          */
         view_note: function(note) {
+            this.set_content(this.getActiveNote(), this.editor.getHTML())
+
             this.active_note_id = note.id
 
             // Set active view/notebook
@@ -404,6 +413,9 @@ var vueApp = new Vue({
          *
          */
         set_content: function(note, content) {
+            if (!this.note_changed) return
+            this.note_changed = false;
+
             let self = this
 
             Ajax.post({
@@ -657,15 +669,32 @@ var vueApp = new Vue({
         },
 
         /**
+         * Create debounced function
+         * 
+         */
+        debounce(func, wait) {
+            var timeout;
+            return function() {
+                clearTimeout(timeout)
+                timeout = setTimeout(() => {
+                    func()
+                }, wait)
+            };
+        },
+
+        /**
          * Handle events on editor and title fields
          *
          */
         editor_events: function() {
-            let self = this
+            let set_content = this.debounce(() => {
+                this.set_content(this.getActiveNote(), this.editor.getHTML())
+            }, 1000)
 
             // Update content backend on change.
-            self.editor.on('update', ({ getHTML }) => {
-                self.set_content(self.getActiveNote(), getHTML())
+            this.editor.on('update', ({ getHTML }) => {
+                this.note_changed = true
+                set_content()
             })
 
             // On key down on title
