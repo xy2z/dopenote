@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class NotebookIdOnNotes extends Migration {
+class AddArchivedAtToNotes extends Migration {
 	/**
 	 * Run the migrations.
 	 *
@@ -12,7 +12,7 @@ class NotebookIdOnNotes extends Migration {
 	 */
 	public function up() {
 		Schema::table('notes', function (Blueprint $table) {
-			$table->unsignedInteger('notebook_id')->default()->after('deleted_at');
+			$table->datetime('archived_at')->nullable();
 		});
 	}
 
@@ -22,6 +22,8 @@ class NotebookIdOnNotes extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		//
+		Schema::table('notes', function (Blueprint $table) {
+			$table->dropColumn('archived_at');
+		});
 	}
 }

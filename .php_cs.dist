@@ -1,0 +1,23 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('bootstrap/cache')
+    ->exclude('node_modules')
+    ->exclude('storage')
+    ->in(__DIR__)
+    ->notName('*.blade.php')
+    ->notName('.phpstorm.meta.php')
+    ->notName('_ide_*.php');
+
+return PhpCsFixer\Config::create()
+    ->setUsingCache(false)
+    ->setRiskyAllowed(true)
+    ->setIndent("\t")
+    ->setRules([
+        '@PSR2' => true,
+        'braces' => [
+            'position_after_control_structures' => 'same',
+            'position_after_functions_and_oop_constructs' => 'same',
+        ],
+    ])
+    ->setFinder($finder);
