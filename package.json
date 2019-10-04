@@ -19,5 +19,8 @@
 		"vue-simple-context-menu": "^3.1.5",
 		"vue-template-compiler": "^2.6.10",
 		"vuedraggable": "^2.23.0"
+	},
+	"dependencies": {
+		"vue-directive-tooltip": "^1.6.2"
 	}
 }
