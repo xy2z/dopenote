@@ -12,8 +12,10 @@
 
 	{{-- User settings styles --}}
 	<style>
-		.tox-edit-area {
-			font-family: '{{ $user_settings->font_family }}' !important;
+		#editor_content {
+			font-family: '{{ $user_settings->font_family }}';
+			font-size: {{ $user_settings->font_size }}px;
+			line-height: {{ $user_settings->line_height }}em;
 		}
 	</style>
 @endsection

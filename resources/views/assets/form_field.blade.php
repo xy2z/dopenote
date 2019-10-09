@@ -47,6 +47,8 @@
 						placeholder="{{ $placeholder ?? '' }}"
 						{{ (isset($disabled) && $disabled) ? 'disabled' : '' }}
 						step="{{ $step ?? 1 }}"
+						min="{{ $min ?? "" }}"
+						max="{{ $max ?? "" }}"
 						id="{{ $label }}_id">
 				@endif
 			</div>
