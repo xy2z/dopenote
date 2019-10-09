@@ -39,6 +39,7 @@ import {
   Strike,
   Underline,
   History,
+  HorizontalRule,
 } from 'tiptap-extensions'
 
 export default {
@@ -67,6 +68,7 @@ export default {
           new Link(),
           new Strike(),
           new Underline(),
+          new HorizontalRule(),
           // new History(), // disabled because of bug when changing notes.
         ],
         content: ``,
