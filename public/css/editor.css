@@ -21,30 +21,30 @@
 	line-height: 1.4em;
 }
 
-#note #editor h1,
-#note #editor h2,
-#note #editor h3,
-#note #editor h4 {
+#editor_content h1,
+#editor_content h2,
+#editor_content h3,
+#editor_content h4 {
 	font-weight: normal;
 }
 
-#note #editor h1 {
+#editor_content h1 {
 	font-size: 2.1em;
 }
 
-#note #editor h2 {
+#editor_content h2 {
 	font-size: 1.8em;
 }
 
-#note #editor h3 {
+#editor_content h3 {
 	font-size: 1.5em;
 }
 
-#note #editor h4 {
+#editor_content h4 {
 	font-size: 1.2em;
 }
 
-#note #actions {
+#editor_content {
 	margin-bottom: 0.5em;
 }
 
@@ -70,4 +70,46 @@
 
 #note .note-action.starred {
 	color: #f90;
+}
+
+#editor_content div:first-child {
+	outline: 0;
+}
+
+#editor_content blockquote {
+	color: #6a737d;
+	border-left: 5px solid #dfe2e5;
+	padding-left: 15px;
+	margin-left: 0;
+}
+
+#editor_content code {
+	background: #f4f4f4;
+	border-radius: 2px;
+	padding: 0.2em 0.4em;
+	font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+	font-size: 0.87em;
+	color: #333;
+}
+
+#editor_content pre code {
+	display: block;
+	background: #333;
+	border-radius: 2px;
+	padding: 0.5em;
+	font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+	font-size: 0.87em;
+	color: #eee;
+}
+
+#editor_content li p {
+	margin: 0;
+}
+
+#editor_content hr {
+	width: 100%;
+	border: 0;
+	height: 1px;
+	background: #999;
+	margin: 1.5em 0;
 }
