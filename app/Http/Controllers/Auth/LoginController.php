@@ -63,18 +63,16 @@ class LoginController extends Controller
 		try {
 			$user = Socialite::driver($service)->user();
 		} catch (\Exception $e) {
-			return redirect('/login')->withErrors(['Please verify your .env keys for ' . $service . ' login.']);
+			return redirect('/login')->withErrors(['social' => 'Please verify your .env keys for ' . $service . ' login.']);
 		}
 
 		$socialAccountId = $user->getId();
-		$email = $user->getEmail();
 		$name = $user->getName();
 		$user = User::whereSocialAccountId($socialAccountId)->whereSocialAccountType($service)->first();
 
 		if (!$user) {
 			$user = User::create([
 				'name' => $name,
-				'email' => $email,
 				'social_account_id' => $socialAccountId,
 				'social_account_type' => $service,
 			]);
