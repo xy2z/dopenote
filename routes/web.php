@@ -1,5 +1,6 @@
 <?php
 
+
 Route::middleware('auth')->group(function () {
 	Route::get('/', 'NoteController@app')->name('home');
 
@@ -46,6 +47,10 @@ Route::middleware('auth')->group(function () {
 
 // Auth routes for login, register, reset password, etc.
 Auth::routes();
+
+//routes for social login
+Route::get('login/redirect/{service}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/callback/{service}', 'Auth\LoginController@handleProviderCallback');
 
 
 // Route bindings
