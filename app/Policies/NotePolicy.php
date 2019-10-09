@@ -6,8 +6,7 @@ use App\User;
 use App\Note;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class NotePolicy
-{
+class NotePolicy {
 	use HandlesAuthorization;
 
 	/**
@@ -28,6 +27,9 @@ class NotePolicy
 	 * @return bool
 	 */
 	public function update(User $user, Note $note) {
+		if ($note->archived) {
+			return false;
+		}
 		return $user->id === $note->user_id;
 	}
 }

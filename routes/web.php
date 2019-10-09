@@ -1,7 +1,7 @@
 <?php
 
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
 	Route::get('/', 'NoteController@app')->name('home');
 
 	// Note actions
@@ -9,6 +9,7 @@ Route::middleware('auth')->group(function() {
 
 	// Validate user has access to change note.
 	Route::middleware(['can:update,note'])->group(function () {
+		Route::post('/note/{note}/archive', 'ArchiveNoteController');
 		Route::post('/note/{note}/delete', 'NoteController@delete');
 		Route::post('/note/{note}/perm_delete', 'NoteController@perm_delete');
 		Route::post('/note/{note}/restore', 'NoteController@restore');
@@ -37,11 +38,10 @@ Route::middleware('auth')->group(function() {
 
 
 	// User: Logout
-	Route::get('/user/logout', function() {
+	Route::get('/user/logout', function () {
 		Auth::logout();
 		return redirect()->route('home');
 	})->name('user_logout');
-
 });
 
 
