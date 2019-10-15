@@ -46,15 +46,14 @@
 
 			<button class="action center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
-			<hr class="center">
-
 			{{-- Views: Starred, trash --}}
 			<div class="nav-notebooks">
 				<a
 					v-for="view in views"
 					v-on:click="set_view(view)"
 					v-bind:class="get_view_class(view)"
-					>@{{ view.title }}
+					v-html="view.title"
+					>
 				</a>
 			</div>
 
@@ -76,10 +75,6 @@
 					@{{ notebook.title }}
 				</a>
 			</draggable>
-
-			<br>
-			<hr class="center">
-			<br>
 
 			<div class="nav-bottom-links">
 				<span>Signed in as <strong>{{ Auth::user()->name }}</strong></span>

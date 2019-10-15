@@ -22,13 +22,13 @@ app_data.active_view_label = null;
 app_data.views = [
     // Starred
     {
-        title: 'Starred',
+        title: '<i class="fas fa-star"></i> Starred',
         label: 'starred',
     },
 
     // Trash
     {
-        title: 'Trash',
+        title: '<i class="fas fa-trash"></i> Trash',
         label: 'trash',
     },
 ]

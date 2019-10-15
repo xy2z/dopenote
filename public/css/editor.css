@@ -3,6 +3,10 @@
 	padding: 30px;
 }
 
+#note #actions {
+	margin-bottom: 10px;
+}
+
 #note .note-title input {
 	width: 90%;
 	outline: none;
@@ -112,4 +116,30 @@
 	height: 1px;
 	background: #999;
 	margin: 1.5em 0;
+}
+
+/* Editor Toolbar */
+.editor_toolbar {
+	background: #eee;
+	cursor: default;
+	font-size: 6px;
+}
+
+.editor_toolbar button {
+	cursor: pointer;
+	font-size: 14px;
+	background: none;
+	padding: 9px 11px;
+	border: 0;
+	color: #000;
+	font-weight: bold;
+}
+
+.editor_toolbar button:hover {
+	background: #ddd;
+}
+
+.editor_toolbar button.is-active {
+	background: #777;
+	color: #fff;
 }
