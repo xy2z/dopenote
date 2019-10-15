@@ -63,12 +63,4 @@ class NotebookTest extends TestCase {
 		$response = $this->call('post', $notebook->path().'/rename');
 		$this->assertEquals(302, $response->getStatusCode());
 	}
-
-	/** @test */
-	public function an_authorized_user_cannot_update_a_sort_order() {
-		$notebook = factory(Notebook::class)->create();
-		$this->actingAs($notebook->user)
-		->post('/notebook/update_sort_order')
-		->assertStatus(403);
-	}
 }
