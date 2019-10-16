@@ -1,6 +1,15 @@
 #note {
 	width: 100%;
 	padding: 30px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+#editor {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 #note #actions {
@@ -23,6 +32,7 @@
 
 #note .note-content {
 	line-height: 1.4em;
+	flex: 1;
 }
 
 #editor_content h1,
@@ -49,7 +59,11 @@
 }
 
 #editor_content {
+	min-height: 100%;
 	margin-bottom: 0.5em;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 #note .note-action {
@@ -77,7 +91,10 @@
 }
 
 #editor_content div:first-child {
+	/* Actual editor div */
 	outline: 0;
+	flex: 1;
+	border-bottom: 3px solid #eee;
 }
 
 #editor_content blockquote {
