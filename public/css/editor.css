@@ -59,7 +59,6 @@
 }
 
 #editor_content {
-	min-height: 100%;
 	margin-bottom: 0.5em;
 	flex: 1;
 	display: flex;
