@@ -94,9 +94,7 @@ class NotebookController extends Controller {
 	 *
 	 */
 	public function rename(Notebook $notebook, request $request) {
-
 		$notebook->title = $request->title;
 		$notebook->save();
 	}
-
 }

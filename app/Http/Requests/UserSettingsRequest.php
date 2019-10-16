@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\PasswordMatch;
 
-
-class UserSettingsRequest extends FormRequest
-{
+class UserSettingsRequest extends FormRequest {
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *

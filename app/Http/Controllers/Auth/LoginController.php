@@ -9,8 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Socialite;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
 	/*
 	|--------------------------------------------------------------------------
 	| Login Controller
@@ -36,8 +35,7 @@ class LoginController extends Controller
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->middleware('guest')->except('logout');
 	}
 
@@ -46,8 +44,7 @@ class LoginController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function redirectToProvider($service)
-	{
+	public function redirectToProvider($service) {
 		return Socialite::driver($service)->redirect();
 	}
 
@@ -56,8 +53,7 @@ class LoginController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function handleProviderCallback(Request $request, $service)
-	{
+	public function handleProviderCallback(Request $request, $service) {
 
 		//retrieve user details
 		try {

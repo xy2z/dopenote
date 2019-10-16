@@ -9,7 +9,6 @@ use App\Note;
 use App\Notebook;
 
 class NoteTest extends TestCase {
-
 	use RefreshDatabase;
 
 	/**
@@ -18,25 +17,25 @@ class NoteTest extends TestCase {
 	 * @return void
 	 */
 
-	 /** @test */
-	 public function an_authorized_user_can_create_a_note() {
+	/** @test */
+	public function an_authorized_user_can_create_a_note() {
 		$notebook = factory(Notebook::class)->create();
 		$note = factory(Note::class)->create();
 
-        $this->actingAs($notebook->user)
-    		->post('/note/create', $note->toArray())
-    		->assertStatus(200);
+		$this->actingAs($notebook->user)
+			->post('/note/create', $note->toArray())
+			->assertStatus(200);
 
 		$this->assertDatabaseHas('notes', $note->only('id'));
 		$this->get('/note/create', $note->toArray())
-    		->assertSee($note['id'])
-    		->assertSee($note['user_id'])
-    		->assertSee($note['title'])
-    		->assertSee($note['content'])
-    		->assertSee($note['notebook_id']);
-	 }
+			->assertSee($note['id'])
+			->assertSee($note['user_id'])
+			->assertSee($note['title'])
+			->assertSee($note['content'])
+			->assertSee($note['notebook_id']);
+	}
 
-	 /** @test */
+	/** @test */
 	public function an_unauthorized_user_cannot_access_a_note() {
 		$note = factory(Note::class)->create();
 		$this->post('/note/create', $note->toArray())

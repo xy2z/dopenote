@@ -4,8 +4,7 @@ namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
 
-trait CreatesApplication
-{
+trait CreatesApplication {
 	/**
 	 * Creates the application.
 	 *

@@ -12,16 +12,13 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use ZipArchive;
 
-
-class UserSettingsController extends Controller
-{
+class UserSettingsController extends Controller {
 
 	/**
 	 * Show user settings form.
 	 *
 	 */
-	public function show()
-	{
+	public function show() {
 		$user_settings = UserSettings::get(Auth::id());
 
 		return view('user_settings', [
@@ -36,8 +33,7 @@ class UserSettingsController extends Controller
 	 * Request is validated by UserSettingsRequest
 	 *
 	 */
-	public function submit(UserSettingsRequest $request)
-	{
+	public function submit(UserSettingsRequest $request) {
 		// User
 		$user = Auth::user();
 		$user->email = $request->email;
@@ -60,18 +56,16 @@ class UserSettingsController extends Controller
 
 		// Return
 		return redirect()->back()->with('success', 'Settings are successfully saved.');
-
 	}
 
 	/**
 	 * Export users notebooks and notes as a zip
 	 *
 	 */
-	public function export(Request $request)
-	{
+	public function export(Request $request) {
 		$user = $request->user();
 
-		if(!$user) {
+		if (!$user) {
 			return abort(401);
 		}
 
@@ -92,18 +86,18 @@ class UserSettingsController extends Controller
 		Notebook::where('user_id', '=', $user->id)->with(['notes' => function ($query) {
 			$query->withTrashed();
 		}])->chunk(200, function ($notebooks) use ($zip, $trashFolder) {
-			foreach($notebooks as $notebook) {
+			foreach ($notebooks as $notebook) {
 				// Add a new folder for the notebook in the zip file
 				$name = $notebook->title;
 				$zip->addEmptyDir($name);
 
 				// Add each of the notes as a html file
-				foreach($notebook->notes as $note) {
+				foreach ($notebook->notes as $note) {
 					$fileName = Str::slug($note->title).'.html';
 					$folder = $name;
 
 					// If the note is trashed, then we will add it to that folder
-					if($note->deleted_at) {
+					if ($note->deleted_at) {
 						$folder = "$trashFolder/$folder";
 					}
 
