@@ -1,14 +1,11 @@
-.md
+*.md
 .editorconfig
 .env.example
 .git
 .gitignore
+.php_cs.dist
 /storage/dopenote
-/resources/js
 /database/seeds/*
 /tests
 phpunit.xml
-webpack.mix
-package.json
-package-lock.json
 docker-compose.yml

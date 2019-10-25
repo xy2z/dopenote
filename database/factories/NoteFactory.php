@@ -8,12 +8,12 @@ use App\Notebook;
 
 $factory->define(Note::class, function (Faker $faker) {
 	return [
-		'notebook_id'=> function(){
+		'notebook_id'=> function () {
 			return factory(Notebook::class)->create()->id;
 		},
 		'title' => $faker->sentence(4),
 		'content' => $faker->paragraph,
-		'user_id' => function(){
+		'user_id' => function () {
 			return factory(Notebook::class)->create()->user_id;
 		}
 	];

@@ -7,7 +7,6 @@ use App\User;
 use App\Note;
 
 class Notebook extends Model {
-
 	protected $fillable = ['user_id', 'title', 'sort_order'];
 
 
@@ -28,7 +27,8 @@ class Notebook extends Model {
 	 * @return bool
 	 */
 	public static function belongs_to_user(int $notebook_id, int $user_id) : bool {
-		return !is_null(static::where('id', $notebook_id)
+		return !is_null(
+			static::where('id', $notebook_id)
 			->where('user_id', $user_id)
 			->first()
 		);
@@ -40,7 +40,7 @@ class Notebook extends Model {
 	*@return \Illuminate\Database\Eloquent\Relations\belongsTo
 	*/
 
-	public function user(){
+	public function user() {
 		return $this->belongsTo(User::class);
 	}
 
@@ -50,7 +50,7 @@ class Notebook extends Model {
 	*@return string
 	*/
 
-	public static function path(){
+	public static function path() {
 		return "/notebook/{ notebook }";
 	}
 }

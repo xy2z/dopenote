@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
 class UserSettings extends Model {
-
 	public $fillable = ['user_id'];
 
 	/**
@@ -14,7 +13,7 @@ class UserSettings extends Model {
 	 * If not exists, get default user settings.
 	 *
 	 */
-	static public function get(int $user_id) : object {
+	public static function get(int $user_id) : object {
 		$user_settings = UserSettings::where('user_id', $user_id)->first();
 		if (!$user_settings) {
 			// Defaults.
@@ -31,5 +30,4 @@ class UserSettings extends Model {
 	public function user() {
 		return $this->belongsTo(User::class);
 	}
-
 }

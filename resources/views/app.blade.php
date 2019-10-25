@@ -12,8 +12,10 @@
 
 	{{-- User settings styles --}}
 	<style>
-		.tox-edit-area {
-			font-family: '{{ $user_settings->font_family }}' !important;
+		#editor_content {
+			font-family: '{{ $user_settings->font_family }}';
+			font-size: {{ $user_settings->font_size }}px;
+			line-height: {{ $user_settings->line_height }}em;
 		}
 	</style>
 @endsection
@@ -44,15 +46,14 @@
 
 			<button class="action center" v-on:click="create_notebook()" :disabled="waiting_for_ajax">New Notebook</button>
 
-			<hr class="center">
-
 			{{-- Views: Starred, trash --}}
 			<div class="nav-notebooks">
 				<a
 					v-for="view in views"
 					v-on:click="set_view(view)"
 					v-bind:class="get_view_class(view)"
-					>@{{ view.title }}
+					v-html="view.title"
+					>
 				</a>
 			</div>
 
@@ -74,10 +75,6 @@
 					@{{ notebook.title }}
 				</a>
 			</draggable>
-
-			<br>
-			<hr class="center">
-			<br>
 
 			<div class="nav-bottom-links">
 				<span>Signed in as <strong>{{ Auth::user()->name }}</strong></span>
@@ -124,14 +121,14 @@
 						:disabled="waiting_for_ajax"
 						class="note-action fas fa-star"
 						v-bind:class="getStarClass(getActiveNote())"
-						title="Star note"
+						v-tooltip="'Star note'"
 						></button>
 
 					<button
 						v-on:click="delete_note(getActiveNote())"
 						:disabled="waiting_for_ajax"
 						class="note-action fas fa-trash"
-						title="Trash note"
+						v-tooltip="'Trash note'"
 						></button>
 				</span>
 
@@ -141,13 +138,13 @@
 						v-on:click="restore_note(getActiveNote())"
 						:disabled="waiting_for_ajax"
 						class="note-action fas fa-trash-restore"
-						title="Restore note"
+						v-tooltip="'Restore note'"
 						></button>
 
 					<button
 						v-on:click="perm_delete_note(getActiveNote())"
 						:disabled="waiting_for_ajax"
-						title="Permanently delete note"
+						v-tooltip="'Permanently delete note'"
 						class="note-action fas fa-trash-alt red"
 						></button>
 				</span>

@@ -74,6 +74,9 @@
 				<hr class="bold">
 
 				<h2 class="subtitle">Export notes</h2>
+				<div class="field is-horizontal">
+						<p>Save all your notes in a zip file.</p>
+				</div>
 				<fieldset class="content">
 					@include('assets.form_link', [
 						'label' => 'Export notes',
@@ -84,7 +87,7 @@
 
 				<hr class="bold">
 
-				<h2 class="subtitle">Editor Settings (todo)</h2>
+				<h2 class="subtitle">Editor Settings</h2>
 				<fieldset class="content">
 					@include('assets.form_field', [
 						'label' => 'Font size',
@@ -92,6 +95,8 @@
 						'name' => 'font_size',
 						'value' => $font_size,
 						'static' => 'px',
+						'min' => 4,
+						'max' => 30,
 					])
 
 					@include('assets.form_field', [
@@ -110,7 +115,9 @@
 						'name' => 'line_height',
 						'value' => $line_height,
 						'static' => 'em',
-						'step' => '0.1'
+						'step' => '0.1',
+						'min' => '1.0',
+						'max' => '5.0',
 					])
 				</fieldset>
 

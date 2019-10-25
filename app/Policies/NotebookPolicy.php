@@ -6,8 +6,7 @@ use App\User;
 use App\Notebook;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class NotebookPolicy
-{
+class NotebookPolicy {
 	use HandlesAuthorization;
 
 	/**

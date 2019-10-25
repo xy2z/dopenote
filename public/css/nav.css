@@ -3,9 +3,8 @@ nav {
 	top: 0;
 	flex-shrink: 0;
 	width: 210px;
-	background: #333;
+	background: #222;
 	padding-top: 30px;
-	color: #eee;
 }
 
 nav .logo-wrapper {
@@ -23,10 +22,17 @@ nav p {
 	color: #999;
 }
 
+nav hr {
+	background: none;
+}
+
 
 /* Notebooks */
 nav .nav-notebooks-header {
 	color: #bbb;
+	color: #777;
+	text-transform: uppercase;
+	font-size: 0.8em;
 	letter-spacing: 0.1em;
 	cursor: default;
 	display: block;
@@ -34,12 +40,12 @@ nav .nav-notebooks-header {
 	padding: 0.5em 30px;
 	background: rgba(0, 0, 0, 0.1);
 	font-weight: bold;
-	border-top: 1px solid rgba(255, 255, 255, 0.1);
-	border-bottom: 1px solid rgba(0, 0, 0, 1);
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 nav .nav-notebooks a {
-	color: #eee;
+	color: #ccc;
 	display: block;
 	text-decoration: none;
 	padding: 0.5em 30px;
@@ -49,14 +55,20 @@ nav .nav-notebooks a {
 	text-overflow: ellipsis;
 }
 
+nav .nav-notebooks a i {
+	/* icon */
+	padding-right: 4px;
+	color: rgba(255, 255, 255, 0.3);
+}
+
 nav .nav-notebooks a:hover {
-	background: rgba(0, 0, 0, 0.15);
+	background: rgba(0, 0, 0, 0.2);
 }
 
 nav .nav-notebooks a.active,
 nav .nav-notebooks a.sortable-ghost {
-	background: rgba(0, 0, 0, 0.6);
-	color: #ffe;
+	background: rgba(0, 0, 0, 0.4);
+	color: #eee;
 }
 
 
@@ -66,8 +78,8 @@ nav .nav-notebooks a.sortable-ghost {
 	top: 0;
 	flex-shrink: 0;
 	width: 300px;
-	background: #f5f5f5;
-	padding-top: 50px;
+	background: #f3f3f3;
+	padding-top: 40px;
 }
 
 .notes-list a:first-child {
@@ -97,7 +109,7 @@ nav .nav-notebooks a.sortable-ghost {
 }
 
 .notes-list a.starred {
-	border-left: 4px solid #f93;
+	border-left: 5px solid #f93;
 }
 
 .notes-list .empty-note-list {
@@ -108,6 +120,7 @@ nav .nav-notebooks a.sortable-ghost {
 
 /* nav bottom links */
 .nav-bottom-links {
+	margin-top: 2.5em;
 	padding-left: 30px;
 }
 

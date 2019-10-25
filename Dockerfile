@@ -1,3 +1,15 @@
+# NPM build
+FROM node:8.16.1 as npm
+WORKDIR /app
+RUN mkdir -p /app/public/js
+COPY ./package.json ./webpack.mix ./package-lock.json /app/
+COPY ./resources/js/ /app/resources/js/
+RUN npm i
+RUN npm run production
+
+
+
+# App
 FROM php:7.3.9-apache
 
 LABEL maintainer "Alexander LP xy2z <xy2z@pm.me>"
@@ -10,8 +22,11 @@ COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # PHP Extensions
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-enable pdo_mysql
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git zip unzip libzip-dev
+RUN docker-php-ext-configure zip --with-libzip
+RUN docker-php-ext-install pdo_mysql zip
+RUN docker-php-ext-enable pdo_mysql zip
 
 # Add app
 VOLUME /app
@@ -19,10 +34,11 @@ COPY . /app
 WORKDIR /app
 
 # Composer
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git zip unzip
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-plugins --no-scripts
+
+# Copy files from npm
+COPY --from=npm /app/public/js /app/public/js
 
 # Entrypoint
 RUN chmod +x /app/docker/entrypoint.sh
@@ -33,5 +49,4 @@ CMD ["apache2-foreground"]
 RUN apt-get update && \
     apt-get purge -y curl ca-certificates && \
     apt-get autoremove -y && \
-    apt-get clean && \
-    rm /app/composer.json /app/composer.lock
+    apt-get clean

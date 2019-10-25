@@ -105,3 +105,11 @@ a.title {
 .notification.is-danger {
 	background: #c56167;
 }
+
+/* Remove dotted outline in Firefox */
+::-moz-focus-inner{
+	border: 0;
+}
+:focus {
+	outline:none;
+}

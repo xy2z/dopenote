@@ -9,7 +9,6 @@ use App\Notebook;
 use App\User;
 
 class NotebookTest extends TestCase {
-
 	use RefreshDatabase, WithFaker;
 
 	/**
@@ -18,17 +17,17 @@ class NotebookTest extends TestCase {
 	 * @return void
 	 */
 
-	 /** @test */
+	/** @test */
 	public function an_authorized_user_can_create_a_notebook() {
 		$notebook = factory(Notebook::class)->create();
 		$this->actingAs($notebook->user)
-    		->post('/notebook/create', $notebook->toArray())
-    		->assertStatus(200);
+			->post('/notebook/create', $notebook->toArray())
+			->assertStatus(200);
 
 		$this->get('/notebook/create', $notebook->toArray())// can view
-    		->assertSee($notebook['title'])
-    		->assertSee($notebook['sort_order'])
-    		->assertSee($notebook['user_id']);
+			->assertSee($notebook['title'])
+			->assertSee($notebook['sort_order'])
+			->assertSee($notebook['user_id']);
 	}
 
 	/** @test */
@@ -62,13 +61,5 @@ class NotebookTest extends TestCase {
 		$notebook = factory(Notebook::class)->create();
 		$response = $this->call('post', $notebook->path().'/rename');
 		$this->assertEquals(302, $response->getStatusCode());
-	}
-
-	/** @test */
-	public function an_authorized_user_cannot_update_a_sort_order() {
-		$notebook = factory(Notebook::class)->create();
-		$this->actingAs($notebook->user)
-		->post('/notebook/update_sort_order')
-		->assertStatus(403);
 	}
 }
