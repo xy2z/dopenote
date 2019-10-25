@@ -322,7 +322,7 @@ var vueApp = new Vue({
                     let note_index = self.notes.indexOf(note)
                     self.notes.splice(note_index, 1)
                     self.view_note_after_deletion(note)
-                }                
+                }
             })
         },
 
@@ -336,7 +336,7 @@ var vueApp = new Vue({
                 },
                 success: function(response) {
                     note.notebook_id = notebook_id
-                }                
+                }
             })
         },
 
@@ -361,7 +361,7 @@ var vueApp = new Vue({
                     self.view_note(note)
 
                     self.$refs.note_title.focus()
-                }                
+                }
             })
         },
 
@@ -377,7 +377,7 @@ var vueApp = new Vue({
                 success: function(response) {
                     let notebook = response.data.notebook
                     self.notebooks.push(notebook)
-                }                
+                }
             })
         },
 
@@ -670,7 +670,7 @@ var vueApp = new Vue({
 
         /**
          * Create debounced function
-         * 
+         *
          */
         debounce(func, wait) {
             var timeout;
@@ -695,6 +695,14 @@ var vueApp = new Vue({
             this.editor.on('update', ({ getHTML }) => {
                 this.note_changed = true
                 set_content()
+            })
+
+            document.querySelector('#editor_content').addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault()
+
+                    document.execCommand('insertHTML', false, '&#009');
+                }
             })
 
             // On key down on title
