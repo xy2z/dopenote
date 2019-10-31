@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="/css/nav.css">
 	<link rel="stylesheet" href="/css/editor.css">
 	<link rel="stylesheet" href="/css/buttons.css">
+	<link rel="stylesheet" href="/css/app.css">
 
 	{{-- User settings styles --}}
 	<style>

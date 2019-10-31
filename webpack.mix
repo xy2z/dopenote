@@ -1,3 +1,6 @@
 const mix = require('laravel-mix');	
 
 mix.js('resources/js/app.js', 'public/js');
+mix.styles([
+	'node_modules/highlight.js/styles/sunburst.css',
+], 'public/css/app.css');
