@@ -41,7 +41,7 @@ RUN composer install --no-plugins --no-scripts
 COPY --from=npm /app/public/js /app/public/js
 
 # Entrypoint
-RUN chmod +x /app/docker/entrypoint.sh
+# RUN chmod +x /app/docker/entrypoint.sh
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 CMD ["apache2-foreground"]
 
