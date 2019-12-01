@@ -322,7 +322,7 @@ var vueApp = new Vue({
                     let note_index = self.notes.indexOf(note)
                     self.notes.splice(note_index, 1)
                     self.view_note_after_deletion(note)
-                }                
+                }
             })
         },
 
@@ -336,7 +336,7 @@ var vueApp = new Vue({
                 },
                 success: function(response) {
                     note.notebook_id = notebook_id
-                }                
+                }
             })
         },
 
@@ -361,7 +361,7 @@ var vueApp = new Vue({
                     self.view_note(note)
 
                     self.$refs.note_title.focus()
-                }                
+                }
             })
         },
 
@@ -377,7 +377,7 @@ var vueApp = new Vue({
                 success: function(response) {
                     let notebook = response.data.notebook
                     self.notebooks.push(notebook)
-                }                
+                }
             })
         },
 
@@ -670,7 +670,7 @@ var vueApp = new Vue({
 
         /**
          * Create debounced function
-         * 
+         *
          */
         debounce(func, wait) {
             var timeout;
@@ -709,7 +709,5 @@ var vueApp = new Vue({
     }
 });
 
-
-// vueApp.use(VueDraggable);
 
 export default vueApp;

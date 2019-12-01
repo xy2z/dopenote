@@ -18,6 +18,14 @@ body {
 	min-height: 100%;
 }
 
+#app .already_open {
+	width: 100%;
+	text-align: center;
+	padding: 50px;
+	/*color: #f00;*/
+	font-size: 1.15em;
+}
+
 hr {
 	height: 1px;
 	border: 0;
