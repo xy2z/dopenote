@@ -3,7 +3,7 @@
 @section('title', __('Forgot Password'))
 
 @section('styles')
-	<link rel="stylesheet" href="/css/layout.css">
+	<link rel="stylesheet" href="/css/app.css">
 @endsection
 
 @section('content')
