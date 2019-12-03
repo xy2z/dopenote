@@ -1,15 +1,20 @@
+# -----------------
 # NPM build
+# -----------------
 FROM node:8.16.1 as npm
 WORKDIR /app
 RUN mkdir -p /app/public/js
 COPY ./package.json ./webpack.mix ./package-lock.json /app/
 COPY ./resources/js/ /app/resources/js/
+COPY ./resources/css/ /app/resources/css/
 RUN npm i
 RUN npm run production
 
 
 
-# App
+# -----------------
+# App build
+# -----------------
 FROM php:7.3.9-apache
 
 LABEL maintainer "Alexander LP xy2z <xy2z@pm.me>"
@@ -38,6 +43,7 @@ RUN composer install --no-plugins --no-scripts
 
 # Copy files from npm
 COPY --from=npm /app/public/js /app/public/js
+COPY --from=npm /app/public/css /app/public/css
 
 # Entrypoint
 # RUN chmod +x /app/docker/entrypoint.sh
