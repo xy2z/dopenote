@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+chmod +x /app/vendor/autoload.php
+chmod +x /app/public/index.php
+chmod 777 -R /app/storage/
+
 if [ "$1" != "apache2-foreground" ]; then
 	exec "$@"
 	exit
