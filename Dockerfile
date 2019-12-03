@@ -29,7 +29,6 @@ RUN docker-php-ext-install pdo_mysql zip
 RUN docker-php-ext-enable pdo_mysql zip
 
 # Add app
-VOLUME /app
 COPY . /app
 WORKDIR /app
 
