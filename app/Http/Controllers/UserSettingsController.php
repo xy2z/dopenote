@@ -25,6 +25,7 @@ class UserSettingsController extends Controller {
 			'font_size' => $user_settings->font_size,
 			'font_family' => $user_settings->font_family,
 			'line_height' => $user_settings->line_height,
+			'paragraph_margin' => $user_settings->paragraph_margin,
 		]);
 	}
 
@@ -52,6 +53,7 @@ class UserSettingsController extends Controller {
 		$user_settings->font_size = $request->font_size;
 		$user_settings->font_family = $request->font_family;
 		$user_settings->line_height = $request->line_height;
+		$user_settings->paragraph_margin = $request->paragraph_margin;
 		$user_settings->save();
 
 		// Return

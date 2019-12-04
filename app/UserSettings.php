@@ -14,13 +14,18 @@ class UserSettings extends Model {
 	 *
 	 */
 	public static function get(int $user_id) : object {
+		// Merge default user settings with custom user settings.
+		$settings = Config::get('app.default_user_settings');
 		$user_settings = UserSettings::where('user_id', $user_id)->first();
-		if (!$user_settings) {
-			// Defaults.
-			$user_settings = Config::get('app.default_user_settings');
+
+		foreach ($settings as $key => $value) {
+			if (isset($user_settings[$key])) {
+				// Overwrite the default value with the user value.
+				$settings->$key = $user_settings[$key];
+			}
 		}
 
-		return $user_settings;
+		return $settings;
 	}
 
 	/**

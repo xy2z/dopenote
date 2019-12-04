@@ -119,6 +119,18 @@
 						'min' => '1.0',
 						'max' => '5.0',
 					])
+
+					@include('assets.form_field', [
+						'label' => 'Paragraph margin',
+						'type' => 'number',
+						'name' => 'paragraph_margin',
+						'value' => $paragraph_margin,
+						'static' => 'em',
+						'step' => '0.1',
+						'min' => '1.0',
+						'max' => '5.0',
+					])
+
 				</fieldset>
 
 				{{-- Submit --}}

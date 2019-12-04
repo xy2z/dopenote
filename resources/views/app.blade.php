@@ -16,7 +16,7 @@
 		}
 
 		#editor_content p {
-			margin: {{ num_at_least($user_settings->line_height/2, 1) }}em 0;
+			margin: {{ $user_settings->paragraph_margin }}em 0;
 		}
 	</style>
 @endsection

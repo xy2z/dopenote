@@ -22,6 +22,7 @@ return [
 		'font_size' => 13, // px
 		'font_family' => 'Verdana',
 		'line_height' => 1.5, // em
+		'paragraph_margin' => 1, // em
 	],
 
 
