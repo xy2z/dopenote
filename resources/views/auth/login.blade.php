@@ -21,6 +21,7 @@
 						@csrf
 
 						@include('assets.errors_any')
+
 						<h1 class="subtitle">Login</h1>
 
 						{{-- Email --}}
@@ -39,11 +40,6 @@
 									<i class="fas fa-envelope"></i>
 								</span>
 							</div>
-							@if ($errors->has('email'))
-							<p class="help is-danger" role="alert">
-								{{ $errors->first('email') }}
-							</p>
-							@endif
 						</div>
 
 						{{-- Password --}}
@@ -60,11 +56,6 @@
 									<i class="fas fa-lock"></i>
 								</span>
 							</div>
-							@if ($errors->has('password'))
-							<p class="help is-danger" role="alert">
-								{{ $errors->first('password') }}
-							</p>
-							@endif
 						</div>
 
 						{{-- Remember me --}}
