@@ -37,6 +37,9 @@ RUN docker-php-ext-enable pdo_mysql zip
 COPY . /app
 WORKDIR /app
 
+# Add version file from git tag
+RUN git describe --tags > /app/.version
+
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-plugins --no-scripts
