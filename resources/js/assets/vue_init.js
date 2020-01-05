@@ -697,6 +697,14 @@ var vueApp = new Vue({
                 set_content()
             })
 
+            document.querySelector('#editor_content').addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault()
+
+                    document.execCommand('insertHTML', false, '&#009');
+                }
+            })
+
             // On key down on title
             document.querySelector('.note-title input').addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
