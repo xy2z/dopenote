@@ -66,6 +66,7 @@ var vueApp = new Vue({
         }
 
         this.editor = this.$refs.editor.editor
+        this.note_history = []
         this.sort_notes()
         this.sort_notebooks()
         this.load_note_from_hash()
@@ -193,6 +194,10 @@ var vueApp = new Vue({
          */
         view_note: function(note) {
             this.set_content(this.getActiveNote(), this.editor.getHTML())
+
+            this.note_history = [] // reset history.
+            this.note_history.push(note.content)
+            this.note_history_index = 0; // reset history index.
 
             this.active_note_id = note.id
 
@@ -414,6 +419,7 @@ var vueApp = new Vue({
          */
         set_content: function(note, content) {
             if (!this.note_changed) return
+
             this.note_changed = false;
 
             let self = this
@@ -683,19 +689,92 @@ var vueApp = new Vue({
         },
 
         /**
-         * Handle events on editor and title fields
+         * Undo note history
          *
          */
-        editor_events: function() {
+        note_history_undo: function() {
+            if (!this.note_history) {
+                // No history.
+                return
+            }
+
+            if (this.note_history_index + 1 == this.note_history.length) {
+                // At end of history. Cant undo anymore.
+                return
+            }
+
+            this.note_history_index++
+            this.editor.setContent(this.note_history[this.note_history.length - 1 - this.note_history_index], false)
+
+            // Manually set note changed, instead of using editor.setContent()
+            // because that would update history.
+            this.note_debounce_content()
+        },
+
+        /**
+         * Redo note history
+         *
+         */
+        note_history_redo: function() {
+            if (!this.note_history) {
+                // No history
+                return
+            }
+
+            if (this.note_history_index == 0) {
+                return
+            }
+
+            this.note_history_index--
+            this.editor.setContent(this.note_history[this.note_history.length - 1 - this.note_history_index], false)
+
+            // Manually set note changed, instead of using editor.setContent()
+            // because that would update history.
+            this.note_debounce_content()
+        },
+
+        /**
+         * Call this when content changes in the editor
+         * And it will debounce
+         *
+         */
+        note_debounce_content: function() {
+            this.note_changed = true
+
             let set_content = this.debounce(() => {
                 this.set_content(this.getActiveNote(), this.editor.getHTML())
             }, 1000)
 
+            set_content()
+        },
+
+        /**
+         * Handle events on editor and title fields
+         *
+         */
+        editor_events: function() {
+            let self = this
+
             // Update content backend on change.
             this.editor.on('update', ({ getHTML }) => {
-                this.note_changed = true
-                set_content()
+                this.note_debounce_content()
+
+                // Save history
+                this.note_history.push(this.editor.getHTML())
             })
+
+
+            document.querySelector('#editor_content').addEventListener('keydown', function(e) {
+                // ctrl + z (undo)
+                if (e.ctrlKey && e.key == 'z') {
+                    self.note_history_undo()
+                }
+
+                // ctrl + y (redo)
+                if (e.ctrlKey && e.key == 'y') {
+                    self.note_history_redo()
+                }
+            });
 
             // On key down on title
             document.querySelector('.note-title input').addEventListener('keydown', function(e) {
