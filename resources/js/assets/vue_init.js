@@ -766,12 +766,20 @@ var vueApp = new Vue({
 
             document.querySelector('#editor_content').addEventListener('keydown', function(e) {
                 // ctrl + z (undo)
-                if (e.ctrlKey && e.key == 'z') {
+                if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() == 'z') {
+                    e.preventDefault()
                     self.note_history_undo()
                 }
 
+                // ctrl + shift + z (redo)
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() == 'z') {
+                    e.preventDefault()
+                    self.note_history_redo()
+                }
+
                 // ctrl + y (redo)
-                if (e.ctrlKey && e.key == 'y') {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() == 'y') {
+                    e.preventDefault()
                     self.note_history_redo()
                 }
             });
