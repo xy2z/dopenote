@@ -4,11 +4,6 @@
 		<link rel="stylesheet" href="/css/app.css">
 @endsection
 
-@section('scripts')
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/{{ Config::get('versions.jquery') }}/jquery.min.js"></script>
-	<script src="/js/form.js"></script>
-@endsection
-
 @section('content')
 	<section class="section">
 		<div style="width: 900px; margin: 0 auto; max-width: 100%;">
