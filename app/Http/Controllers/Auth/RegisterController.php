@@ -93,8 +93,8 @@ class RegisterController extends Controller {
 			'user_id' => $user->id,
 			'notebook_id' => $notebook->id,
 			'title' => 'Welcome to Dopenote',
-			'content' => 'Thanks for trying out <strong>Dopenote</strong>!',
-			'starred' => true
+			'content' => view('welcome_note'),
+			'starred' => true,
 		]);
 	}
 }
