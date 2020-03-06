@@ -1,4 +1,4 @@
-<p align="center"><img title="Dopenote" alt="Dopenote" src="https://i.imgur.com/nOG6X2B.png"></p>
+<p align="center"><img title="Dopenote" alt="Dopenote" src="https://i.imgur.com/nw3GnsH.png"></p>
 
 ---
 
@@ -19,8 +19,6 @@
   <b><a href="https://github.com/xy2z/dopenote/milestones">Milestones</a></b>
   |
   <b><a href="https://dopenote.gitbook.io/docs/contributing">Contributing</a></b>
-  |
-  <b>Screenshots (coming soon)</b>
 </p>
 
 ---
@@ -31,6 +29,9 @@ Dopenote is a modern self-hosted note-taking webapp. Build in Laravel and Vue.js
 
 Read the [Docs](https://dopenote.gitbook.io/docs/) for features, install, contributing, etc.
 
+## Screenshot
+
+<p align="center"><img title="Dopenote screenshot" src="https://i.imgur.com/lIz8fyt.png"></p>
 
 ## Progress
 
