@@ -31,6 +31,9 @@ Dopenote is a modern self-hosted note-taking webapp. Build in Laravel and Vue.js
 
 Read the [Docs](https://dopenote.gitbook.io/docs/) for features, install, contributing, etc.
 
+## Screenshot
+
+<p align="center"><img title="Dopenote screenshot" src="https://i.imgur.com/lIz8fyt.png"></p>
 
 ## Progress
 
