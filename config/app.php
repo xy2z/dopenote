@@ -6,7 +6,7 @@ return [
 	'version' => '1.0.0-alpha.1',
 	'github_url' => 'https://github.com/xy2z/dopenote',
 
-	// Fonts
+	// Fonts (user settings)
 	'fonts' => [
 		'Arial',
 		'Verdana',
