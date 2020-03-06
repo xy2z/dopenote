@@ -19,8 +19,6 @@
   <b><a href="https://github.com/xy2z/dopenote/milestones">Milestones</a></b>
   |
   <b><a href="https://dopenote.gitbook.io/docs/contributing">Contributing</a></b>
-  |
-  <b>Screenshots (coming soon)</b>
 </p>
 
 ---
