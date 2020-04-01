@@ -19,10 +19,23 @@ Vue.use(Tooltip);
 
 // Vuetify
 import Vuetify from '../plugins/vuetify';
+
+// Tiptap-vuetify
+import { TiptapVuetifyPlugin } from 'tiptap-vuetify'
+import 'tiptap-vuetify/dist/main.css'
+import 'vuetify/dist/vuetify.min.css'
+Vue.use(TiptapVuetifyPlugin, {
+    // the next line is important! You need to provide the Vuetify Object to this place.
+    vuetify: Vuetify, // same as "vuetify: vuetify"
+    // optional, default to 'md' (default vuetify icons before v2.0.0)
+    iconsGroup: 'md'
+  })
 // Vue.use(Vuetify);
 
 
-Vue.component('example-component', require('../components/ExampleComponent').default);
+
+// Vue.component('example-component', require('../components/ExampleComponent').default);
+Vue.component('example-component', require('../components/TiptapVuetify').default);
 
 
 // Views (starred, trash)
