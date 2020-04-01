@@ -27,6 +27,7 @@
 	},
 	"dependencies": {
 		"highlight.js": "^9.17.1",
+		"tiptap-vuetify": "^2.13.2",
 		"vue-directive-tooltip": "^1.6.3",
 		"vuetify": "^2.2.20",
 		"vuetify-loader": "^1.4.3"
