@@ -17,6 +17,14 @@ import Tooltip from 'vue-directive-tooltip';
 import 'vue-directive-tooltip/dist/vueDirectiveTooltip.css';
 Vue.use(Tooltip);
 
+// Vuetify
+import Vuetify from '../plugins/vuetify';
+// Vue.use(Vuetify);
+
+
+Vue.component('example-component', require('../components/ExampleComponent').default);
+
+
 // Views (starred, trash)
 app_data.active_view_label = null;
 app_data.views = [
@@ -47,6 +55,7 @@ app_data.notebook_context_menu = [
 ]
 
 var vueApp = new Vue({
+    vuetify: Vuetify,
     el: "#app",
     components: {
         'vue-simple-context-menu': VueSimpleContextMenu,

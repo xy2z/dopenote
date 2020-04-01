@@ -33,6 +33,8 @@
 
 	<div id="app">
 
+		<example-component></example-component>
+
 		{{-- Status (for saving changes) --}}
 		<div id="status">
 			@{{ get_status() }}
