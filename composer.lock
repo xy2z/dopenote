@@ -774,94 +774,6 @@
             "time": "2019-07-01T23:21:34+00:00"
         },
         {
-            "name": "jakub-onderka/php-console-color",
-            "version": "v0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JakubOnderka/PHP-Console-Color.git",
-                "reference": "d5deaecff52a0d61ccb613bb3804088da0307191"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Color/zipball/d5deaecff52a0d61ccb613bb3804088da0307191",
-                "reference": "d5deaecff52a0d61ccb613bb3804088da0307191",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-code-style": "1.0",
-                "jakub-onderka/php-parallel-lint": "1.0",
-                "jakub-onderka/php-var-dump-check": "0.*",
-                "phpunit/phpunit": "~4.3",
-                "squizlabs/php_codesniffer": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "JakubOnderka\\PhpConsoleColor\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Jakub Onderka",
-                    "email": "jakub.onderka@gmail.com"
-                }
-            ],
-            "time": "2018-09-29T17:23:10+00:00"
-        },
-        {
-            "name": "jakub-onderka/php-console-highlighter",
-            "version": "v0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JakubOnderka/PHP-Console-Highlighter.git",
-                "reference": "9f7a229a69d52506914b4bc61bfdb199d90c5547"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/9f7a229a69d52506914b4bc61bfdb199d90c5547",
-                "reference": "9f7a229a69d52506914b4bc61bfdb199d90c5547",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "jakub-onderka/php-console-color": "~0.2",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-code-style": "~1.0",
-                "jakub-onderka/php-parallel-lint": "~1.0",
-                "jakub-onderka/php-var-dump-check": "~0.1",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "JakubOnderka\\PhpConsoleHighlighter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jakub Onderka",
-                    "email": "acci@acci.cz",
-                    "homepage": "http://www.acci.cz/"
-                }
-            ],
-            "description": "Highlight PHP code in terminal",
-            "time": "2018-09-29T18:48:56+00:00"
-        },
-        {
             "name": "laravel/framework",
             "version": "v6.18.2",
             "source": {
@@ -1073,16 +985,16 @@
         },
         {
             "name": "laravel/tinker",
-            "version": "v2.3.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "5271893ec90ad9f8d3e34792ac6b72cad3b84cc2"
+                "reference": "cde90a7335a2130a4488beb68f4b2141869241db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/5271893ec90ad9f8d3e34792ac6b72cad3b84cc2",
-                "reference": "5271893ec90ad9f8d3e34792ac6b72cad3b84cc2",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/cde90a7335a2130a4488beb68f4b2141869241db",
+                "reference": "cde90a7335a2130a4488beb68f4b2141869241db",
                 "shasum": ""
             },
             "require": {
@@ -1090,12 +1002,12 @@
                 "illuminate/contracts": "^6.0|^7.0|^8.0",
                 "illuminate/support": "^6.0|^7.0|^8.0",
                 "php": "^7.2",
-                "psy/psysh": "^0.9|^0.10",
-                "symfony/var-dumper": "^4.0|^5.0"
+                "psy/psysh": "^0.10.3",
+                "symfony/var-dumper": "^4.3|^5.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.3.1",
-                "phpunit/phpunit": "^8.0|^9.0"
+                "phpunit/phpunit": "^8.4|^9.0"
             },
             "suggest": {
                 "illuminate/database": "The Illuminate Database package (^6.0|^7.0|^8.0)."
@@ -1133,7 +1045,7 @@
                 "laravel",
                 "psysh"
             ],
-            "time": "2020-03-17T15:34:59+00:00"
+            "time": "2020-04-07T15:01:31+00:00"
         },
         {
             "name": "league/commonmark",
@@ -1916,23 +1828,22 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.0",
+            "version": "v0.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "e361c8b7e5114534078e0ce04ddc442b39018a3c"
+                "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/e361c8b7e5114534078e0ce04ddc442b39018a3c",
-                "reference": "e361c8b7e5114534078e0ce04ddc442b39018a3c",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
+                "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
                 "shasum": ""
             },
             "require": {
                 "dnoegel/php-xdg-base-dir": "0.1.*",
                 "ext-json": "*",
                 "ext-tokenizer": "*",
-                "jakub-onderka/php-console-highlighter": "0.4.*|0.3.*",
                 "nikic/php-parser": "~4.0|~3.0|~2.0|~1.3",
                 "php": "^8.0 || ^7.0 || ^5.5.9",
                 "symfony/console": "~5.0|~4.0|~3.0|^2.4.2|~2.3.10",
@@ -1940,7 +1851,7 @@
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.2",
-                "hoa/console": "~3.16|~2.15"
+                "hoa/console": "3.17.*"
             },
             "suggest": {
                 "ext-pcntl": "Enabling the PCNTL extension makes PsySH a lot happier :)",
@@ -1985,7 +1896,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2020-03-15T22:52:37+00:00"
+            "time": "2020-04-07T06:44:48+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -2178,16 +2089,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.5",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "4fa15ae7be74e53f6ec8c83ed403b97e23b665e9"
+                "reference": "10bb3ee3c97308869d53b3e3d03f6ac23ff985f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/4fa15ae7be74e53f6ec8c83ed403b97e23b665e9",
-                "reference": "4fa15ae7be74e53f6ec8c83ed403b97e23b665e9",
+                "url": "https://api.github.com/repos/symfony/console/zipball/10bb3ee3c97308869d53b3e3d03f6ac23ff985f7",
+                "reference": "10bb3ee3c97308869d53b3e3d03f6ac23ff985f7",
                 "shasum": ""
             },
             "require": {
@@ -2250,7 +2161,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2020-02-24T13:10:00+00:00"
+            "time": "2020-03-30T11:41:10+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -2982,16 +2893,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.14.0",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2"
+                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/34094cfa9abe1f0f14f48f490772db7a775559f2",
-                "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
+                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
                 "shasum": ""
             },
             "require": {
@@ -3003,7 +2914,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -3037,20 +2948,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-01-13T11:15:53+00:00"
+            "time": "2020-03-09T19:04:49+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.14.0",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "46ecacf4751dd0dc81e4f6bf01dbf9da1dc1dadf"
+                "reference": "37b0976c78b94856543260ce09b460a7bc852747"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/46ecacf4751dd0dc81e4f6bf01dbf9da1dc1dadf",
-                "reference": "46ecacf4751dd0dc81e4f6bf01dbf9da1dc1dadf",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/37b0976c78b94856543260ce09b460a7bc852747",
+                "reference": "37b0976c78b94856543260ce09b460a7bc852747",
                 "shasum": ""
             },
             "require": {
@@ -3059,7 +2970,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -3092,20 +3003,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-01-13T11:15:53+00:00"
+            "time": "2020-02-27T09:26:54+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.14.0",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
-                "reference": "5e66a0fa1070bf46bec4bea7962d285108edd675"
+                "reference": "0f27e9f464ea3da33cbe7ca3bdf4eb66def9d0f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/5e66a0fa1070bf46bec4bea7962d285108edd675",
-                "reference": "5e66a0fa1070bf46bec4bea7962d285108edd675",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/0f27e9f464ea3da33cbe7ca3bdf4eb66def9d0f7",
+                "reference": "0f27e9f464ea3da33cbe7ca3bdf4eb66def9d0f7",
                 "shasum": ""
             },
             "require": {
@@ -3114,7 +3025,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -3150,7 +3061,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-01-13T11:15:53+00:00"
+            "time": "2020-02-27T09:26:54+00:00"
         },
         {
             "name": "symfony/process",
@@ -3470,16 +3381,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v4.4.5",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "2572839911702b0405479410ea7a1334bfab0b96"
+                "reference": "5a0c2d93006131a36cf6f767d10e2ca8333b0d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/2572839911702b0405479410ea7a1334bfab0b96",
-                "reference": "2572839911702b0405479410ea7a1334bfab0b96",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/5a0c2d93006131a36cf6f767d10e2ca8333b0d4a",
+                "reference": "5a0c2d93006131a36cf6f767d10e2ca8333b0d4a",
                 "shasum": ""
             },
             "require": {
@@ -3542,7 +3453,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2020-02-24T13:10:00+00:00"
+            "time": "2020-03-27T16:54:36+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -3931,6 +3842,96 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "jakub-onderka/php-console-color",
+            "version": "v0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JakubOnderka/PHP-Console-Color.git",
+                "reference": "d5deaecff52a0d61ccb613bb3804088da0307191"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Color/zipball/d5deaecff52a0d61ccb613bb3804088da0307191",
+                "reference": "d5deaecff52a0d61ccb613bb3804088da0307191",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "jakub-onderka/php-code-style": "1.0",
+                "jakub-onderka/php-parallel-lint": "1.0",
+                "jakub-onderka/php-var-dump-check": "0.*",
+                "phpunit/phpunit": "~4.3",
+                "squizlabs/php_codesniffer": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JakubOnderka\\PhpConsoleColor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Onderka",
+                    "email": "jakub.onderka@gmail.com"
+                }
+            ],
+            "abandoned": "php-parallel-lint/php-console-color",
+            "time": "2018-09-29T17:23:10+00:00"
+        },
+        {
+            "name": "jakub-onderka/php-console-highlighter",
+            "version": "v0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JakubOnderka/PHP-Console-Highlighter.git",
+                "reference": "9f7a229a69d52506914b4bc61bfdb199d90c5547"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/9f7a229a69d52506914b4bc61bfdb199d90c5547",
+                "reference": "9f7a229a69d52506914b4bc61bfdb199d90c5547",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "jakub-onderka/php-console-color": "~0.2",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "jakub-onderka/php-code-style": "~1.0",
+                "jakub-onderka/php-parallel-lint": "~1.0",
+                "jakub-onderka/php-var-dump-check": "~0.1",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JakubOnderka\\PhpConsoleHighlighter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Onderka",
+                    "email": "acci@acci.cz",
+                    "homepage": "http://www.acci.cz/"
+                }
+            ],
+            "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
+            "time": "2018-09-29T18:48:56+00:00"
         },
         {
             "name": "mockery/mockery",
