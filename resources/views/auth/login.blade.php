@@ -1,4 +1,6 @@
-@extends('assets.layout')
+@extends('assets.layout', [
+	// 'background' => '/img/login-background-chill.jpg',
+])
 
 @section('title', 'Login')
 
@@ -7,8 +9,8 @@
 @endsection
 
 @section('content')
-<section class="hero is-fullheight" style="background: #eee;">
-	<div class="hero-body">
+<section class="hero is-fullheight" style="background: url('/img/login-background-chill.jpg'); background-size: cover; background-position: center 0;">
+	<div class="hero-body" style="background: rgba(255, 255, 255, 0.4);">
 		<div class="container has-text-centered">
 
 			<header class="title logo">

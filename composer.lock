@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f78539ff81af68252b3e0b32de760a1",
+    "content-hash": "e876510adb1aef132c8c246689a9ff6c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -964,16 +964,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.18.32",
+            "version": "v6.18.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5f933aac51819af3a1cbb4d0233ee307b7c8e757"
+                "reference": "7a74817c91be61676deafe3a84a758a71350d9f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5f933aac51819af3a1cbb4d0233ee307b7c8e757",
-                "reference": "5f933aac51819af3a1cbb4d0233ee307b7c8e757",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7a74817c91be61676deafe3a84a758a71350d9f2",
+                "reference": "7a74817c91be61676deafe3a84a758a71350d9f2",
                 "shasum": ""
             },
             "require": {
@@ -1108,7 +1108,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-08-04T14:35:59+00:00"
+            "time": "2020-08-06T14:55:00+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -4808,6 +4808,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -4854,6 +4855,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
