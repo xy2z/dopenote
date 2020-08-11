@@ -5,5 +5,6 @@ mix.js('resources/js/app.js', 'public/js');
 // CSS
 mix.styles([
 	'node_modules/highlight.js/styles/sunburst.css',
+	'node_modules/vuetify/dist/vuetify.min.css',
 	'resources/css/*.css',
-], 'public/css/app.css');
+], 'public/css/app.min.css');

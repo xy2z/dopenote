@@ -5,7 +5,7 @@
 @endphp
 
 @section('styles')
-	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/app.min.css">
 
 	{{-- User settings styles --}}
 	<style>
@@ -31,7 +31,20 @@
 	</div>
 
 
+
+
+
 	<div id="app">
+
+
+v-app:
+<hr>
+<v-app>
+	<v-btn small>Normal</v-btn>
+</v-app>
+<br><hr><hr><hr>
+
+
 
 		{{-- Status (for saving changes) --}}
 		<div id="status">

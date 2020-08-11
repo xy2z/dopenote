@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /public/js/*
-/public/css/app.css
+/public/css/app.min.css
 /storage/*.key
 /storage/db
 /vendor

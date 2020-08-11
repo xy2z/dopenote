@@ -3,7 +3,7 @@
 @section('title', 'Register')
 
 @section('styles')
-	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/app.min.css">
 @endsection
 
 @section('content')

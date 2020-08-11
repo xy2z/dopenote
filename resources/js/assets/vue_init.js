@@ -1,6 +1,11 @@
 window.Vue = require('vue');
 
+console.log('ohaiii......');
+
 import Ajax from './Ajax.js'
+
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
 
 // Import Vue components
 // vue-simple-context-menu: Used for renaming and deleting notebooks in the sidebar.
@@ -48,6 +53,7 @@ app_data.notebook_context_menu = [
 
 var vueApp = new Vue({
     el: "#app",
+    vuetify: new Vuetify(),
     components: {
         'vue-simple-context-menu': VueSimpleContextMenu,
         draggable,
