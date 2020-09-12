@@ -4,13 +4,32 @@ console.log('ohaiii......');
 
 import Ajax from './Ajax.js'
 
+const vuetify = new Vuetify()
+
+
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
+
 
 // Import Vue components
 // vue-simple-context-menu: Used for renaming and deleting notebooks in the sidebar.
 import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
 import VueSimpleContextMenu from 'vue-simple-context-menu'
+
+import TiptapVuetifyPlugin from 'tiptap-vuetify'
+// Vue.use(TiptapVuetifyPlugin, {
+//     // the next line is important! You need to provide the Vuetify Object to this place.
+//     vuetify, // same as "vuetify: vuetify"
+//     // optional, default to 'md' (default vuetify icons before v2.0.0)
+//     iconsGroup: 'md'
+// })
+// Vue.use(TiptapVuetifyPlugin)
+// // don't forget to import CSS styles
+// import 'tiptap-vuetify/dist/main.css'
+// // Vuetify's CSS styles
+// import 'vuetify/dist/vuetify.min.css'
+
+import TiptapVuetifyTesttt from '../components/TiptapVuetifyTesttt.vue';
 
 // Draggable: Used for sorting notebooks in the sidebar.
 import draggable from 'vuedraggable'
@@ -57,7 +76,8 @@ var vueApp = new Vue({
     components: {
         'vue-simple-context-menu': VueSimpleContextMenu,
         draggable,
-        'editor-content': EditorContent
+        'editor-content': EditorContent,
+        'tiptap-vuetify-testtt': TiptapVuetifyTesttt,
     },
     data: app_data,
 

@@ -14,7 +14,7 @@
         "cross-env": "^5.2.1",
         "laravel-mix": "^4.1.4",
         "node-sass": "^4.13.0",
-        "sass-loader": "^8.0.0",
+        "sass-loader": "^7.0.0",
         "tiptap": "^1.26.6",
         "tiptap-extensions": "^1.28.6",
         "vue": "^2.5.17",
@@ -25,7 +25,8 @@
     "dependencies": {
         "highlight.js": "^9.17.1",
         "sass": "^1.24.0",
+        "tiptap-vuetify": "^2.24.0",
         "vue-directive-tooltip": "^1.6.3",
-        "vuetify": "^2.3.8"
+        "vuetify": "^2.3.10"
     }
 }
