@@ -12,7 +12,7 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
-        "laravel/socialite": "^4.2",
+        "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.0",
         "ext-zip": "*"
 	},
