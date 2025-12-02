@@ -615,21 +615,49 @@ var vueApp = new Vue({
          *
          */
         render_rename_notebook: function(notebook) {
-            let new_title = prompt("Rename notebook", notebook.title)
-            notebook.title = new_title
+    let new_title = prompt("Rename notebook", notebook.title)
 
-            // Update backend
-            let self = this
-            Ajax.post({
-                url: '/notebook/' + notebook.id + '/rename',
-                data: {
-                    title: new_title
-                },
-                success: function(response) {
+    // If user cancelled prompt, do nothing.
+    if (new_title === null) {
+        return
+    }
+
+    // Trim and validate
+    new_title = new_title.trim()
+    if (new_title.length === 0) {
+        alert('Notebook title cannot be empty.')
+        return
+    }
+
+    // If unchanged, skip backend call
+    if (new_title === notebook.title) {
+        return
+    }
+
+    // Optimistically update UI but keep previous title to rollback if needed
+    const old_title = notebook.title
+    notebook.title = new_title
+
+    let self = this
+    Ajax.post({
+        url: '/notebook/' + notebook.id + '/rename',
+        data: { title: new_title },
+        success: function(response) {
+            // Use server's canonical value if returned, and update metadata
+            if (response && response.data && response.data.notebook) {
+                notebook.title = response.data.notebook.title || new_title
+                if (response.data.notebook.updated_at) {
+                    notebook.updated_at = response.data.notebook.updated_at
                 }
-            })
+            }
         },
-
+        error: function() {
+            // Revert on failure and inform user
+            notebook.title = old_title
+            alert('Failed to rename notebook. Please try again.')
+        }
+    })
+},
         /**
          * Confirm and delete notebook
          *
