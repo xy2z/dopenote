@@ -43,6 +43,8 @@ v-app:
 	<v-btn small>Normal</v-btn>
 </v-app>
 
+<tiptap-vuetify-testtt>
+</tiptap-vuetify-testtt>
 
 <br><hr><hr><hr>
 

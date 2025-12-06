@@ -16,13 +16,13 @@ Vue.use(Vuetify)
 import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
 import VueSimpleContextMenu from 'vue-simple-context-menu'
 
-import TiptapVuetifyPlugin from 'tiptap-vuetify'
-// Vue.use(TiptapVuetifyPlugin, {
+import TiptapVuetifyPlugin  from 'tiptap-vuetify'
+Vue.use(TiptapVuetifyPlugin, {
 //     // the next line is important! You need to provide the Vuetify Object to this place.
-//     vuetify, // same as "vuetify: vuetify"
+    vuetify, // same as "vuetify: vuetify"
 //     // optional, default to 'md' (default vuetify icons before v2.0.0)
-//     iconsGroup: 'md'
-// })
+    iconsGroup: 'md'
+})
 // Vue.use(TiptapVuetifyPlugin)
 // // don't forget to import CSS styles
 // import 'tiptap-vuetify/dist/main.css'
